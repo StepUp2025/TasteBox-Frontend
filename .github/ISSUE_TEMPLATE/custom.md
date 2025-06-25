@@ -1,3 +1,12 @@
+---
+name: Custom issue template
+about: Describe this issue template's purpose here.Add commentMore actions
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 ## ✨ 작업 개요
 > 어떤 기능을 만들 건가요?
 
