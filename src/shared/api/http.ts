@@ -1,7 +1,7 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
 const BASE_URL = import.meta.env.BASE_URL; //백엔드 주소
-const DEFAULT_TIMEOUT = 30000;
+const DEFAULT_TIMEOUT = import.meta.env.VITE_TIMEOUT ? parseInt(import.meta.env.VITE_TIMEOUT) : 30000; 
 
 export const createClient = (config?: AxiosRequestConfig) => {
     const axiosInstance = axios.create({
