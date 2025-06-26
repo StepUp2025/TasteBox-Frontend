@@ -1,6 +1,6 @@
 import axios, {AxiosRequestConfig} from 'axios';
 
-const BASE_URL = "http://localhost:3000"; //백엔드 주소
+const BASE_URL = import.meta.env.BASE_URL; //백엔드 주소
 const DEFAULT_TIMEOUT = 30000;
 
 export const createClient = (config?: AxiosRequestConfig) => {
