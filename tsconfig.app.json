@@ -1,5 +1,15 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "shared/*": ["src/shared/*"],
+      "entities/*": ["src/entities/*"],
+      "features/*": ["src/features/*"],
+      "widgets/*": ["src/widgets/*"],
+      "pages/*": ["src/pages/*"],
+      "app/*": ["src/app/*"]
+    },
+    
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
     "useDefineForClassFields": true,
