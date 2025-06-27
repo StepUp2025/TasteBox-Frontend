@@ -1,7 +1,7 @@
 import { worker } from "../shared/mocks/browser";
 
 export const startMockWorker = async () => {
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     await worker.start();
   }
 };
