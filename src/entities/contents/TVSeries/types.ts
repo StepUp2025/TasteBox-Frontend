@@ -1,3 +1,5 @@
+import { Genre } from "../types/genre.type";
+
 export interface TVSeries {
     id: number;
     poster_path: string | null;
@@ -15,7 +17,7 @@ export interface TVSeriesDetail extends TVSeries {
     overview: string;
     status: string;
     adult: boolean;
-    genres: { id:number; name: string}[] ;
+    genres: Genre[]
     first_air_date: string;
     last_air_date: string;
     in_production: boolean;
