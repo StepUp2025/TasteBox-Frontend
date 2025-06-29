@@ -1,4 +1,4 @@
-import { AuthProvider } from "./auth.type";
+import { AuthProvider } from 'entities/auth/model/types/auth.type';
 
 export interface User {
     email: string;
