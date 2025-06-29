@@ -6,19 +6,21 @@ export interface AuthState {
   resetAccessToken: () => void;
 }
 
-export interface localSignup {
+export interface SignupType {
     email: string;
     password?: string;
     nickname: string;
     contact?: string;
-    image?: string; //이미지는 빠질 수 있음
-    provider: 'local'; 
+    image?: string; 
 }
 
-export interface localLogin {
+export interface LoginType {
     email: string;
     password: string;
-    provider: 'local';
 }
 
-// google , kakao 타입은 추후 작성
+export interface ResetPasswordType {
+    currentPassword: string;
+    newPassword: string;
+    newPasswordConfirm: string;
+}
