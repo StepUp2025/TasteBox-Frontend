@@ -1,1 +1,1 @@
-export {loginGoogle, loginKakao, callbackGoogle, callbackKakao} from './services/authApi';
+export * from './services/authApi';
