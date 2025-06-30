@@ -10,24 +10,20 @@ export type ColorKey =
   | 'secondText'
   | 'thirdText'
   | 'errorText'
-  | 'constantWhite';
+  | 'constantWhite'
+  | 'hoverOverlay';
 
 export type ShadowKey = 'default';
 
 export type FontSizeKey = 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
 
-export type ButtonSize =
-  | 'genre'
-  | 'menuNarrow'
-  | 'menuWide'
-  | 'large'
-  | 'medium'
-  | 'small';
+export type ButtonSize = 'genre' | 'menuNarrow' | 'menuWide' | 'large' | 'medium' | 'small';
 
 export type ButtonScheme =
-  | 'active'
-  | 'normal'
+  | 'primary'
+  | 'secondary'
   | 'menu'
+  | 'menuActive'
   | 'genre'
   | 'genreActive';
 
@@ -39,13 +35,19 @@ export type LayoutWidth = Layout;
 
 export type MediaQuery = 'mobile' | 'tablet' | 'desktop';
 
+export type ButtonSchemeVariant = {
+  color?: string;
+  backgroundColor: string;
+  border?: string;
+};
+
 export interface Theme {
   name: ThemeName;
   color: Record<ColorKey, string>;
   shadow: Record<ShadowKey, string>;
   fontSize: Record<FontSizeKey, string>;
   buttonSize: Record<ButtonSize, { fontSize?: string; width?: string; padding: string }>;
-  buttonScheme: Record<ButtonScheme, { color: string; backgroundColor: string; border?: string }>;
+  buttonScheme: Record<ButtonScheme, ButtonSchemeVariant>;
   borderRadius: Record<BorderRadiusKey, string>;
   layout: {
     width: Record<LayoutWidth, string>;
