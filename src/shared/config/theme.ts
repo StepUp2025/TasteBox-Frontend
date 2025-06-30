@@ -1,23 +1,50 @@
-import { Theme, ThemeName } from "../types/theme";
+import { Theme, ThemeName } from '../types/theme';
+import { rgba } from 'polished';
 
-const constantColor = {
+const createButtonScheme = (color: Theme['color']): Theme['buttonScheme'] => ({
+  primary: {
+    color: color.constantWhite,
+    backgroundColor: color.primary,
+  },
+  secondary: {
+    color: color.secondText,
+    backgroundColor: color.basicBackground,
+    border: color.border,
+  },
+  menu: {
+    color: color.thirdText,
+    backgroundColor: color.basicBackground,
+  },
+  menuActive: {
+    backgroundColor: color.subBackground,
+  },
+  genre: {
+    backgroundColor: color.basicBackground,
+    border: color.border,
+  },
+  genreActive: {
+    backgroundColor: rgba(color.primary, 0.3),
+    border: color.primary,
+  },
+});
+
+const lightColor: Theme['color'] = {
   constantWhite: '#FFFFFF',
+  primary: '#7762FF',
+  basicBackground: '#FFFFFF',
+  loginBackground: '#F1EEFF',
+  subBackground: '#F3F4FF',
+  highlightText: '#4225FF',
+  border: '#C7C7C7',
+  secondText: '#797979',
+  thirdText: '#676767',
+  errorText: '#CC0000',
+  hoverOverlay: '#000000',
 };
 
 export const light: Theme = {
   name: 'light',
-  color: {
-    ...constantColor,
-    primary: '#7762FF',
-    basicBackground: '#FFFFFF',
-    loginBackground: '#F1EEFF',
-    subBackground: '#F4F5F9',
-    highlightText: '#4225FF',
-    border: '#C7C7C7',
-    secondText: '#797979',
-    thirdText: '#676767',
-    errorText: '#CC0000',
-  },
+  color: lightColor,
   shadow: {
     default: '0px 0px 10px rgba(0,0,0,0.1)',
   },
@@ -36,34 +63,11 @@ export const light: Theme = {
     menuNarrow: { padding: '0.5rem 0.5rem' },
     genre: { padding: '0.75rem 2rem' },
   },
-  buttonScheme: {
-    active: {
-      color: '#FFFFFF',
-      backgroundColor: '#7762FF',
-    },
-    normal: {
-      color: '#000000',
-      backgroundColor: '#FFFFFF',
-    },
-    menu: {
-      color: '#000000',
-      backgroundColor: '#E0E0E0',
-    },
-    genre: {
-      color: '#000000',
-      backgroundColor: '#DADADA',
-      border: '#C7C7C7',
-    },
-    genreActive: {
-      color: '#000000',
-      backgroundColor: '#DADADA',
-      border: '#7762FF',
-    },
-  },
+  buttonScheme: createButtonScheme(lightColor),
   borderRadius: {
     small: '5px',
     medium: '10px',
-    round: '100%',
+    round: '100px',
   },
   layout: {
     width: {
@@ -79,31 +83,28 @@ export const light: Theme = {
   },
 };
 
+const darkColor: Theme['color'] = {
+  ...lightColor,
+  basicBackground: '#000000',
+  loginBackground: '#7762FF',
+  subBackground: '#252525',
+  highlightText: '#FFFFFF',
+  border: '#676767',
+  secondText: '#C7C7C7',
+  thirdText: '#797979',
+  hoverOverlay: '#FFFFFF',
+};
+
 export const dark: Theme = {
   ...light,
   name: 'dark',
-  color: {
-    ...constantColor,
-    primary: '#7762FF',
-    basicBackground: '#000000',
-    loginBackground: '#7762FF',
-    subBackground: '#252525',
-    highlightText: '#FFFFFF',
-    border: '#252525',
-    secondText: '#C7C7C7',
-    thirdText: '#797979',
-    errorText: '#CC0000',
-  },
+  color: darkColor,
+  buttonScheme: createButtonScheme(darkColor),
   shadow: {
     default: '0px 0px 10px rgba(255, 255, 255, 0.1)',
   },
 };
 
 export const getTheme = (themeName: ThemeName): Theme => {
-  switch (themeName) {
-    case 'light':
-      return light;
-    case 'dark':
-      return dark;
-  }
+  return themeName === 'dark' ? dark : light;
 };
