@@ -15,8 +15,7 @@ const GlobalStyle = createGlobalStyle<Props>`
   }
 
   html, body {
-    background-color: ${(props) =>
-      props.themeName === 'light' ? 'white' : 'black'};
+    background-color: ${(props) => (props.themeName === 'light' ? 'white' : 'black')};
     font-family: 'Inter', sans-serif;
   }
 
@@ -29,6 +28,35 @@ const GlobalStyle = createGlobalStyle<Props>`
     border: none;
     cursor: pointer;
     background: none;
+  }
+
+  input[type='checkbox'] {
+    appearance: none;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    border: 1px solid ${(props) => props.theme.color.thirdText};
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+
+  input[type="checkbox"]:checked {
+    background-color: ${(props) => props.theme.color.primary};
+    border: none;
+  }
+
+    input[type='checkbox']:checked::after {
+    content: '✔';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    font-size: 12px;
+    color: white;
+    pointer-events: none;
   }
 `;
 
