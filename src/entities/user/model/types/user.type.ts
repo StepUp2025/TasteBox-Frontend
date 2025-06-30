@@ -15,3 +15,9 @@ export interface localUser extends User {
 export interface OAuthUser extends User {
     provider: 'google' | 'kakao'; // OAuth 제공자
 }
+
+export interface ProfileUpdateType {
+    nickname?: string; // 변경할 닉네임
+    contact?: string; // 변경할 연락처 정보
+    image?: string; // 변경할 프로필 이미지 URL
+}
