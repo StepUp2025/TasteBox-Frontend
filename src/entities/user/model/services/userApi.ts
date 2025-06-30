@@ -1,10 +1,12 @@
-import { requestHandler } from "shared/api";
-import { localUser, OAuthUser } from "../types/user.type";
+import { authClient } from "shared/api";
+import { ProfileUpdateType } from "../types/user.type";
 
 export const fetchLocalUser = async () => {
-    return await requestHandler<localUser>("get", "/users/profile")
-}
+  const response =  await authClient.get("/users/profile");
+  return response.data;
+} 
 
-export const fetchOAuthUser = async () => {
-    return await requestHandler<OAuthUser>("get", "/users/profile")
+export const updateProfile = async (data: ProfileUpdateType) => {
+  const response = await authClient.patch("/users/profile", data);
+  return response.data;
 }
