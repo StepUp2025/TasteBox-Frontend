@@ -1,3 +1,5 @@
+import { Genre } from "../types/genre.type";
+
 export interface Movie {
     id: number;
     poster_path: string | null;
@@ -17,7 +19,7 @@ export interface MovieDetail extends Movie {
     overview: string;
     adult: boolean;
     original_language: string;
-    genres: { id: number; name: string }[];
+    genres: Genre[];
     status: string;
     runtime: number;
     popularity: number;
