@@ -1,4 +1,4 @@
-export type ThemeName = 'light' | 'dark';
+export type ThemeName = "light" | "dark";
 
 export type ColorKey =
   | 'primary'
@@ -13,9 +13,9 @@ export type ColorKey =
   | 'constantWhite'
   | 'hoverOverlay';
 
-export type ShadowKey = 'default';
+export type ShadowKey = "default";
 
-export type FontSizeKey = 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+export type FontSizeKey = "xlarge" | "large" | "medium" | "small" | "xsmall";
 
 export type ButtonSize = 'genre' | 'menuNarrow' | 'menuWide' | 'large' | 'medium' | 'small';
 
@@ -27,13 +27,14 @@ export type ButtonScheme =
   | 'genre'
   | 'genreActive';
 
-export type BorderRadiusKey = 'small' | 'medium' | 'round';
 
-export type Layout = 'large' | 'medium' | 'small';
+export type BorderRadiusKey = "small" | "medium" | "round";
+
+export type Layout = "large" | "medium" | "small";
 
 export type LayoutWidth = Layout;
 
-export type MediaQuery = 'mobile' | 'tablet' | 'desktop';
+export type MediaQuery = "mobile" | "tablet" | "desktop";
 
 export type ButtonSchemeVariant = {
   color?: string;

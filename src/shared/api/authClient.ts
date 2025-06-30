@@ -1,6 +1,6 @@
-import { useAuthStore } from 'entities/auth/model/store/authStore';
-import { createClient } from './httpClient';
-import { refreshToken } from 'entities/auth/model/services/authApi';
+import { refreshToken } from "entities/auth/model/services/authApi";
+import { useAuthStore } from "entities/auth/model/store/authStore";
+import { createClient } from "./httpClient";
 
 export const authClient = createClient();
 
@@ -33,12 +33,12 @@ authClient.interceptors.response.use(
       } catch (err) {
         useAuthStore.getState().resetAccessToken(); // 토큰 갱신 실패 시 토큰 초기화
         // 로그인 페이지로 강제 이동
-        window.location.href = '/login';
+        window.location.href = "/login";
         return Promise.reject(err); // refresh 실패 시 에러 반환
       }
     }
 
     // 만료로 인한 에러가 아닌 경우, 본래 요청 함수로 error를 전달
     return Promise.reject(error);
-  }
+  },
 );

@@ -1,8 +1,3 @@
 export default function TVGenreSelectPage() {
-    return (
-        <div>
-            TVGenreSelectPage
-        </div>
-    );
+  return <div>TVGenreSelectPage</div>;
 }
-
