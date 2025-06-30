@@ -1,51 +1,57 @@
-export type ThemeName = 'light' | 'dark';
+export type ThemeName = "light" | "dark";
 
 export type ColorKey =
-  | 'primary'
-  | 'basicBackground'
-  | 'loginBackground'
-  | 'subBackground'
-  | 'highlightText'
-  | 'border'
-  | 'secondText'
-  | 'thirdText'
-  | 'errorText'
-  | 'constantWhite';
+  | "primary"
+  | "basicBackground"
+  | "loginBackground"
+  | "subBackground"
+  | "highlightText"
+  | "border"
+  | "secondText"
+  | "thirdText"
+  | "errorText"
+  | "constantWhite";
 
-export type ShadowKey = 'default';
+export type ShadowKey = "default";
 
-export type FontSizeKey = 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+export type FontSizeKey = "xlarge" | "large" | "medium" | "small" | "xsmall";
 
 export type ButtonSize =
-  | 'genre'
-  | 'menuNarrow'
-  | 'menuWide'
-  | 'large'
-  | 'medium'
-  | 'small';
+  | "genre"
+  | "menuNarrow"
+  | "menuWide"
+  | "large"
+  | "medium"
+  | "small";
 
 export type ButtonScheme =
-  | 'active'
-  | 'normal'
-  | 'menu'
-  | 'genre'
-  | 'genreActive';
+  | "active"
+  | "normal"
+  | "menu"
+  | "genre"
+  | "genreActive";
 
-export type BorderRadiusKey = 'small' | 'medium' | 'round';
+export type BorderRadiusKey = "small" | "medium" | "round";
 
-export type Layout = 'large' | 'medium' | 'small';
+export type Layout = "large" | "medium" | "small";
 
 export type LayoutWidth = Layout;
 
-export type MediaQuery = 'mobile' | 'tablet' | 'desktop';
+export type MediaQuery = "mobile" | "tablet" | "desktop";
 
 export interface Theme {
   name: ThemeName;
   color: Record<ColorKey, string>;
   shadow: Record<ShadowKey, string>;
   fontSize: Record<FontSizeKey, string>;
-  buttonSize: Record<ButtonSize, { fontSize?: string; width?: string; padding: string }>;
-  buttonScheme: Record<ButtonScheme, { color: string; backgroundColor: string; border?: string }>;
+  buttonSize: Record<
+    ButtonSize,
+    { fontSize?: string; width?: string; padding: string }
+  >;
+  buttonScheme: Record<
+    ButtonScheme,
+    { color: string; backgroundColor: string; border?: string }
+  >;
   borderRadius: Record<BorderRadiusKey, string>;
   layout: {
     width: Record<LayoutWidth, string>;

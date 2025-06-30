@@ -1,5 +1,5 @@
-import { ThemeName } from './../types/theme.d';
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
+import { ThemeName } from "./../types/theme.d";
 
 interface Props {
   themeName: ThemeName;
@@ -11,11 +11,11 @@ const GlobalStyle = createGlobalStyle<Props>`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: ${(props) => (props.themeName === 'light' ? 'black' : 'white')};
+    color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 
   html, body {
-    background-color: ${(props) => (props.themeName === 'light' ? 'white' : 'black')};
+    background-color: ${(props) => (props.themeName === "light" ? "white" : "black")};
     font-family: 'Inter', sans-serif;
   }
 

@@ -7,20 +7,20 @@ export interface AuthState {
 }
 
 export interface SignupType {
-    email: string;
-    password?: string;
-    nickname: string;
-    contact?: string;
-    image?: string; 
+  email: string;
+  password?: string;
+  nickname: string;
+  contact?: string;
+  image?: string;
 }
 
 export interface LoginType {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 export interface ResetPasswordType {
-    currentPassword: string;
-    newPassword: string;
-    newPasswordConfirm: string;
+  currentPassword: string;
+  newPassword: string;
+  newPasswordConfirm: string;
 }
