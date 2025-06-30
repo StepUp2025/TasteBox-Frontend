@@ -29,5 +29,8 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports.biome": "explicit",
     "quickfix.biome": "explicit"
-  }
+  },
+
+  // Biomme이 package-lock.json과 충돌을 일으켜 제외.
+  "exclude": ["package-lock.json"]
 }
