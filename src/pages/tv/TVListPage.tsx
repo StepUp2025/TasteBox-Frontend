@@ -1,8 +1,3 @@
 export default function TVListPage() {
-    return (
-        <div>
-            TVListPage
-        </div>
-    );
+  return <div>TVListPage</div>;
 }
-

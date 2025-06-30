@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { ThemeName } from 'shared/types/theme';
+import { ThemeName } from "shared/types/theme";
+import { create } from "zustand";
 
 interface ThemeState {
   theme: ThemeName;
@@ -7,13 +7,13 @@ interface ThemeState {
   setTheme: (theme: ThemeName) => void;
 }
 
-const THEME_KEY = 'theme';
+const THEME_KEY = "theme";
 
 export const useThemeStore = create<ThemeState>((set) => ({
-  theme: (localStorage.getItem(THEME_KEY) as ThemeName) || 'light',
+  theme: (localStorage.getItem(THEME_KEY) as ThemeName) || "light",
   toggleTheme: () =>
     set((state) => {
-      const newTheme = state.theme === 'light' ? 'dark' : 'light';
+      const newTheme = state.theme === "light" ? "dark" : "light";
       localStorage.setItem(THEME_KEY, newTheme);
       return { theme: newTheme };
     }),
