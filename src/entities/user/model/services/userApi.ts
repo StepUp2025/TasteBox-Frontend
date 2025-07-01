@@ -1,7 +1,7 @@
 import { authClient } from "shared/api";
 import { ProfileUpdateType } from "../types/user.type";
 
-export const fetchLocalUser = async () => {
+export const fetchUserProfile = async () => {
   const response = await authClient.get("/users/profile");
   return response.data;
 };
