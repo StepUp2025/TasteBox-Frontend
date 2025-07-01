@@ -1,0 +1,1 @@
+npx branch-naming-check "^(feat|fix|chore|refactor)/[a-z0-9-]+$"

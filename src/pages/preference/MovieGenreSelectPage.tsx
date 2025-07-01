@@ -1,8 +1,3 @@
 export default function MovieGenreSelectPage() {
-    return (
-        <div>
-            MovieGenreSelectPage
-        </div>
-    );
+  return <div>MovieGenreSelectPage</div>;
 }
-

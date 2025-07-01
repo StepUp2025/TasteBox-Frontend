@@ -6,14 +6,25 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "biome check --write . && prettier --write \"**/*.md\"",
+    "lint": "biome check .",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "prepare": "husky"
   },
   "dependencies": {
+    "@biomejs/biome": "^2.0.6",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@innocells/branch-naming-check": "^1.0.0",
     "@tanstack/react-query": "^5.81.2",
     "axios": "^1.10.0",
+    "commitlint-plugin-function-rules": "^4.0.2",
     "dotenv": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "lucide-react": "^0.523.0",
+    "polished": "^4.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.6.2",
@@ -23,24 +34,29 @@
     "zustand": "^5.0.5"
   },
   "devDependencies": {
-    "@eslint/js": "^9.21.0",
     "@faker-js/faker": "^9.8.0",
     "@types/node": "^24.0.4",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
-    "eslint": "^9.21.0",
-    "eslint-plugin-react-hooks": "^5.1.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
+    "biome": "^0.3.3",
     "globals": "^15.15.0",
     "msw": "^2.10.2",
+    "prettier": "^3.6.2",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
   },
   "msw": {
     "workerDirectory": [
       "public"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,ts,json,jsonc,jsx,tsx}": [
+      "npx biome check --write"
+    ],
+    "*.md": [
+      "prettier --write"
     ]
   }
 }

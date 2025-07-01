@@ -1,8 +1,3 @@
 export default function MovieListPage() {
-    return (
-        <div>
-            MovieListPage
-        </div>
-    );
+  return <div>MovieListPage</div>;
 }
-

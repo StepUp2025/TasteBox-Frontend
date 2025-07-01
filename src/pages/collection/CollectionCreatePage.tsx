@@ -1,8 +1,3 @@
 export default function CollectionCreatePage() {
-    return (
-        <div>
-            CollectionCreatePage
-        </div>
-    );
+  return <div>CollectionCreatePage</div>;
 }
-

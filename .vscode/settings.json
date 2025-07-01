@@ -1,0 +1,36 @@
+{
+  // 저장 시 자동 포맷팅
+  "editor.formatOnSave": true,
+
+  // Biome을 기본 포맷터로 지정
+  "editor.defaultFormatter": "biomejs.biome",
+
+  // 언어별로도 Biome을 포맷터로 지정 (JS/TS/JSON 등)
+  "[javascript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
+  },
+
+  // 저장 시 Biome의 import 정렬 등 코드 액션 자동 실행
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "quickfix.biome": "explicit"
+  },
+
+  // Biomme이 package-lock.json과 충돌을 일으켜 제외.
+  "exclude": ["package-lock.json"]
+}
