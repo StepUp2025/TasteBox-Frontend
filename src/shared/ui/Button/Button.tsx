@@ -39,7 +39,7 @@ const Button = ({
 
 const ButtonStyle = styled.button.withConfig({
   shouldForwardProp: (prop) =>
-    !['scheme', 'size', 'borderRadius'].includes(prop),
+    !['scheme', 'buttonSize', 'fontSize', 'borderRadius'].includes(prop),
 })<Omit<Props, 'children'>>`
   font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
   padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
