@@ -1,14 +1,6 @@
-import { ContentDetail, Contents } from "./Contents.type";
+import { ContentsDetail } from './contents.type';
 
-export interface MoviesResponse {
-    movies: Contents[];
-    page?: number;
-    totalPages?: number;
+export interface Movie extends ContentsDetail {
+  runtime: number;
+  releaseDate: string;
 }
-
-  export interface MovieDetail extends ContentDetail {
-    originalLanguage: string;
-    runtime: number;
-    releaseDate: string;
-    productionCompanies: { id: number; name: string }[];
-  }
