@@ -2,7 +2,7 @@ import { ProfileUpdateType } from "entities/user/model";
 import { HttpResponse, http } from "msw";
 
 const getUserProfile = http.get(
-  `${import.meta.env.VITE_BACKEND_URL}/users/profile`,
+  `${import.meta.env.VITE_API_BASE_URL}/users/profile`,
   ({ request }) => {
     const url = new URL(request.url);
     const errorType = url.searchParams.get("mockError");
@@ -35,7 +35,7 @@ const getUserProfile = http.get(
 );
 
 const updateUserProfile = http.patch(
-  `${import.meta.env.VITE_BACKEND_URL}/users/profile`,
+  `${import.meta.env.VITE_API_BASE_URL}/users/profile`,
   async ({ request }) => {
     const body = (await request.json()) as ProfileUpdateType;
     const { nickname, contact, image } = body;

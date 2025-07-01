@@ -6,7 +6,7 @@ import {
 import { HttpResponse, http } from "msw";
 
 export const signup = http.post(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/signup`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/signup`,
   async ({ request }) => {
     const body = (await request.json()) as SignupType;
 
@@ -45,7 +45,7 @@ export const signup = http.post(
 );
 
 export const login = http.post(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/login`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/login`,
   async ({ request }) => {
     const body = (await request.json()) as LoginType;
 
@@ -81,7 +81,7 @@ export const login = http.post(
 );
 
 export const logout = http.post(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/logout`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/logout`,
   async () => {
     return HttpResponse.json(
       {
@@ -98,7 +98,7 @@ export const logout = http.post(
 );
 
 const refreshToken = http.post(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/refresh`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/refresh`,
   async () => {
     return HttpResponse.json(
       {
@@ -116,7 +116,7 @@ const refreshToken = http.post(
 );
 
 const resetPassword = http.put(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/password`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/password`,
   async ({ request }) => {
     const body = (await request.json()) as ResetPasswordType;
     const { currentPassword, newPassword, newPasswordConfirm } = body;
@@ -171,7 +171,7 @@ const resetPassword = http.put(
 );
 
 export const loginGoogle = http.get(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/google/login`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/google/login`,
   ({ request }) => {
     const url = new URL(request.url);
     const errorType = url.searchParams.get("mockError"); // 개발자도구 콘솔에서 조작 해야함!!
@@ -213,7 +213,7 @@ export const loginGoogle = http.get(
 );
 
 export const googleCallback = http.get(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/google/callback`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/google/callback`,
   () => {
     const accessToken = "mock-access-token";
     const refreshToken = "mock-refresh-token";
@@ -231,7 +231,7 @@ export const googleCallback = http.get(
 );
 
 export const loginKakao = http.get(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/kakao/login`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/login`,
   ({ request }) => {
     const url = new URL(request.url);
     const errorType = url.searchParams.get("mockError"); // 개발자도구 콘솔에서 조작해야 함!!
@@ -273,7 +273,7 @@ export const loginKakao = http.get(
 );
 
 export const kakaoCallback = http.get(
-  `${import.meta.env.VITE_BACKEND_URL}/auth/kakao/callback`,
+  `${import.meta.env.VITE_API_BASE_URL}/auth/kakao/callback`,
   () => {
     const accessToken = "mock-access-token";
     const refreshToken = "mock-refresh-token";
