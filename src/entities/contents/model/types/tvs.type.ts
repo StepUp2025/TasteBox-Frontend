@@ -1,17 +1,8 @@
-import { Contents } from "./Contents.type";
+import { ContentsDetail } from '../types/contents.type';
 
-export interface TVsResponse {
-    tvs: Contents[];
-    page?: number;
-    totalpages? : number;
-};
-
-export interface TVsDetail extends Contents {
-    firstAirDate: string;
-    lastAirDate: string;
-    inProduction: boolean;
-    numberOfSeasons: number;
-    numberOfEpisodes: number;
-    languages: string[];
-    seasons: {id:number;title:string; poster_path:string}[];
-  }
+export interface TVs extends ContentsDetail {
+  firstAirDate: string;
+  lastAirDate: string;
+  numberOfSeasons: number;
+  seasons: { id: number; title: string; poster_path: string }[];
+}
