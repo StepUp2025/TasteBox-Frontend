@@ -1,19 +1,33 @@
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { hoverOverlay } from 'shared/styles/hoverOverlay';
-import { BorderRadiusKey, ButtonScheme, ButtonSize } from 'shared/types/theme';
+import {
+  BorderRadiusKey,
+  ButtonScheme,
+  ButtonSize,
+  FontSizeKey,
+} from 'shared/types/theme';
 import styled from 'styled-components';
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  size: ButtonSize;
+  buttonSize: ButtonSize;
+  fontSize: FontSizeKey;
   scheme: ButtonScheme;
   borderRadius: BorderRadiusKey;
 }
 
-const Button = ({ children, size, scheme, borderRadius, onClick }: Props) => {
+const Button = ({
+  children,
+  buttonSize,
+  fontSize,
+  scheme,
+  borderRadius,
+  onClick,
+}: Props) => {
   return (
     <ButtonStyle
-      size={size}
+      buttonSize={buttonSize}
+      fontSize={fontSize}
       scheme={scheme}
       borderRadius={borderRadius}
       onClick={onClick}
@@ -27,9 +41,9 @@ const ButtonStyle = styled.button.withConfig({
   shouldForwardProp: (prop) =>
     !['scheme', 'size', 'borderRadius'].includes(prop),
 })<Omit<Props, 'children'>>`
-  font-size: ${({ theme, size }) => (theme.buttonSize[size].fontSize ? theme.buttonSize[size].fontSize : theme.fontSize.small)};
-  padding: ${({ theme, size }) => theme.buttonSize[size].padding};
-  width: ${({ theme, size }) => (theme.buttonSize[size].width ? theme.buttonSize[size].width : 'auto')};
+  font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
+  padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
+  width: ${({ theme, buttonSize }) => (theme.buttonSize[buttonSize].width ? theme.buttonSize[buttonSize].width : 'auto')};
 
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) =>
