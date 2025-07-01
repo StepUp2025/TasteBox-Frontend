@@ -8,8 +8,6 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size: ButtonSize;
   scheme: ButtonScheme;
   borderRadius: BorderRadiusKey;
-  disabled?: boolean;
-  isloading?: boolean;
 }
 
 const Button = ({ children, size, scheme, borderRadius, onClick }: Props) => {
@@ -27,10 +25,12 @@ const Button = ({ children, size, scheme, borderRadius, onClick }: Props) => {
 
 const ButtonStyle = styled.button.withConfig({
   shouldForwardProp: (prop) =>
-    !['scheme', 'size', 'borderRadius', 'isloading'].includes(prop),
+    !['scheme', 'size', 'borderRadius'].includes(prop),
 })<Omit<Props, 'children'>>`
-  font-size: ${({ theme }) => theme.fontSize.large};
+  font-size: ${({ theme, size }) => (theme.buttonSize[size].fontSize ? theme.buttonSize[size].fontSize : theme.fontSize.small)};
   padding: ${({ theme, size }) => theme.buttonSize[size].padding};
+  width: ${({ theme, size }) => (theme.buttonSize[size].width ? theme.buttonSize[size].width : 'auto')};
+
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) =>
     theme.buttonScheme[scheme].backgroundColor};
@@ -39,7 +39,8 @@ const ButtonStyle = styled.button.withConfig({
   border: ${({ theme, scheme }) =>
     theme.buttonScheme[scheme].border
       ? `1px solid ${theme.buttonScheme[scheme].border}`
-      : 'none'}; 
+      : 'none'};
+
   ${hoverOverlay}
 `;
 
