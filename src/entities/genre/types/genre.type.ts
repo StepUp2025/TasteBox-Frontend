@@ -1,10 +1,11 @@
 export interface Genre {
   id: number;
   name: string;
+}
+export interface GenreEmoji extends Genre {
   emoji: string;
 }
-
 export interface GenreResponse {
-  genres: Genre[];
+  genres: GenreEmoji[];
   count: number;
 }
