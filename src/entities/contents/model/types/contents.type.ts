@@ -1,10 +1,11 @@
 import { Genre } from 'entities/genre';
 
+export type ContentType = 'movie' | 'tv';
 export interface Contents {
   id: number;
   poster_path: string | null;
   title: string;
-  contentType: 'movie' | 'tv';
+  contentType: ContentType;
 }
 
 export interface ParameterTypes {
