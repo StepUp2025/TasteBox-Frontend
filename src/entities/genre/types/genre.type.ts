@@ -7,5 +7,4 @@ export interface GenreEmoji extends Genre {
 }
 export interface GenreResponse {
   genres: GenreEmoji[];
-  count: number;
 }
