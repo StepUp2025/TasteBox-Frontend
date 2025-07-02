@@ -1,22 +1,22 @@
 // src/app/routers.tsx
 
-import CollectionCreatePage from "pages/collection/CollectionCreatePage";
-import CollectionDetailPage from "pages/collection/CollectionDetailPage";
-import CollectionModifyPage from "pages/collection/CollectionModifyPage";
+import CollectionCreatePage from 'pages/collection/CollectionCreatePage';
+import CollectionDetailPage from 'pages/collection/CollectionDetailPage';
+import CollectionModifyPage from 'pages/collection/CollectionModifyPage';
 
-import LoginPage from "pages/login/LoginPage";
-import MainPage from "pages/main/MainPage";
-import MovieDetailPage from "pages/movie/MovieDetailPage";
-import MovieListPage from "pages/movie/MovieListPage";
-import MyPage from "pages/myPage/MyPage";
-import MovieGenreSelectPage from "pages/preference/MovieGenreSelectPage";
-import TVGenreSelectPage from "pages/preference/TVGenreSelectPage";
-import SignupPage from "pages/signup/SignupPage";
-import TVDetailPage from "pages/tv/TVDetailPage";
-import TVListPage from "pages/tv/TVListPage";
-import { Route, Routes } from "react-router-dom";
-import Error from "./Error";
-import Layout from "./Layout";
+import LoginPage from 'pages/login/LoginPage';
+import MainPage from 'pages/main/MainPage';
+import MovieDetailPage from 'pages/movie/MovieDetailPage';
+import MovieListPage from 'pages/movie/MovieListPage';
+import MyPage from 'pages/myPage/MyPage';
+import MovieGenreSelectPage from 'pages/preference/MovieGenreSelectPage';
+import TVGenreSelectPage from 'pages/preference/TVGenreSelectPage';
+import SignupPage from 'pages/signup/SignupPage';
+import TVDetailPage from 'pages/tv/TVDetailPage';
+import TVListPage from 'pages/tv/TVListPage';
+import { Route, Routes } from 'react-router-dom';
+import ErrorBox from './ErrorBox';
+import Layout from './Layout';
 
 export const Routers = () => {
   return (
@@ -26,7 +26,7 @@ export const Routers = () => {
       <Route path="/preference/movie" element={<MovieGenreSelectPage />} />
       <Route path="/preference/tv" element={<TVGenreSelectPage />} />
 
-      <Route element={<Layout />} errorElement={<Error />}>
+      <Route element={<Layout />} errorElement={<ErrorBox />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/mypage" element={<MyPage />} />
 
@@ -43,7 +43,7 @@ export const Routers = () => {
         />
       </Route>
 
-      <Route path="*" element={<Error />} />
+      <Route path="*" element={<ErrorBox />} />
     </Routes>
   );
 };
