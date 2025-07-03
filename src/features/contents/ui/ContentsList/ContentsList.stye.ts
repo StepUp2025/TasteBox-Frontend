@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CONTENT_ITEM_GAP, CONTENT_LIST_WIDTH } from '../constants';
 
 export const Wrapper = styled.section`
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   width: ${CONTENT_LIST_WIDTH}px;
 `;
 
@@ -12,10 +12,10 @@ export const Header = styled.div<{ $scroll: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 
   h2 {
-    font-size: ${({ theme }) => theme.fontSize.medium};
+    font-size: ${({ theme }) => theme.fontSize.large};
     margin: 0;
   }
 
