@@ -9,7 +9,6 @@ export const Wrapper = styled.div`
 export const Label = styled.label`
   font-size: ${({ theme }) => theme.fontSize.small};
   font-weight: 600;
-  color: ${({ theme }) => theme.color.highlightText};
 `;
 
 export const RequiredMark = styled.span`
