@@ -15,6 +15,6 @@ export const hoverOverlay = css`
   }
 
   &:hover::after {
-    opacity: 0.2;
+    opacity: 0.1;
   }
 `;
