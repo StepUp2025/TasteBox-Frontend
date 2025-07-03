@@ -36,6 +36,7 @@ export const ToggleButton = styled.button`
 export const ErrorMsg = styled.span`
   font-size: ${({ theme }) => theme.fontSize.xsmall};
   color: ${({ theme }) => theme.color.errorText};
+  margin-left: 0.5rem;
 `;
 
 const baseStyle = css<{ $hasError: boolean }>`
@@ -44,10 +45,8 @@ const baseStyle = css<{ $hasError: boolean }>`
   font-family: inherit;
   font-size: ${({ theme }) => theme.fontSize.small};
   line-height: 1.5;
-
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   background-color: ${({ theme }) => theme.color.subBackground};
-  
   border: ${({ $hasError, theme }) =>
     $hasError ? `1px solid ${theme.color.errorText}` : 'none'};
 
@@ -63,7 +62,7 @@ const baseStyle = css<{ $hasError: boolean }>`
 
   &:-webkit-autofill {
   box-shadow: 0 0 0px 1000px ${({ theme }) => theme.color.subBackground} inset;
-  -webkit-text-fill-color: ${({ theme }) => theme.color.highlightText};
+  -webkit-text-fill-color: ${({ theme }) => theme.color.hoverOverlay};
   transition: background-color 9999s ease-in-out 0s;
 }
 
