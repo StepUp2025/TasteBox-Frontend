@@ -1,12 +1,22 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export default function Empty() {
+interface EmptyProps {
+  text: string;
+  linkText: string;
+  linkTo: string;
+}
+
+export default function Empty({
+  text = '취향 설정을 해주세요.',
+  linkText = '바로가기',
+  linkTo = '/preferences',
+}: EmptyProps) {
   return (
     <StyledEmpty>
       <Text>
-        취향 설정을 해주세요.
-        <StyledLink to="/preferences">바로가기</StyledLink>
+        {text}
+        <StyledLink to={linkTo}>{linkText}</StyledLink>
       </Text>
     </StyledEmpty>
   );
@@ -16,8 +26,8 @@ const StyledEmpty = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-`;
+  width: 100%;
+  height: 300px;`;
 
 const Text = styled.span`
   color: ${({ theme }) => theme.color.thirdText};
