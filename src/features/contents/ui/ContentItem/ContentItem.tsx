@@ -58,13 +58,20 @@ const ContentItemStyle = styled.div<{
   $isCheckable?: boolean;
 }>`
   .contents-wrapper {
-    display: flex;
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    vertical-align: top;
+    line-height: 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    gap: 0;
     width: ${CONTENT_ITEM_WIDTH}px;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     border: ${({ theme, $checked }) =>
-      $checked ? `2px solid ${theme.color.primary}` : 'none'};
+      $checked ? `2px solid ${theme.color.primary}` : '2px solid transparent'};
     transition: border 0.2s ease;
     overflow: hidden;
     position: relative;
@@ -85,6 +92,8 @@ const ContentItemStyle = styled.div<{
       height: 20px;
       z-index: 2;
       cursor: pointer;
+      margin: 0;
+      padding: 0;
     }
   }
 
@@ -112,6 +121,8 @@ const ContentItemStyle = styled.div<{
     .title {
       font-weight: bold;
       padding: 0 0 2px 4px;
+      margin: 0;           /* ✅ 추가: 텍스트 마진 제거 */
+      line-height: 1.2;    /* ✅ 필요 시 조정 */
     }
   }
 `;
