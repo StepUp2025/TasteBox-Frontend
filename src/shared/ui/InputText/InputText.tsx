@@ -11,7 +11,7 @@ import {
   Wrapper,
 } from './InputText.style';
 
-type InputType = 'text' | 'email' | 'password' | 'textarea';
+type InputType = 'text' | 'email' | 'password' | 'textarea' | 'tel';
 
 interface InputTextProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
