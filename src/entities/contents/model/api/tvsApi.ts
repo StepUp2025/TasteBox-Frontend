@@ -35,7 +35,7 @@ export const fetchTopRatedTVs = async (page: number = 1) => {
 };
 
 // TV 상세 정보 조회
-export const fetchTVsDetail = async (id: number) => {
+export const fetchTVDetail = async (id: number) => {
   const response = await httpClient.get<TVs>(`/tvs/${id}`);
   return response.data;
 };
