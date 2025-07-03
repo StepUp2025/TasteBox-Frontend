@@ -7,7 +7,7 @@ interface EmptyProps {
   linkTo: string;
 }
 
-export default function Empty({
+export function Empty({
   text = '취향 설정을 해주세요.',
   linkText = '바로가기',
   linkTo = '/preferences',
