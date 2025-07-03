@@ -14,40 +14,41 @@ interface Props {
 const ContentItem = ({ content, isCheckable }: Props) => {
   const [checked, setChecked] = useState(false);
 
-  const itemBody = (
-    <>
-      <div className="img">
-        <img
-          src={content.poster_path ?? defaultContentsImage}
-          alt={content.title}
-        />
-      </div>
-      <div className="title-wrapper">
-        <p className="title">{content.title}</p>
-      </div>
-    </>
-  );
-
   return (
     <ContentItemStyle $checked={checked} $isCheckable={isCheckable}>
-      <div
-        className="contents-wrapper"
-        onChange={isCheckable ? () => setChecked((prev) => !prev) : undefined}
-      >
-        {isCheckable && (
+      {isCheckable ? (
+        <label className="contents-wrapper">
           <input
             type="checkbox"
             className="checkbox"
             checked={checked}
-            readOnly
+            onChange={() => setChecked((prev) => !prev)}
           />
-        )}
-        {isCheckable ? (
-          itemBody
-        ) : (
-          <Link to={`/${content.contentType}/${content.id}`}>{itemBody}</Link>
-        )}
-      </div>
+          <div className="img">
+            <img
+              src={content.poster_path ?? defaultContentsImage}
+              alt={content.title}
+            />
+          </div>
+          <div className="title-wrapper">
+            <p className="title">{content.title}</p>
+          </div>
+        </label>
+      ) : (
+        <Link to={`/${content.contentType}/${content.id}`}>
+          <div className="contents-wrapper">
+            <div className="img">
+              <img
+                src={content.poster_path ?? defaultContentsImage}
+                alt={content.title}
+              />
+            </div>
+            <div className="title-wrapper">
+              <p className="title">{content.title}</p>
+            </div>
+          </div>
+        </Link>
+      )}
     </ContentItemStyle>
   );
 };
@@ -56,64 +57,62 @@ const ContentItemStyle = styled.div<{
   $checked: boolean;
   $isCheckable?: boolean;
 }>`
-.contents-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: ${CONTENT_ITEM_WIDTH}px;
-  border-radius: ${({ theme }) => theme.borderRadius.medium}; 
-  border: ${({ theme, $checked }) => ($checked ? `2px solid ${theme.color.primary}` : 'none')};
-  transition: border 0.2s ease;
-  overflow: hidden;
+  .contents-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: ${CONTENT_ITEM_WIDTH}px;
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
+    border: ${({ theme, $checked }) =>
+      $checked ? `2px solid ${theme.color.primary}` : 'none'};
+    transition: border 0.2s ease;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
 
-  position: relative;
-  z-index: 1;
-
-  .checkbox {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 20px;
-  height: 20px;
-  z-index: 2;
-}
-
-  &:hover {
+    &:hover {
       border: ${({ $isCheckable, $checked, theme }) =>
         $isCheckable && !$checked
           ? `2px solid ${theme.color.primary}`
           : undefined};
     }
-  
-}
 
-.img {
+    .checkbox {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 20px;
+      height: 20px;
+      z-index: 2;
+      cursor: pointer;
+    }
+  }
+
+  .img {
     width: ${CONTENT_ITEM_WIDTH}px;
     height: ${CONTENT_ITEM_HEIGHT}px;
-    border-radius: ${({ theme }) => theme.borderRadius.medium}; 
+    border-radius: ${({ theme }) => theme.borderRadius.medium};
     position: relative;
-    z-index: 0;
 
     img {
       width: 100%;
-      height: auto;
-      border-radius: ${({ theme }) => theme.borderRadius.medium}; 
-      object-fit: cover;  // 비율 유지
+      height: 100%;
+      object-fit: cover;
+      border-radius: ${({ theme }) => theme.borderRadius.medium};
     }
+
     ${hoverOverlay}
   }
-.title-wrapper {
+
+  .title-wrapper {
     margin-top: 12px;
     text-align: left;
     width: ${CONTENT_ITEM_WIDTH}px;
 
     .title {
       font-weight: bold;
+      padding: 0 0 2px 4px;
     }
-  }
-
-  .img {
-    border: ${({ theme, $checked }) => ($checked ? `1px solid ${theme.color.primary}` : 'none')}; 
   }
 `;
 
