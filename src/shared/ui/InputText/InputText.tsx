@@ -1,5 +1,6 @@
 import { Eye, EyeOff } from 'lucide-react';
 import React, { forwardRef, useState } from 'react';
+import { useTheme } from 'styled-components';
 import {
   ErrorMsg,
   InputWrapper,
@@ -25,12 +26,11 @@ export const InputText = forwardRef<
   HTMLInputElement | HTMLTextAreaElement,
   InputTextProps
 >(({ label, name, error, required, type = 'text', ...rest }, ref) => {
+  const theme = useTheme();
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === 'password';
   const isTextArea = type === 'textarea';
-
   const inputType = isPassword && showPassword ? 'text' : type;
-
   const handleToggle = () => setShowPassword((prev) => !prev);
 
   return (
@@ -62,7 +62,11 @@ export const InputText = forwardRef<
           />
           {isPassword && (
             <ToggleButton type="button" onClick={handleToggle}>
-              {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+              {showPassword ? (
+                <Eye size={20} color={theme.color.thirdText} />
+              ) : (
+                <EyeOff size={20} color={theme.color.thirdText} />
+              )}
             </ToggleButton>
           )}
         </InputWrapper>
