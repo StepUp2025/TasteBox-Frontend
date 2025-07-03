@@ -1,0 +1,7 @@
+export const CONTENT_ITEM_WIDTH = 160;
+export const CONTENT_ITEM_HEIGHT = 240;
+export const CONTENT_ITEM_GAP = 12;
+export const ITEMS_PER_ROW = 6;
+
+export const CONTENT_LIST_WIDTH =
+  (CONTENT_ITEM_WIDTH + CONTENT_ITEM_GAP) * ITEMS_PER_ROW;
