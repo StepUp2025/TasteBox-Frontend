@@ -14,34 +14,39 @@ interface Props {
 const ContentItem = ({ content, isCheckable }: Props) => {
   const [checked, setChecked] = useState(false);
 
-  const toggleCheck = (e: React.MouseEvent) => {
-    e.stopPropagation(); //체크 클릭했을 때 링크 이동 방지
-    setChecked((prev) => !prev);
-  };
+  const itemBody = (
+    <>
+      <div className="img">
+        <img
+          src={content.poster_path ?? defaultContentsImage}
+          alt={content.title}
+        />
+      </div>
+      <div className="title-wrapper">
+        <p className="title">{content.title}</p>
+      </div>
+    </>
+  );
 
   return (
     <ContentItemStyle $checked={checked} $isCheckable={isCheckable}>
-      <div className="contents-wrapper">
+      <div
+        className="contents-wrapper"
+        onChange={isCheckable ? () => setChecked((prev) => !prev) : undefined}
+      >
         {isCheckable && (
           <input
             type="checkbox"
             className="checkbox"
             checked={checked}
-            onChange={() => setChecked((prev) => !prev)}
-            onClick={toggleCheck}
+            readOnly
           />
         )}
-        <Link to={`/${content.contentType}/${content.id}`}>
-          <div className="img">
-            <img
-              src={content.poster_path ?? defaultContentsImage}
-              alt={content.title}
-            />
-          </div>
-          <div className="title-wrapper">
-            <p className="title">{content.title}</p>
-          </div>
-        </Link>
+        {isCheckable ? (
+          itemBody
+        ) : (
+          <Link to={`/${content.contentType}/${content.id}`}>{itemBody}</Link>
+        )}
       </div>
     </ContentItemStyle>
   );
@@ -57,6 +62,29 @@ const ContentItemStyle = styled.div<{
   align-items: center;
   width: ${CONTENT_ITEM_WIDTH}px;
   border-radius: ${({ theme }) => theme.borderRadius.medium}; 
+  border: ${({ theme, $checked }) => ($checked ? `2px solid ${theme.color.primary}` : 'none')};
+  transition: border 0.2s ease;
+  overflow: hidden;
+
+  position: relative;
+  z-index: 1;
+
+  .checkbox {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+}
+
+  &:hover {
+      border: ${({ $isCheckable, $checked, theme }) =>
+        $isCheckable && !$checked
+          ? `2px solid ${theme.color.primary}`
+          : undefined};
+    }
+  
 }
 
 .img {
@@ -64,6 +92,7 @@ const ContentItemStyle = styled.div<{
     height: ${CONTENT_ITEM_HEIGHT}px;
     border-radius: ${({ theme }) => theme.borderRadius.medium}; 
     position: relative;
+    z-index: 0;
 
     img {
       width: 100%;

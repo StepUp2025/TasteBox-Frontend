@@ -23,7 +23,13 @@ interface Props {
   isCheckable?: boolean;
 }
 
-const ContentsList = ({ title, contents, type, linkTo }: Props) => {
+const ContentsList = ({
+  title,
+  contents,
+  type,
+  linkTo,
+  isCheckable,
+}: Props) => {
   const [showAll, setShowAll] = useState(false);
   const visibleContents =
     type === 'toggle' && !showAll ? contents.slice(0, ITEMS_PER_ROW) : contents;
@@ -54,7 +60,7 @@ const ContentsList = ({ title, contents, type, linkTo }: Props) => {
 
       <ContentListContainer $scroll={type === 'scroll' || type === 'link'}>
         {visibleContents.map((item) => (
-          <ContentItem key={item.id} content={item} />
+          <ContentItem key={item.id} content={item} isCheckable={isCheckable} />
         ))}
       </ContentListContainer>
     </Wrapper>
