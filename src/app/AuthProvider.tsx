@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const refresh = async () => {
       try {
         const res = await refreshToken();
-        useAuthStore.getState().setAccessToken(res.data.accessToken);
+        useAuthStore.getState().setAccessToken(res.accessToken);
       } catch (err) {
         console.error('Token refresh failed:', err);
         useAuthStore.getState().resetAccessToken();
