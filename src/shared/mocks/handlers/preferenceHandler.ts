@@ -31,33 +31,50 @@ const userPreference = {
 };
 
 export const preferenceHandlers = [
-  http.put('/users/preferences', async ({ request }) => {
-    const body = (await request.json()) as UserPreferenceUpdateType;
+  http.put(
+    `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
+    async ({ request }) => {
+      const body = (await request.json()) as UserPreferenceUpdateType;
 
-    const isMovieEmpty = body.movie.genreIds.length === 0;
-    const isTVEmpty = body.tv.genreIds.length === 0;
+      const isMovieEmpty = body.movie.genreIds.length === 0;
+      const isTVEmpty = body.tv.genreIds.length === 0;
 
-    if (isMovieEmpty && isTVEmpty) {
-      createErrorResponse(
-        404,
-        '장르가 발견되지 않았습니다.',
-        'GENRE_NOT_FOUND',
+      if (isMovieEmpty && isTVEmpty) {
+        return createErrorResponse(
+          404,
+          '장르가 발견되지 않았습니다.',
+          'GENRE_NOT_FOUND',
+        );
+      }
+
+      return createSuccessResponse('선호 장르 저장 성공');
+    },
+  ),
+
+  http.get(
+    `${import.meta.env.VITE_API_BASE_URL}/user/preferences`,
+    async () => {
+      return createSuccessResponse('선호 장르 조회 성공', userPreference);
+    },
+  ),
+
+  http.get(
+    `${import.meta.env.VITE_API_BASE_URL}/users/preferences/movies`,
+    async () => {
+      return createSuccessResponse(
+        '영화 선호 장르 조회 성공',
+        userPreference.movies,
       );
-    }
+    },
+  ),
 
-    createSuccessResponse('선호 장르 저장 성공');
-  }),
-
-  http.get('/user/preferences', async () => {
-    return createSuccessResponse('선호 장르 조회 성공', userPreference);
-  }),
-  http.get('/users/preferences/movies', async () => {
-    return createSuccessResponse(
-      '영화 선호 장르 조회 성공',
-      userPreference.movies,
-    );
-  }),
-  http.get('/users/preferences/tvs', async () => {
-    return createSuccessResponse('TV 선호 장르 조회 성공', userPreference.tvs);
-  }),
+  http.get(
+    `${import.meta.env.VITE_API_BASE_URL}/users/preferences/tvs`,
+    async () => {
+      return createSuccessResponse(
+        'TV 선호 장르 조회 성공',
+        userPreference.tvs,
+      );
+    },
+  ),
 ];

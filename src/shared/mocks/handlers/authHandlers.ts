@@ -6,8 +6,10 @@ import {
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
+const BASE = import.meta.env.VITE_API_BASE_URL;
+
 export const authHandlers = [
-  http.post(`/auth/signup`, async ({ request }) => {
+  http.post(`${BASE}/auth/signup`, async ({ request }) => {
     const body = (await request.json()) as SignupRequestType;
 
     if (body.nickname === '중복닉네임') {
@@ -29,7 +31,7 @@ export const authHandlers = [
     return createSuccessResponse('회원가입 성공', undefined, 201);
   }),
 
-  http.post(`/auth/login`, async ({ request }) => {
+  http.post(`${BASE}/auth/login`, async ({ request }) => {
     const body = (await request.json()) as LoginRequestType;
 
     if (body.email === 'stepup@mail.com' && body.password === '1234') {
@@ -52,7 +54,7 @@ export const authHandlers = [
     );
   }),
 
-  http.post(`/auth/logout`, () => {
+  http.post(`${BASE}/auth/logout`, () => {
     return new Response(JSON.stringify({ message: '로그아웃 성공' }), {
       status: 200,
       headers: {
@@ -61,7 +63,7 @@ export const authHandlers = [
     });
   }),
 
-  http.post(`/auth/refresh`, () => {
+  http.post(`${BASE}/auth/refresh`, () => {
     return new Response(JSON.stringify({ accessToken: 'mock-access-token' }), {
       status: 200,
       headers: {
@@ -71,7 +73,7 @@ export const authHandlers = [
     });
   }),
 
-  http.put(`/auth/password`, async ({ request }) => {
+  http.put(`${BASE}/auth/password`, async ({ request }) => {
     const body = (await request.json()) as ResetPasswordRequestType;
     const { currentPassword, newPassword, newPasswordConfirm } = body;
 
@@ -102,7 +104,7 @@ export const authHandlers = [
     return createSuccessResponse('비밀번호가 성공적으로 변경되었습니다.');
   }),
 
-  http.get(`/auth/google/login`, ({ request }) => {
+  http.get(`${BASE}/auth/google/login`, ({ request }) => {
     const url = new URL(request.url);
     const errorType = url.searchParams.get('mockError');
 
@@ -128,7 +130,7 @@ export const authHandlers = [
     );
   }),
 
-  http.get(`/auth/google/callback`, () => {
+  http.get(`${BASE}/auth/google/callback`, () => {
     const accessToken = 'mock-access-token';
     const refreshToken = 'mock-refresh-token';
 
@@ -142,7 +144,7 @@ export const authHandlers = [
     });
   }),
 
-  http.get(`/auth/kakao/login`, ({ request }) => {
+  http.get(`${BASE}/auth/kakao/login`, ({ request }) => {
     const url = new URL(request.url);
     const errorType = url.searchParams.get('mockError');
 
@@ -165,7 +167,7 @@ export const authHandlers = [
     return Response.redirect('https://kauth.kakao.com/oauth/authorize', 302);
   }),
 
-  http.get(`/auth/kakao/callback`, () => {
+  http.get(`${BASE}/auth/kakao/callback`, () => {
     const accessToken = 'mock-access-token';
     const refreshToken = 'mock-refresh-token';
 
