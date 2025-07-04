@@ -8,26 +8,26 @@ import {
 } from '../types/auth.type';
 
 export const signup = async (data: SignupRequestType) => {
-  const response = await httpClient.post('auth/signup', data);
+  const response = await httpClient.post('/auth/signup', data);
   return response.data;
 };
 
 export const login = async (data: LoginRequestType): Promise<LoginResponse> => {
-  const response = await httpClient.post('auth/login', data);
+  const response = await httpClient.post('/auth/login', data);
   return response.data;
 };
 
 export const logout = async () => {
-  const response = await authClient.post('auth/logout');
+  const response = await authClient.post('/auth/logout');
   return response.data;
 };
 
 export const refreshToken = async (): Promise<LoginResponse> => {
-  const response = await httpClient.post('auth/refresh');
+  const response = await httpClient.post('/auth/refresh');
   return response.data;
 };
 
 export const resetPassword = async (data: ResetPasswordRequestType) => {
-  const response = await authClient.put('auth/password', data);
+  const response = await authClient.put('/auth/password', data);
   return response.data;
 };
