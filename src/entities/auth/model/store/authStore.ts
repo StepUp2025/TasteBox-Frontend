@@ -1,8 +1,15 @@
-import { create } from "zustand";
-import { AuthState } from "../types/auth.type";
+import { create } from 'zustand';
 
-export const useAuthStore = create<AuthState>((set) => ({
+export interface AuthState {
+  accessToken: string | null;
+  setAccessToken: (token: string) => void;
+  resetAccessToken: () => void;
+  isLoggedIn: () => boolean;
+}
+
+export const useAuthStore = create<AuthState>((set, get) => ({
   accessToken: null,
   setAccessToken: (token) => set({ accessToken: token }),
   resetAccessToken: () => set({ accessToken: null }),
+  isLoggedIn: () => !!get().accessToken,
 }));
