@@ -23,6 +23,7 @@ const Button = ({
   scheme,
   borderRadius,
   onClick,
+  type = 'button',
 }: Props) => {
   return (
     <ButtonStyle
@@ -31,6 +32,7 @@ const Button = ({
       scheme={scheme}
       borderRadius={borderRadius}
       onClick={onClick}
+      type={type}
     >
       {children}
     </ButtonStyle>
@@ -44,7 +46,6 @@ const ButtonStyle = styled.button.withConfig({
   font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
   padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
   width: ${({ theme, buttonSize }) => (theme.buttonSize[buttonSize].width ? theme.buttonSize[buttonSize].width : 'auto')};
-
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) =>
     theme.buttonScheme[scheme].backgroundColor};
@@ -54,6 +55,7 @@ const ButtonStyle = styled.button.withConfig({
     theme.buttonScheme[scheme].border
       ? `1px solid ${theme.buttonScheme[scheme].border}`
       : 'none'};
+    line-height: 1;
 
   ${hoverOverlay}
 `;
