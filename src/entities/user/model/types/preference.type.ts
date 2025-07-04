@@ -1,4 +1,4 @@
-import { Genre } from 'entities/genre';
+import { GenreEmoji } from 'entities/genre';
 
 export interface UserPreferenceUpdateType {
   movie: {
@@ -10,7 +10,7 @@ export interface UserPreferenceUpdateType {
 }
 
 export interface UserContentsPreference {
-  genres: Genre[];
+  genres: GenreEmoji[];
   count: number;
 }
 
