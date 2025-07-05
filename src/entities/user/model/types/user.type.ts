@@ -1,4 +1,4 @@
-import { AuthProvider } from "entities/auth/model/types/auth.type";
+import { AuthProvider } from 'entities/auth/model/types/auth.type';
 
 export interface User {
   email: string;
@@ -7,13 +7,13 @@ export interface User {
   provider: AuthProvider; // 인증 제공자
 }
 
-export interface localUser extends User {
+export interface LocalUser extends User {
   contact: string; // 연락처 정보
-  provider: "local";
+  provider: 'local';
 }
 
 export interface OAuthUser extends User {
-  provider: "google" | "kakao"; // OAuth 제공자
+  provider: 'google' | 'kakao'; // OAuth 제공자
 }
 
 export interface ProfileUpdateType {
