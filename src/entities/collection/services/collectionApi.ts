@@ -15,12 +15,12 @@ export const createCollection = async (
   return response.data;
 };
 
-export const getCollection = async (): Promise<GetCollectionResponse> => {
+export const getCollectionList = async (): Promise<GetCollectionResponse> => {
   const response = await authClient.get('/collections');
   return response.data;
 };
 
-export const getCollectionById = async (
+export const getCollectionDetail = async (
   id: number,
 ): Promise<GetCollectionDetailResponse> => {
   const response = await authClient.get(`/collections/${id}`);
@@ -34,14 +34,14 @@ export const updateCollection = async (
   await authClient.patch(`/collections/${id}`, body);
 };
 
-export const addContentsToCollection = async (
+export const addCollectionContents = async (
   id: number,
   body: ModifyContentsRequest,
 ): Promise<void> => {
   await authClient.post(`/collections/${id}/contents`, body);
 };
 
-export const removeContentsFromCollection = async (
+export const removeCollectionContents = async (
   id: number,
   body: ModifyContentsRequest,
 ): Promise<void> => {
