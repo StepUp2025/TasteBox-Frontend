@@ -1,11 +1,9 @@
 import {
   login,
-  loginGoogle,
-  loginKakao,
   logout,
   refreshToken,
-  resetPassword,
   signup,
+  updatePassword,
 } from 'entities/auth/model/services/authApi';
 import {
   Divider,
@@ -125,7 +123,7 @@ const TestAuthMock = () => {
         label="OAuth 계정"
         onClick={async () => {
           try {
-            const res = await resetPassword({
+            const res = await updatePassword({
               currentPassword: 'oauth-account',
               newPassword: '1234',
               newPasswordConfirm: '1234',
@@ -140,7 +138,7 @@ const TestAuthMock = () => {
         label="유저 없음"
         onClick={async () => {
           try {
-            const res = await resetPassword({
+            const res = await updatePassword({
               currentPassword: 'not-found',
               newPassword: '1234',
               newPasswordConfirm: '1234',
@@ -155,7 +153,7 @@ const TestAuthMock = () => {
         label="비밀번호 불일치"
         onClick={async () => {
           try {
-            const res = await resetPassword({
+            const res = await updatePassword({
               currentPassword: '1234',
               newPassword: 'abc',
               newPasswordConfirm: 'def',
@@ -170,7 +168,7 @@ const TestAuthMock = () => {
         label="비밀번호 변경 성공"
         onClick={async () => {
           try {
-            const res = await resetPassword({
+            const res = await updatePassword({
               currentPassword: '1234',
               newPassword: 'abc',
               newPasswordConfirm: 'abc',
@@ -183,30 +181,6 @@ const TestAuthMock = () => {
       />
 
       <Divider />
-
-      <SectionTitle text="🌐 OAuth 테스트" />
-      <TestButton
-        label="구글 로그인 리다이렉트"
-        onClick={async () => {
-          try {
-            const res = await loginGoogle();
-            logResult('loginGoogle', res);
-          } catch (err) {
-            logResult('loginGoogle error', err);
-          }
-        }}
-      />
-      <TestButton
-        label="카카오 로그인 리다이렉트"
-        onClick={async () => {
-          try {
-            const res = await loginKakao();
-            logResult('loginKakao', res);
-          } catch (err) {
-            logResult('loginKakao error', err);
-          }
-        }}
-      />
 
       <Divider />
 

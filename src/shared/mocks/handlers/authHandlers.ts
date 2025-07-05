@@ -1,7 +1,7 @@
 import {
   LoginRequestType,
-  ResetPasswordRequestType,
   SignupRequestType,
+  UpdatePasswordRequestType,
 } from 'entities/auth/model/types/auth.type';
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
@@ -74,7 +74,7 @@ export const authHandlers = [
   }),
 
   http.put(`${BASE}/auth/password`, async ({ request }) => {
-    const body = (await request.json()) as ResetPasswordRequestType;
+    const body = (await request.json()) as UpdatePasswordRequestType;
     const { currentPassword, newPassword, newPasswordConfirm } = body;
 
     if (currentPassword === 'oauth-account') {
