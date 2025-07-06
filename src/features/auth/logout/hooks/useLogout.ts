@@ -6,7 +6,7 @@ import { queryClient } from 'shared/lib/queryClient';
 
 export const useLogout = () => {
   const navigate = useNavigate();
-  return useMutation({
+  const { mutate, isPending, isSuccess, isError, error } = useMutation({
     mutationFn: logout,
     onSuccess: () => {
       // 1. 클라이언트 상태 초기화 (예: 토큰 삭제)
@@ -21,4 +21,11 @@ export const useLogout = () => {
       console.error('Logout failed', error);
     },
   });
+  return {
+    mutate,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+  };
 };
