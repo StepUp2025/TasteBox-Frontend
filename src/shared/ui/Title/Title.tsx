@@ -1,10 +1,11 @@
 import { HTMLAttributes, JSX, ReactNode } from 'react';
-import { FontSizeKey } from 'shared/types/theme';
+import { ColorKey, FontSizeKey } from 'shared/types/theme';
 import styled from 'styled-components';
 
 interface TitleProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   size: FontSizeKey;
+  color: ColorKey;
   as?: keyof JSX.IntrinsicElements;
 }
 
