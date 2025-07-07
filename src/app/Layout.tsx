@@ -17,7 +17,6 @@ export default function Layout() {
     </>
   );
 }
-x;
 
 const SIDEBAR_WIDTH = 90;
 
