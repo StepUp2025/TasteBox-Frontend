@@ -3,8 +3,9 @@ import { authClient } from 'shared/api/authClient';
 import {
   LoginRequestType,
   LoginResponse,
-  ResetPasswordRequestType,
+  RefereshTokenResponse,
   SignupRequestType,
+  UpdatePasswordRequestType,
 } from '../types/auth.type';
 
 export const signup = async (data: SignupRequestType) => {
@@ -22,12 +23,12 @@ export const logout = async () => {
   return response.data;
 };
 
-export const refreshToken = async (): Promise<LoginResponse> => {
+export const refreshToken = async (): Promise<RefereshTokenResponse> => {
   const response = await httpClient.post('/auth/refresh');
   return response.data;
 };
 
-export const resetPassword = async (data: ResetPasswordRequestType) => {
+export const updatePassword = async (data: UpdatePasswordRequestType) => {
   const response = await authClient.put('/auth/password', data);
   return response.data;
 };
