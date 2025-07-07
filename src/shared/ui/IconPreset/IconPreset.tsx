@@ -6,11 +6,17 @@ interface Props {
   width: number;
   height?: number;
   color: ColorKey;
+  className?: string;
 }
 
-const IconPreset = ({ children, width, height, color }: Props) => {
+const IconPreset = ({ children, width, height, color, className }: Props) => {
   return (
-    <StyledIcon $width={width} $height={height ?? width} $color={color}>
+    <StyledIcon
+      $width={width}
+      $height={height ?? width}
+      $color={color}
+      className={className}
+    >
       {children}
     </StyledIcon>
   );
