@@ -14,6 +14,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   fontSize: FontSizeKey;
   scheme: ButtonScheme;
   borderRadius: BorderRadiusKey;
+  disableHoverOverlay?: boolean;
 }
 
 const Button = ({
@@ -22,6 +23,7 @@ const Button = ({
   fontSize,
   scheme,
   borderRadius,
+  disableHoverOverlay = false,
   onClick,
   type = 'button',
 }: Props) => {
@@ -33,6 +35,7 @@ const Button = ({
       borderRadius={borderRadius}
       onClick={onClick}
       type={type}
+      disableHoverOverlay={disableHoverOverlay}
     >
       {children}
     </ButtonStyle>
@@ -41,7 +44,13 @@ const Button = ({
 
 const ButtonStyle = styled.button.withConfig({
   shouldForwardProp: (prop) =>
-    !['scheme', 'buttonSize', 'fontSize', 'borderRadius'].includes(prop),
+    ![
+      'scheme',
+      'buttonSize',
+      'fontSize',
+      'borderRadius',
+      'disableHoverOverlay',
+    ].includes(prop),
 })<Omit<Props, 'children'>>`
   font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
   padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
@@ -57,7 +66,7 @@ const ButtonStyle = styled.button.withConfig({
       : 'none'};
     line-height: 1;
 
-  ${hoverOverlay}
+  ${({ disableHoverOverlay }) => !disableHoverOverlay && hoverOverlay}
 `;
 
 export default Button;
