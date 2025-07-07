@@ -8,25 +8,31 @@ import {
   Tv,
   User,
 } from 'lucide-react';
-import { Button } from 'shared/ui';
+import { useNavigate } from 'react-router-dom';
+import { Button, IconPreset } from 'shared/ui';
 import styled from 'styled-components';
 
 export default function Sidebar() {
   const { toggleTheme } = useThemeStore();
+  const navigate = useNavigate();
 
   return (
     <SidebarWrapper>
       <Top>
         <Button
+          onClick={() => navigate('/')}
           buttonSize="menuNarrow"
           fontSize="large"
           scheme="primary"
           borderRadius="medium"
         >
-          <PackageOpen size={32} />
+          <IconPreset width={32} color={'constantWhite'}>
+            <PackageOpen width={24} />
+          </IconPreset>
         </Button>
         <Nav>
           <Button
+            onClick={() => navigate('/movie')}
             buttonSize="menuNarrow"
             fontSize="small"
             scheme="menu"
@@ -38,6 +44,7 @@ export default function Sidebar() {
             </MenuContent>
           </Button>
           <Button
+            onClick={() => navigate('/tv')}
             buttonSize="menuNarrow"
             fontSize="small"
             scheme="menu"
@@ -48,8 +55,8 @@ export default function Sidebar() {
               <Label>TV 시리즈</Label>
             </MenuContent>
           </Button>
-
           <Button
+            onClick={() => navigate('/collection')}
             buttonSize="menuNarrow"
             fontSize="small"
             scheme="menu"
@@ -60,8 +67,8 @@ export default function Sidebar() {
               <Label>컬렉션</Label>
             </MenuContent>
           </Button>
-
           <Button
+            onClick={() => navigate('/mypage')}
             buttonSize="menuNarrow"
             fontSize="small"
             scheme="menu"
@@ -77,6 +84,7 @@ export default function Sidebar() {
 
       <Bottom>
         <Button
+          onClick={() => navigate('/login')}
           buttonSize="menuNarrow"
           fontSize="small"
           scheme="menu"
