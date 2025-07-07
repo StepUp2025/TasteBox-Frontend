@@ -13,12 +13,17 @@ export interface LoginRequestType {
   password: string;
 }
 
-export interface ResetPasswordRequestType {
+export interface UpdatePasswordRequestType {
   currentPassword: string;
   newPassword: string;
   newPasswordConfirm: string;
 }
 
 export interface LoginResponse {
+  accessToken: string;
+  isPreferenceSet: boolean;
+}
+
+export interface RefereshTokenResponse {
   accessToken: string;
 }

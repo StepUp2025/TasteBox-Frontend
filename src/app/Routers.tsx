@@ -15,7 +15,7 @@ import SignupPage from 'pages/signup/SignupPage';
 import TVDetailPage from 'pages/tv/TVDetailPage';
 import TVListPage from 'pages/tv/TVListPage';
 import { Route, Routes } from 'react-router-dom';
-import ErrorBox from './ErrorBox';
+import { ErrorBox } from 'shared/ui';
 import Layout from './Layout';
 
 export const Routers = () => {
@@ -23,10 +23,10 @@ export const Routers = () => {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
-      <Route path="/preference/movie" element={<MovieGenreSelectPage />} />
-      <Route path="/preference/tv" element={<TVGenreSelectPage />} />
+      <Route path="/genre/movie" element={<MovieGenreSelectPage />} />
+      <Route path="/genre/tv" element={<TVGenreSelectPage />} />
 
-      <Route element={<Layout />} errorElement={<ErrorBox />}>
+      <Route element={<Layout />}>
         <Route path="/" element={<MainPage />} />
         <Route path="/mypage" element={<MyPage />} />
 
@@ -41,9 +41,9 @@ export const Routers = () => {
           path="/collection/:id/modify"
           element={<CollectionModifyPage />}
         />
-      </Route>
 
-      <Route path="*" element={<ErrorBox />} />
+        <Route path="*" element={<ErrorBox />} />
+      </Route>
     </Routes>
   );
 };

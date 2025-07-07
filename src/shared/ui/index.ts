@@ -1,4 +1,7 @@
 export { default as Button } from './Button/Button';
+export * from './Error/ErrorBox';
+export { default as IconPreset } from './IconPreset/IconPreset';
 export * from './InputText/InputText';
 export * from './Modal/Modal';
 export * from './ProgressBar/ProgressBar';
+export { default as Title } from './Title/Title';
