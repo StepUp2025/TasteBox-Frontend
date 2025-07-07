@@ -3,11 +3,11 @@ import { getCollectionList } from 'entities/collection';
 import { GetCollectionResponse } from 'entities/collection/types/collection.type';
 
 export const useGetCollectionList = () => {
-  const { data, isLoading, isError, error, refetch } =
+  const { data, isPending, isError, error, refetch } =
     useQuery<GetCollectionResponse>({
       queryKey: ['collections'],
       queryFn: getCollectionList,
     });
 
-  return { data, isLoading, isError, error, refetch };
+  return { data, isPending, isError, error, refetch };
 };
