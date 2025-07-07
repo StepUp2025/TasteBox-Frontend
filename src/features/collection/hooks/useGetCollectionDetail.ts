@@ -5,12 +5,12 @@ import {
 } from 'entities/collection';
 
 export const useGetCollectionDetail = (id: number) => {
-  const { data, isLoading, isError, error, refetch } =
+  const { data, isPending, isError, error, refetch } =
     useQuery<GetCollectionDetailResponse>({
       queryKey: ['collections', id],
       queryFn: () => getCollectionDetail(id),
       enabled: !!id,
     });
 
-  return { data, isLoading, isError, error, refetch };
+  return { data, isPending, isError, error, refetch };
 };
