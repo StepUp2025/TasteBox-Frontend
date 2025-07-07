@@ -1,6 +1,6 @@
-import { refreshToken } from "entities/auth/model/services/authApi";
-import { useAuthStore } from "entities/auth/model/store/authStore";
-import { createClient } from "./httpClient";
+import { refreshToken } from 'entities/auth/model/services/authApi';
+import { useAuthStore } from 'entities/auth/model/store/authStore';
+import { createClient } from './httpClient';
 
 export const authClient = createClient();
 
@@ -24,7 +24,7 @@ authClient.interceptors.response.use(
 
       try {
         const refreshRes = await refreshToken();
-        const newAccessToken = refreshRes.data.accessToken;
+        const newAccessToken = refreshRes.accessToken;
 
         useAuthStore.getState().setAccessToken(newAccessToken);
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
@@ -33,7 +33,7 @@ authClient.interceptors.response.use(
       } catch (err) {
         useAuthStore.getState().resetAccessToken(); // 토큰 갱신 실패 시 토큰 초기화
         // 로그인 페이지로 강제 이동
-        window.location.href = "/login";
+        window.location.href = '/login';
         return Promise.reject(err); // refresh 실패 시 에러 반환
       }
     }

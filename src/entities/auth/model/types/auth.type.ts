@@ -1,12 +1,6 @@
-export type AuthProvider = "local" | "google" | "kakao";
+export type AuthProvider = 'local' | 'google' | 'kakao';
 
-export interface AuthState {
-  accessToken: string | null;
-  setAccessToken: (token: string) => void;
-  resetAccessToken: () => void;
-}
-
-export interface SignupType {
+export interface SignupRequestType {
   email: string;
   password?: string;
   nickname: string;
@@ -14,13 +8,17 @@ export interface SignupType {
   image?: string;
 }
 
-export interface LoginType {
+export interface LoginRequestType {
   email: string;
   password: string;
 }
 
-export interface ResetPasswordType {
+export interface ResetPasswordRequestType {
   currentPassword: string;
   newPassword: string;
   newPasswordConfirm: string;
+}
+
+export interface LoginResponse {
+  accessToken: string;
 }
