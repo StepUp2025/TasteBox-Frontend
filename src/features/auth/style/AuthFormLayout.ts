@@ -97,7 +97,7 @@ export const AuthFormLayout = styled.div`
   display: flex;
   justify-content: center;
   gap: 64px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 
 
 }
