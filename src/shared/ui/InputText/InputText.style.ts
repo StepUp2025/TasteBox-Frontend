@@ -38,6 +38,59 @@ export const ErrorMsg = styled.span`
   margin-left: 0.5rem;
 `;
 
+export const FileUploadWrapper = styled.div<{ hasImage: boolean }>`
+  width: 100%;
+  max-width: 420px;
+  margin-top: 8px;
+  aspect-ratio: 16 / 9;
+  border: ${({ hasImage, theme }) =>
+    hasImage ? 'none' : `2px dashed ${theme.color.primary}`};
+  box-shadow: ${({ hasImage, theme }) =>
+    hasImage ? `${theme.shadow.default}` : 'none'};
+  border-radius: 12px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+`;
+
+export const FormDescription = styled.p`
+  margin-top: 6rem;
+  font-size: 0.85rem;
+  color: ${({ theme }) => theme.color.thirdText};
+  text-align: center;
+`;
+
+export const FileUploadButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 24px;
+  background-color: ${({ theme }) => theme.color.primary};
+  border-radius: ${({ theme }) => theme.borderRadius.round};
+  cursor: pointer;
+  z-index: 2;
+  padding: 0.5rem;
+  position: absolute;
+
+  svg {
+    stroke: ${({ theme }) => theme.color.constantWhite};
+  }
+`;
+
+export const PreviewImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+`;
+
+export const HiddenInput = styled.input`
+  display: none;
+`;
+
 const baseStyle = css<{ $hasError: boolean }>`
   width: 100%;
   padding: 1rem 1.25rem;
