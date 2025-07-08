@@ -48,11 +48,7 @@ export const collectionHandlers = [
 
     mockCollections.push(newCollection);
 
-    return createSuccessResponse(
-      '컬렉션이 생성되었습니다.',
-      { id: newCollection.id },
-      201,
-    );
+    return createSuccessResponse(undefined, { id: newCollection.id });
   }),
 
   // 컬렉션 리스트 조회
@@ -66,7 +62,7 @@ export const collectionHandlers = [
       }),
     );
 
-    return createSuccessResponse('컬렉션 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       collections: summaryList,
       count: summaryList.length,
     });
@@ -85,7 +81,7 @@ export const collectionHandlers = [
       );
     }
 
-    return createSuccessResponse('컬렉션 상세 조회 성공', mockCollections[idx]);
+    return createSuccessResponse(undefined, mockCollections[idx]);
   }),
 
   // 컬렉션 수정

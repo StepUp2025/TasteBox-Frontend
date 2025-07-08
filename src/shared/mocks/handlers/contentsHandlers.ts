@@ -117,14 +117,14 @@ export const contentsHandlers = [
     const filtered = mockMovies.filter((m) =>
       m.genres.some((g) => g.id === genreId),
     );
-    return createSuccessResponse('장르별 영화 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       contents: filtered,
     });
   }),
 
   // 인기 영화
   http.get('/movies/popular', () => {
-    return createSuccessResponse('인기 영화 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'movie'),
     });
@@ -132,7 +132,7 @@ export const contentsHandlers = [
 
   // 현재 상영작
   http.get('/movies/now-playing', () => {
-    return createSuccessResponse('현재 상영작 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'movie'),
     });
@@ -140,7 +140,7 @@ export const contentsHandlers = [
 
   // 평점 높은 영화
   http.get('/movies/top-rated', () => {
-    return createSuccessResponse('평점 높은 영화 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'movie'),
     });
@@ -148,7 +148,7 @@ export const contentsHandlers = [
 
   // 추천 영화 (id 기반)
   http.get('/movies/:id/recommends', () => {
-    return createSuccessResponse('추천 영화 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       contents: mockMovies.slice(0, 1),
     });
   }),
@@ -159,7 +159,7 @@ export const contentsHandlers = [
     if (!movie) {
       return createErrorResponse(404, '영화를 찾을 수 없습니다.', 'NOT_FOUND');
     }
-    return createSuccessResponse('영화 상세 조회 성공', movie);
+    return createSuccessResponse(undefined, movie);
   }),
 
   // 장르별 TV 조회
@@ -169,14 +169,14 @@ export const contentsHandlers = [
     const filtered = mockTVs.filter((t) =>
       t.genres.some((g) => g.id === genreId),
     );
-    return createSuccessResponse('장르별 TV 시리즈 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       contents: filtered,
     });
   }),
 
   // 인기 TV
   http.get('/tvs/popular', () => {
-    return createSuccessResponse('인기 TV 시리즈 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'tv'),
     });
@@ -184,7 +184,7 @@ export const contentsHandlers = [
 
   // 현재 방영 중인 TV
   http.get('/tvs/on-the-air', () => {
-    return createSuccessResponse('현재 방영 중인 TV 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'tv'),
     });
@@ -192,7 +192,7 @@ export const contentsHandlers = [
 
   // 평점 높은 TV
   http.get('/tvs/top-rated', () => {
-    return createSuccessResponse('평점 높은 TV 시리즈 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'tv'),
     });
@@ -200,7 +200,7 @@ export const contentsHandlers = [
 
   // 추천 TV (id 기반)
   http.get('/tvs/:id/recommends', () => {
-    return createSuccessResponse('추천 TV 시리즈 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       mockContentsResponse,
       contents: mockContents.filter((c) => c.contentType === 'tv'),
     });
@@ -216,6 +216,6 @@ export const contentsHandlers = [
         'NOT_FOUND',
       );
     }
-    return createSuccessResponse('TV 시리즈 상세 조회 성공', tv);
+    return createSuccessResponse(undefined, tv);
   }),
 ];

@@ -54,27 +54,21 @@ export const preferenceHandlers = [
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/user/preferences`,
     async () => {
-      return createSuccessResponse('선호 장르 조회 성공', userPreference);
+      return createSuccessResponse(undefined, userPreference);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/movies`,
     async () => {
-      return createSuccessResponse(
-        '영화 선호 장르 조회 성공',
-        userPreference.movies,
-      );
+      return createSuccessResponse(undefined, userPreference.movies);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/tvs`,
     async () => {
-      return createSuccessResponse(
-        'TV 선호 장르 조회 성공',
-        userPreference.tvs,
-      );
+      return createSuccessResponse(undefined, userPreference.tvs);
     },
   ),
 ];

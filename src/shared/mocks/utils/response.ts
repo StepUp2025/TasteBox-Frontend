@@ -1,19 +1,12 @@
 import { HttpResponse } from 'msw';
 
-export const createSuccessResponse = (
-  message: string,
-  data: unknown = null,
-  status = 200,
-) =>
-  HttpResponse.json(
-    {
-      statusCode: status,
-      message,
-      ...(data !== null ? { data } : {}),
-      timestamp: new Date().toISOString(),
-    },
-    { status },
-  );
+export const createSuccessResponse = (message?: string, data?: unknown) => {
+  if (data !== undefined && data !== null) {
+    return HttpResponse.json(data);
+  }
+
+  return HttpResponse.json(message ?? '');
+};
 
 export const createErrorResponse = (
   status: number,
