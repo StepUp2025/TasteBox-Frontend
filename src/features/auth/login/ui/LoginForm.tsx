@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 import googleLogo from 'shared/assets/images/google-logo-icon.png';
 import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
 import { Button, IconPreset, InputText } from 'shared/ui';
-import { LoginFormValues, loginSchema } from '../login.validation.schema';
 import { useLocalLogin } from '../model/hooks/useLocalLogin';
 import { useOAUthLogin } from '../model/hooks/useOAuthLogin';
+import { LoginFormValues, loginSchema } from '../model/validation/loginSchema';
 import { OAuthButton } from './OAuthButton';
 
 const LoginForm = () => {
