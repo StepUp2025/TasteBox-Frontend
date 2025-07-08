@@ -45,13 +45,13 @@ const mockTvGenres: GenreResponse['genres'] = [
 
 export const genreHandlers = [
   http.get('/genres/movies', () => {
-    return createSuccessResponse('영화 장르 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       genres: mockMovieGenres,
     });
   }),
 
   http.get('/genres/tvs', () => {
-    return createSuccessResponse('TV 장르 목록 조회 성공', {
+    return createSuccessResponse(undefined, {
       genres: mockTvGenres,
     });
   }),

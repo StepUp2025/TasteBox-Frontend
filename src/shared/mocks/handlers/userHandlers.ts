@@ -27,7 +27,7 @@ export const userHandlers = [
       }
 
       // 성공 응답
-      return createSuccessResponse('회원 프로필 조회 성공', localUser);
+      return createSuccessResponse(undefined, localUser);
     },
   ),
 
