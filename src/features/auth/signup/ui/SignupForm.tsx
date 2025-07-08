@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { Button, IconPreset, InputText } from 'shared/ui';
 
 import { useSignup } from '../hooks/useSignup';
-import { SignupFormValues, signupSchema } from '../signup.validation.schema';
+import { SignupFormValues, signupSchema } from '../validation/signupSchema';
 
 const SignupForm = () => {
   const {
@@ -22,7 +22,6 @@ const SignupForm = () => {
 
   const onSubmit = (data: SignupFormValues) => {
     console.log('제출된 값:', data);
-    // 여기에 로그인 API 호출 hook
     mutate(data);
   };
 
