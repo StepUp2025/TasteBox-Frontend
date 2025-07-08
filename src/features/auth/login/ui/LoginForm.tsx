@@ -68,7 +68,7 @@ const LoginForm = () => {
             borderRadius="round"
             disabled={isPending}
           >
-            {isPending ? '로그인 중...' : '로그인'}
+            로그인
           </Button>
         </form>
 
