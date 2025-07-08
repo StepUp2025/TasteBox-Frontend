@@ -33,7 +33,7 @@ export const Modal = ({
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <CloseButton onClick={onClose}>
+        <CloseButton onClick={onClose} type="button">
           <X />
         </CloseButton>
         <ModalTitle>{title}</ModalTitle>
@@ -47,6 +47,7 @@ export const Modal = ({
             scheme="secondary"
             borderRadius="round"
             onClick={onClose}
+            type="button"
           >
             취소
           </Button>
