@@ -47,5 +47,5 @@ export const Footer = styled.div`
   display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 24px;
+  margin-top: 32px;
 `;

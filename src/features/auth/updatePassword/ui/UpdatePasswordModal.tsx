@@ -31,7 +31,6 @@ const UpdatePasswordModal = ({ open, onClose }: UpdatePasswordModalProps) => {
 
   return (
     <UpdatePasswordModalStyle>
-      <h1>UpdatePasswordModal</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Modal
           open={open}
