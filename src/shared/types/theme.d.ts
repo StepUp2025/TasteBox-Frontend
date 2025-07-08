@@ -1,4 +1,4 @@
-export type ThemeName = "light" | "dark";
+export type ThemeName = 'light' | 'dark';
 
 export type ColorKey =
   | 'primary'
@@ -13,11 +13,17 @@ export type ColorKey =
   | 'constantWhite'
   | 'hoverOverlay';
 
-export type ShadowKey = "default";
+export type ShadowKey = 'default';
 
-export type FontSizeKey = "xlarge" | "large" | "medium" | "small" | "xsmall";
+export type FontSizeKey = 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
 
-export type ButtonSize = 'genre' | 'menuNarrow' | 'menuWide' | 'large' | 'medium' | 'small';
+export type ButtonSize =
+  | 'genre'
+  | 'menuNarrow'
+  | 'menuWide'
+  | 'large'
+  | 'medium'
+  | 'small';
 
 export type ButtonScheme =
   | 'primary'
@@ -27,14 +33,13 @@ export type ButtonScheme =
   | 'genre'
   | 'genreActive';
 
+export type BorderRadiusKey = 'small' | 'medium' | 'large' | 'round';
 
-export type BorderRadiusKey = "small" | "medium" | "round";
-
-export type Layout = "large" | "medium" | "small";
+export type Layout = 'large' | 'medium' | 'small';
 
 export type LayoutWidth = Layout;
 
-export type MediaQuery = "mobile" | "tablet" | "desktop";
+export type MediaQuery = 'mobile' | 'tablet' | 'desktop';
 
 export type ButtonSchemeVariant = {
   color?: string;
@@ -47,7 +52,10 @@ export interface Theme {
   color: Record<ColorKey, string>;
   shadow: Record<ShadowKey, string>;
   fontSize: Record<FontSizeKey, string>;
-  buttonSize: Record<ButtonSize, { fontSize?: string; width?: string; padding: string }>;
+  buttonSize: Record<
+    ButtonSize,
+    { fontSize?: string; width?: string; padding: string }
+  >;
   buttonScheme: Record<ButtonScheme, ButtonSchemeVariant>;
   borderRadius: Record<BorderRadiusKey, string>;
   layout: {
