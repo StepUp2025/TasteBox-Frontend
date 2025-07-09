@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, IconPreset } from 'shared/ui';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 interface LabelProps {
   $active?: boolean;
@@ -29,7 +29,8 @@ export default function Sidebar() {
     navigate('/');
   };
   const location = useLocation();
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path;
+  const theme = useTheme();
 
   return (
     <SidebarWrapper>
@@ -42,7 +43,7 @@ export default function Sidebar() {
           borderRadius="medium"
         >
           <IconPreset width={24} color={'constantWhite'}>
-            <PackageOpen width={24} />
+            <PackageOpen />
           </IconPreset>
         </Button>
         <Nav>
@@ -55,10 +56,16 @@ export default function Sidebar() {
             $active={isActive('/movie')}
           >
             <MenuContent>
-              <Clapperboard
-                size={24}
-                stroke={isActive('/movie') ? '#111' : '#888'}
-              />
+              <IconPreset width={24} color={'thirdText'}>
+                <Clapperboard
+                  stroke={
+                    isActive('/movie')
+                      ? theme.color.hoverOverlay
+                      : theme.color.thirdText
+                  }
+                />
+              </IconPreset>
+
               <Label $active={isActive('/movie')}>영화</Label>
             </MenuContent>
           </Button>
@@ -71,7 +78,16 @@ export default function Sidebar() {
             $active={isActive('/tv')}
           >
             <MenuContent>
-              <Tv size={24} stroke={isActive('/tv') ? '#111' : '#888'} />
+              <IconPreset width={24} color={'thirdText'}>
+                <Tv
+                  stroke={
+                    isActive('/tv')
+                      ? theme.color.hoverOverlay
+                      : theme.color.thirdText
+                  }
+                />
+              </IconPreset>
+
               <Label $active={isActive('/tv')}>TV 시리즈</Label>
             </MenuContent>
           </Button>
@@ -86,10 +102,16 @@ export default function Sidebar() {
                 $active={isActive('/collection')}
               >
                 <MenuContent>
-                  <Folder
-                    size={24}
-                    stroke={isActive('/collection') ? '#111' : '#888'}
-                  />
+                  <IconPreset width={24} color={'thirdText'}>
+                    <Folder
+                      stroke={
+                        isActive('/collection')
+                          ? theme.color.hoverOverlay
+                          : theme.color.thirdText
+                      }
+                    />
+                  </IconPreset>
+
                   <Label $active={isActive('/collection')}>컬렉션</Label>
                 </MenuContent>
               </Button>
@@ -103,10 +125,15 @@ export default function Sidebar() {
                 $active={isActive('/mypage')}
               >
                 <MenuContent>
-                  <User
-                    size={24}
-                    stroke={isActive('/mypage') ? '#111' : '#888'}
-                  />
+                  <IconPreset width={24} color={'thirdText'}>
+                    <User
+                      stroke={
+                        isActive('/mypage')
+                          ? theme.color.hoverOverlay
+                          : theme.color.thirdText
+                      }
+                    />
+                  </IconPreset>
                   <Label $active={isActive('/mypage')}>마이페이지</Label>
                 </MenuContent>
               </Button>
@@ -124,7 +151,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <LogOut size={24} />
+            <IconPreset width={24} color={'thirdText'}>
+              <LogOut stroke={theme.color.thirdText} />
+            </IconPreset>
           </Button>
         ) : (
           <Button
@@ -134,7 +163,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <LogIn size={24} stroke={'#888'} />
+            <IconPreset width={24} color={'thirdText'}>
+              <LogIn stroke={theme.color.thirdText} />
+            </IconPreset>
           </Button>
         )}
 
@@ -145,7 +176,9 @@ export default function Sidebar() {
           scheme="menu"
           borderRadius="medium"
         >
-          <Sun size={24} stroke={'#888'} />
+          <IconPreset width={24} color={'thirdText'}>
+            <Sun stroke={theme.color.thirdText} />
+          </IconPreset>
         </Button>
       </Bottom>
     </SidebarWrapper>
@@ -191,12 +224,15 @@ const MenuContent = styled.span`
   gap: 8px;
   width: 100%;
   height: 100%;
+  button:hover & svg {
+    stroke: ${({ theme }) => theme.color.hoverOverlay};
+  }
 `;
 
 const Label = styled.span<LabelProps>`
   margin-top: 4px;
   font-size: ${({ theme }) => theme.fontSize.xsmall};
-  color: ${({ $active }) => ($active ? '#111' : '#888')};
+  color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
   font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
   text-align: center;
   width: 100%;
