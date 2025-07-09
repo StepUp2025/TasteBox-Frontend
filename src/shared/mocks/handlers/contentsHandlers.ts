@@ -17,26 +17,26 @@ export const mockGenres: Genre[] = [
 export const mockContents: Contents[] = [
   {
     id: 1,
-    poster_path: '/images/poster1.jpg',
+    posterPath: '/images/poster1.jpg',
     title: 'Inception',
     contentType: 'movie',
   },
 
   {
     id: 2,
-    poster_path: '/images/poster2.jpg',
+    posterPath: '/images/poster2.jpg',
     title: 'Interstellar',
     contentType: 'movie',
   },
   {
     id: 3,
-    poster_path: '/images/poster3.jpg',
+    posterPath: '/images/poster3.jpg',
     title: 'Breaking Bad',
     contentType: 'tv',
   },
   {
     id: 4,
-    poster_path: '/images/poster4.jpg',
+    posterPath: '/images/poster4.jpg',
     title: 'Stranger Things',
     contentType: 'tv',
   },
@@ -56,7 +56,7 @@ export const mockContentsResponse: ContentsResponse = {
 export const mockMovies: Movie[] = [
   {
     id: 1,
-    poster_path: '/images/movie1.jpg',
+    posterPath: '/images/movie1.jpg',
     title: 'Mock Movie 1',
     contentType: 'movie',
     originalLanguage: 'en',
@@ -71,7 +71,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 2,
-    poster_path: '/images/movie2.jpg',
+    posterPath: '/images/movie2.jpg',
     title: 'Mock Movie 2',
     contentType: 'movie',
     originalLanguage: 'ko',
@@ -89,7 +89,7 @@ export const mockMovies: Movie[] = [
 export const mockTVs: TVs[] = [
   {
     id: 101,
-    poster_path: '/images/tv1.jpg',
+    posterPath: '/images/tv1.jpg',
     title: 'Mock TV Series 1',
     contentType: 'tv',
     originalLanguage: 'ko',
@@ -103,8 +103,8 @@ export const mockTVs: TVs[] = [
     lastAirDate: '2023-01-01',
     numberOfSeasons: 2,
     seasons: [
-      { id: 1, title: 'Season 1', poster_path: '/images/tv1_season1.jpg' },
-      { id: 2, title: 'Season 2', poster_path: '/images/tv1_season2.jpg' },
+      { id: 1, title: 'Season 1', posterPath: '/images/tv1_season1.jpg' },
+      { id: 2, title: 'Season 2', posterPath: '/images/tv1_season2.jpg' },
     ],
   },
 ];

@@ -66,7 +66,8 @@ export default Footer;
 const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.color.subBackground};
   padding: 40px 0 40px 40px;
-   display: flex;
+  display: flex;
+  margin-top: 90px;
 `;
 
 const FooterColumnLogo = styled.div`

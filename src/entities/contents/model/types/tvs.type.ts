@@ -4,5 +4,5 @@ export interface TVs extends ContentsDetail {
   firstAirDate: string;
   lastAirDate: string;
   numberOfSeasons: number;
-  seasons: { id: number; title: string; poster_path: string }[];
+  seasons: { id: number; title: string; posterPath: string }[];
 }
