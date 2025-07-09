@@ -8,31 +8,37 @@ export default function Layout() {
   return (
     <>
       <Sidebar />
-      <MainWrapper>
-        <Main>
+      <LayoutWrapper>
+        <LayoutItem>
           <Outlet /> {/* 이게 자식 라우트들 렌더링 위치 */}
-        </Main>
+        </LayoutItem>
         <Footer />
-      </MainWrapper>
+      </LayoutWrapper>
     </>
   );
 }
 
-const SIDEBAR_WIDTH = 90;
+const SidebarWidth = 90;
 
-const MainWrapper = styled.div`
-  margin-left: ${SIDEBAR_WIDTH}px;
+const LayoutWrapper = styled.div`
+  margin-left: ${SidebarWidth}px;
+  width:${({ theme }) => theme.layout.width};
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow-y: auto;
 `;
 
-const Main = styled.main`
-  margin-left: 39px;
-  margin-top:90px;
+const LayoutItem = styled.main`
+  margin-top: 90px;
+  margin-bottom: 50px;
   flex: 1;
   display: flex;
   flex-direction: column;
-`;
+  align-items: center;        
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  `;
