@@ -1,10 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ProfileUpdateType } from 'entities/user/model';
+import { LocalUser, OAuthUser, ProfileUpdateType } from 'entities/user/model';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, InputText } from 'shared/ui';
 import styled from 'styled-components';
-import { useGetUserProfile } from '../hooks/useGetUserProfile';
 import { useUpdateUserProfile } from '../hooks/useUpdateUserProfile';
 import {
   UserProfileFormValues,
@@ -12,9 +11,13 @@ import {
 } from '../validation/userProfileSchema';
 import UserProfileImage from './UserProfileImage';
 
-const UserProfileForm = () => {
-  const { data } = useGetUserProfile();
+interface Props {
+  user: LocalUser | OAuthUser;
+}
+
+const UserProfileForm = ({ user }: Props) => {
   const { mutate, isPending } = useUpdateUserProfile();
+  const { nickname, image, provider } = user;
 
   const {
     register,
@@ -24,28 +27,21 @@ const UserProfileForm = () => {
   } = useForm<UserProfileFormValues>({
     resolver: zodResolver(userProfileSchema),
     defaultValues: {
-      nickname: data?.nickname || '',
+      nickname: nickname || '',
       phone: '',
     },
   });
 
   useEffect(() => {
-    if (!data) return;
+    if (!user) return;
 
     reset({
-      nickname: data.nickname ?? '',
-      phone: data.provider === 'local' ? (data.contact ?? '') : '',
+      nickname: user.nickname ?? '',
+      phone: user.provider === 'local' ? (user.contact ?? '') : '',
     });
-  }, [data, reset]);
+  }, [user, reset]);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
-
-  if (!data) {
-    //데이터 바로 할당하기 위한 임시 로딩, 로딩 컴포넌트 작성되면 통일하겠음
-    return <div>로딩 중...</div>;
-  }
-
-  const { nickname, image, provider } = data;
 
   const onSubmit = (data: UserProfileFormValues) => {
     console.log('data 값:', data);
