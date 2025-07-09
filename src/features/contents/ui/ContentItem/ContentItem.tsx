@@ -26,7 +26,7 @@ const ContentItem = ({ content, isCheckable }: Props) => {
           />
           <div className="img">
             <img
-              src={content.poster_path ?? defaultContentsImage}
+              src={content.posterPath ?? defaultContentsImage}
               alt={content.title}
             />
           </div>
@@ -39,7 +39,7 @@ const ContentItem = ({ content, isCheckable }: Props) => {
           <div className="contents-wrapper">
             <div className="img">
               <img
-                src={content.poster_path ?? defaultContentsImage}
+                src={content.posterPath ?? defaultContentsImage}
                 alt={content.title}
               />
             </div>
