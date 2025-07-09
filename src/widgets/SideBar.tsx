@@ -59,10 +59,9 @@ export default function Sidebar() {
             borderRadius="medium"
             $active={isActive('/movie')}
           >
-            <MenuContent>
+            <MenuContent $width={60}>
               <Clapperboard
                 size={24}
-                width={50}
                 stroke={
                   isActive('/movie')
                     ? theme.color.hoverOverlay
@@ -81,10 +80,9 @@ export default function Sidebar() {
             borderRadius="medium"
             $active={isActive('/tv')}
           >
-            <MenuContent>
+            <MenuContent $width={60}>
               <Tv
                 size={24}
-                width={50}
                 stroke={
                   isActive('/tv')
                     ? theme.color.hoverOverlay
@@ -109,10 +107,9 @@ export default function Sidebar() {
             borderRadius="medium"
             $active={isActive('/collection')}
           >
-            <MenuContent>
+            <MenuContent $width={60}>
               <Folder
                 size={24}
-                width={50}
                 stroke={
                   isActive('/collection')
                     ? theme.color.hoverOverlay
@@ -138,10 +135,9 @@ export default function Sidebar() {
             borderRadius="medium"
             $active={isActive('/mypage')}
           >
-            <MenuContent>
+            <MenuContent $width={60}>
               <User
                 size={24}
-                width={50}
                 stroke={
                   isActive('/mypage')
                     ? theme.color.hoverOverlay
@@ -163,7 +159,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <LogOut size={24} width={50} stroke={theme.color.thirdText} />
+            <MenuContent $width={60}>
+              <LogOut size={24} stroke={theme.color.thirdText} />
+            </MenuContent>
           </Button>
         ) : (
           <Button
@@ -173,7 +171,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <LogIn size={24} width={50} stroke={theme.color.thirdText} />
+            <MenuContent $width={60}>
+              <LogIn size={24} width={60} stroke={theme.color.thirdText} />
+            </MenuContent>
           </Button>
         )}
 
@@ -184,11 +184,13 @@ export default function Sidebar() {
           scheme="menu"
           borderRadius="medium"
         >
-          {themeMode === 'light' ? (
-            <Moon size={24} width={50} stroke={theme.color.thirdText} />
-          ) : (
-            <Sun size={24} width={50} stroke={theme.color.thirdText} />
-          )}{' '}
+          <MenuContent $width={60}>
+            {themeMode === 'light' ? (
+              <Moon size={24} stroke={theme.color.thirdText} />
+            ) : (
+              <Sun size={24} stroke={theme.color.thirdText} />
+            )}
+          </MenuContent>
         </Button>
       </Bottom>
     </SidebarWrapper>
@@ -196,66 +198,68 @@ export default function Sidebar() {
 }
 
 const SidebarWrapper = styled.aside`
-  width: auto;
-  height: 100vh;
-  background: ${({ theme }) => theme.color.basicBackground};
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 10;
- box-shadow: 4px 0 4px rgba(0,0,0,0.3);`;
-
-const Top = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  padding: 8px;
-`;
-
-const Nav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  align-items: center;
-  margin-top: 32px;
-`;
-
-const MenuContent = styled.span`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  height: 100%;
-  button:hover & svg {
-    stroke: ${({ theme }) => theme.color.hoverOverlay};
-  }
-  button:hover & span {
-    color: ${({ theme }) => theme.color.hoverOverlay};
-    font-weight: bold;
-  }
-`;
-
-const Label = styled.span<LabelProps>`
-  margin-top: 4px;
-  font-size: 12px;
-  color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
-  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
-  text-align: center;
-  width: 100%
+    width: auto;
+    height: 100vh;
+    background: ${({ theme }) => theme.color.basicBackground};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    box-shadow: ${({ theme }) => theme.shadow.default};
   `;
 
+const Top = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+  `;
+
+const Nav = styled.nav`
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+    margin-top: 32px;
+  `;
+
+const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
+    height: 100%;
+    button:hover & svg {
+      stroke: ${({ theme }) => theme.color.hoverOverlay};
+    }
+    button:hover & span {
+      color: ${({ theme }) => theme.color.hoverOverlay};
+      font-weight: bold;
+    }
+     `;
+
+const Label = styled.span<LabelProps>`
+    margin-top: 4px;
+    font-size: 12px;
+    color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
+    font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
+    text-align: center;
+    width: 100%;
+    `;
+
 const Bottom = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  margin-bottom: 24px;
-  padding: 15px;
-`;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 24px;
+    padding: 15px;
+  `;
