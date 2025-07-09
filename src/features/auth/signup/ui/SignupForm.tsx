@@ -3,7 +3,7 @@ import { AuthFormLayout } from 'features/auth/style/AuthFormLayout';
 import { PackageOpen } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button, IconPreset, InputText } from 'shared/ui';
 
 import { useSignup } from '../hooks/useSignup';
@@ -25,6 +25,11 @@ const SignupForm = () => {
     mutate(data);
   };
 
+  const navigate = useNavigate();
+  const handleGoToMain = () => {
+    navigate('/');
+  };
+
   return (
     <AuthFormLayout>
       <div className="container">
@@ -35,6 +40,7 @@ const SignupForm = () => {
             scheme="primary"
             borderRadius="medium"
             disableHoverOverlay={true}
+            onClick={handleGoToMain}
           >
             <IconPreset width={32} color="constantWhite">
               <PackageOpen />
