@@ -5,7 +5,7 @@ import { PackageOpen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
-
+import Loading from 'shared/ui/Loading/Loading';
 import { useSignup } from '../hooks/useSignup';
 import { SignupFormValues, signupSchema } from '../validation/signupSchema';
 
@@ -32,7 +32,7 @@ const SignupForm = () => {
 
   return (
     <AuthFormLayout>
-      {isPending && <div className="loading">Loading...</div>}
+      {isPending && <Loading />}
       <div className="container">
         <div className="header">
           <Button
