@@ -37,20 +37,9 @@ export default function Sidebar() {
   return (
     <SidebarWrapper>
       <Top>
-        <Button
-          onClick={() => navigate('/')}
-          buttonSize="menuNarrow"
-          fontSize="large"
-          scheme="primary"
-          borderRadius="medium"
-          $active={isActive('/')}
-        >
-          <PackageOpen
-            size={24}
-            stroke={theme.color.constantWhite}
-            style={{ display: 'block', margin: 'auto' }}
-          />
-        </Button>
+        <Logo onClick={() => navigate('/')}>
+          <PackageOpen size={24} />
+        </Logo>
         <Nav>
           <Button
             onClick={() => navigate('/movie')}
@@ -61,7 +50,7 @@ export default function Sidebar() {
             $active={isActive('/movie')}
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65} $active={isActive('/movie')}>
+            <MenuContent $width={60} $active={isActive('/movie')}>
               <Clapperboard
                 size={24}
                 stroke={
@@ -83,7 +72,7 @@ export default function Sidebar() {
             $active={isActive('/tv')}
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65} $active={isActive('/tv')}>
+            <MenuContent $width={60} $active={isActive('/tv')}>
               <Tv
                 size={24}
                 stroke={
@@ -111,7 +100,7 @@ export default function Sidebar() {
             $active={isActive('/collection')}
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65} $active={isActive('/collection')}>
+            <MenuContent $width={60} $active={isActive('/collection')}>
               <Folder
                 size={24}
                 stroke={
@@ -140,7 +129,7 @@ export default function Sidebar() {
             $active={isActive('/mypage')}
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65} $active={isActive('/mypage')}>
+            <MenuContent $width={60} $active={isActive('/mypage')}>
               <User
                 size={24}
                 stroke={
@@ -165,7 +154,7 @@ export default function Sidebar() {
             borderRadius="medium"
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65}>
+            <MenuContent $width={60}>
               <LogOut size={24} stroke={theme.color.thirdText} />
             </MenuContent>
           </Button>
@@ -178,7 +167,7 @@ export default function Sidebar() {
             borderRadius="medium"
             disableHoverOverlay={true}
           >
-            <MenuContent $width={65}>
+            <MenuContent $width={60}>
               <LogIn size={24} stroke={theme.color.thirdText} />
             </MenuContent>
           </Button>
@@ -192,7 +181,7 @@ export default function Sidebar() {
           borderRadius="medium"
           disableHoverOverlay={true}
         >
-          <MenuContent $width={65}>
+          <MenuContent $width={60}>
             {themeMode === 'light' ? (
               <Moon size={24} stroke={theme.color.thirdText} />
             ) : (
@@ -226,7 +215,6 @@ const Top = styled.div`
     align-items: center;
     width: 100%;
     margin-top: 12px;
-    padding: 8px;
   `;
 
 const Nav = styled.nav`
@@ -234,7 +222,7 @@ const Nav = styled.nav`
     flex-direction: column;
     gap: 32px;
     align-items: center;
-    margin-top: 32px;
+    margin-top: 16px;
   `;
 
 const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
@@ -244,15 +232,14 @@ const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
     justify-content: center;
     gap: 8px;
     width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
-    height: 100%;
-    padding: 4px;
-    border-radius: 12px;
+    height: 65px;
+    border-radius:10px;
+    padding: 10px 10px;
     background: ${({ $active, theme }) =>
       $active ? theme.color.subBackground : 'transparent'};
     transition: background 0.2s;
     &:hover {
     background: ${({ theme }) => theme.color.subBackground};
-    transform: scale(1.08);
   }
     button:hover & svg {
       stroke: ${({ theme }) => theme.color.hoverOverlay};
@@ -262,6 +249,17 @@ const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
       font-weight: bold;
     }
      `;
+const Logo = styled.button`
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: 10px;
+ border-radius: ${({ theme }) => theme.borderRadius.medium};
+ background-color: ${({ theme }) => theme.color.primary};
+ svg{
+  stroke:  ${({ theme }) => theme.color.constantWhite};
+ }
+`;
 
 const Label = styled.span<LabelProps>`
     margin-top: 4px;
@@ -269,13 +267,13 @@ const Label = styled.span<LabelProps>`
     color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
     font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
     text-align: center;
-    width: 100%;
+    width: 60px;
     `;
 
 const Bottom = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 8px;
     align-items: center;
     margin-bottom: 24px;
     padding: 15px;
