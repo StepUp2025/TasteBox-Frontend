@@ -43,6 +43,7 @@ export default function Sidebar() {
           fontSize="large"
           scheme="primary"
           borderRadius="medium"
+          $active={isActive('/')}
         >
           <PackageOpen
             size={24}
@@ -58,8 +59,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             $active={isActive('/movie')}
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
+            <MenuContent $width={65} $active={isActive('/movie')}>
               <Clapperboard
                 size={24}
                 stroke={
@@ -79,8 +81,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             $active={isActive('/tv')}
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
+            <MenuContent $width={65} $active={isActive('/tv')}>
               <Tv
                 size={24}
                 stroke={
@@ -106,8 +109,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             $active={isActive('/collection')}
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
+            <MenuContent $width={65} $active={isActive('/collection')}>
               <Folder
                 size={24}
                 stroke={
@@ -134,8 +138,9 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             $active={isActive('/mypage')}
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
+            <MenuContent $width={65} $active={isActive('/mypage')}>
               <User
                 size={24}
                 stroke={
@@ -158,8 +163,9 @@ export default function Sidebar() {
             fontSize="small"
             scheme="menu"
             borderRadius="medium"
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
+            <MenuContent $width={65}>
               <LogOut size={24} stroke={theme.color.thirdText} />
             </MenuContent>
           </Button>
@@ -170,9 +176,10 @@ export default function Sidebar() {
             fontSize="small"
             scheme="menu"
             borderRadius="medium"
+            disableHoverOverlay={true}
           >
-            <MenuContent $width={60}>
-              <LogIn size={24} width={60} stroke={theme.color.thirdText} />
+            <MenuContent $width={65}>
+              <LogIn size={24} stroke={theme.color.thirdText} />
             </MenuContent>
           </Button>
         )}
@@ -183,8 +190,9 @@ export default function Sidebar() {
           fontSize="small"
           scheme="menu"
           borderRadius="medium"
+          disableHoverOverlay={true}
         >
-          <MenuContent $width={60}>
+          <MenuContent $width={65}>
             {themeMode === 'light' ? (
               <Moon size={24} stroke={theme.color.thirdText} />
             ) : (
@@ -237,6 +245,15 @@ const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
     gap: 8px;
     width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
     height: 100%;
+    padding: 4px;
+    border-radius: 12px;
+    background: ${({ $active, theme }) =>
+      $active ? theme.color.subBackground : 'transparent'};
+    transition: background 0.2s;
+    &:hover {
+    background: ${({ theme }) => theme.color.subBackground};
+    transform: scale(1.08);
+  }
     button:hover & svg {
       stroke: ${({ theme }) => theme.color.hoverOverlay};
     }
