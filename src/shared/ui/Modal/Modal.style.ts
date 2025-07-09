@@ -24,6 +24,7 @@ export const ModalContainer = styled.div`
 export const ModalTitle = styled.h2`
   font-size: ${({ theme }) => theme.fontSize.medium};
   margin-bottom: 16px;
+  text-align: center;
 `;
 
 export const CloseButton = styled.button`
@@ -45,6 +46,6 @@ export const CloseButton = styled.button`
 export const Footer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
-  margin-top: 24px;
+  gap: 1rem;
+  margin-top: 32px;
 `;

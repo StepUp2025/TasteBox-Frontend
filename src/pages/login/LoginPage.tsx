@@ -1,3 +1,10 @@
+import LoginForm from 'features/auth/login/ui/LoginForm';
+import { AuthBackground } from 'features/auth/style/AuthBackground';
+
 export default function LoginPage() {
-  return <div>LoginPage</div>;
+  return (
+    <AuthBackground>
+      <LoginForm />
+    </AuthBackground>
+  );
 }

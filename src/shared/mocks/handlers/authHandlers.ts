@@ -34,7 +34,7 @@ export const authHandlers = [
   http.post(`${BASE}/auth/login`, async ({ request }) => {
     const body = (await request.json()) as LoginRequestType;
 
-    if (body.email === 'stepup@mail.com' && body.password === '1234') {
+    if (body.email === 'stepup@mail.com' && body.password === '123456') {
       const accessToken = 'mock-access-token';
       const refreshToken = 'mock-refresh-token';
 

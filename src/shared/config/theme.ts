@@ -67,6 +67,7 @@ export const light: Theme = {
   borderRadius: {
     small: '5px',
     medium: '10px',
+    large: '50px',
     round: '100px',
   },
   layout: {
