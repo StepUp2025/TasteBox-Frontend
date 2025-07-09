@@ -1,4 +1,4 @@
-import { Button, Title } from 'shared/ui';
+import { Button, ErrorBox, Title } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
@@ -7,15 +7,7 @@ import { useUserPreference } from '../hooks/useGetUserPreference';
 const UserPreferenceList = () => {
   const { data, isLoading } = useUserPreference();
   if (isLoading) return <Loading />;
-  if (!data)
-    return (
-      <Empty
-        text="취향을 선택해주세요"
-        linkText="취향 선택하기"
-        linkTo="/genre/movie"
-        state={{ from: '/mypage' }}
-      />
-    );
+  if (!data) return <ErrorBox errorMessage="취향을 불러오지 못했습니다" />;
   const { movies, tvs } = data;
   return (
     <UserPreferenceListStyle>
