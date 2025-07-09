@@ -8,6 +8,7 @@ import {
   Menu,
   MenuButton,
   MoreButton,
+  MoreButtonWrapper,
   Wrapper,
 } from './CollectionHeader.style';
 
@@ -22,7 +23,7 @@ export const CollectionHeader = ({
 }: CollectionHeaderProps) => {
   const { id } = useParams();
   const numericId = Number(id);
-  const { data, isPending } = useGetCollectionDetail(numericId);
+  const { data } = useGetCollectionDetail(numericId);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [editMode, setEditMode] = useState(isEditMode);
@@ -46,7 +47,7 @@ export const CollectionHeader = ({
         </Title>
 
         {!editMode && (
-          <>
+          <MoreButtonWrapper>
             <MoreButton onClick={handleToggle}>
               <EllipsisVertical />
             </MoreButton>
@@ -63,7 +64,7 @@ export const CollectionHeader = ({
                 </MenuButton>
               </Menu>
             )}
-          </>
+          </MoreButtonWrapper>
         )}
       </Wrapper>
       <Description>{data?.description}</Description>
