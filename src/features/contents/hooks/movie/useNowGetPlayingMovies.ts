@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
-import { fetchNowPlayingMovies } from 'entities/contents/model';
+import { fetchOnTheAirMovies } from 'entities/contents/model';
 
-export function useNowPlayingMovies(page: number = 1) {
+export function useOnTheAirMovies(page: number = 1, limit: number = 20) {
   const { data, isPending, isError, error, refetch } = useQuery({
-    queryKey: ['movies', 'now-playing', page],
-    queryFn: () => fetchNowPlayingMovies(page),
+    queryKey: ['movies', 'on-the-air', page, limit],
+    queryFn: () => fetchOnTheAirMovies(page, limit),
   });
   return { data, isPending, isError, error, refetch };
 }
