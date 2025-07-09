@@ -5,13 +5,14 @@ import {
   Folder,
   LogIn,
   LogOut,
+  Moon,
   PackageOpen,
   Sun,
   Tv,
   User,
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Button, IconPreset } from 'shared/ui';
+import { Button } from 'shared/ui';
 import styled, { useTheme } from 'styled-components';
 
 interface LabelProps {
@@ -21,6 +22,7 @@ interface LabelProps {
 export default function Sidebar() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
   const resetAccessToken = useAuthStore((state) => state.resetAccessToken);
+  const themeMode = useThemeStore((state) => state.theme);
   const { toggleTheme } = useThemeStore();
   const navigate = useNavigate();
   const handleLogout = () => {
@@ -42,9 +44,11 @@ export default function Sidebar() {
           scheme="primary"
           borderRadius="medium"
         >
-          <IconPreset width={24} color={'constantWhite'}>
-            <PackageOpen />
-          </IconPreset>
+          <PackageOpen
+            size={24}
+            stroke={theme.color.constantWhite}
+            style={{ display: 'block', margin: 'auto' }}
+          />
         </Button>
         <Nav>
           <Button
@@ -56,15 +60,15 @@ export default function Sidebar() {
             $active={isActive('/movie')}
           >
             <MenuContent>
-              <IconPreset width={24} color={'thirdText'}>
-                <Clapperboard
-                  stroke={
-                    isActive('/movie')
-                      ? theme.color.hoverOverlay
-                      : theme.color.thirdText
-                  }
-                />
-              </IconPreset>
+              <Clapperboard
+                size={24}
+                width={50}
+                stroke={
+                  isActive('/movie')
+                    ? theme.color.hoverOverlay
+                    : theme.color.thirdText
+                }
+              />
 
               <Label $active={isActive('/movie')}>영화</Label>
             </MenuContent>
@@ -78,67 +82,75 @@ export default function Sidebar() {
             $active={isActive('/tv')}
           >
             <MenuContent>
-              <IconPreset width={24} color={'thirdText'}>
-                <Tv
-                  stroke={
-                    isActive('/tv')
-                      ? theme.color.hoverOverlay
-                      : theme.color.thirdText
-                  }
-                />
-              </IconPreset>
+              <Tv
+                size={24}
+                width={50}
+                stroke={
+                  isActive('/tv')
+                    ? theme.color.hoverOverlay
+                    : theme.color.thirdText
+                }
+              />
 
               <Label $active={isActive('/tv')}>TV 시리즈</Label>
             </MenuContent>
           </Button>
-          {isLoggedIn && (
-            <>
-              <Button
-                onClick={() => navigate('/collection')}
-                buttonSize="menuNarrow"
-                fontSize="small"
-                scheme="menu"
-                borderRadius="medium"
-                $active={isActive('/collection')}
-              >
-                <MenuContent>
-                  <IconPreset width={24} color={'thirdText'}>
-                    <Folder
-                      stroke={
-                        isActive('/collection')
-                          ? theme.color.hoverOverlay
-                          : theme.color.thirdText
-                      }
-                    />
-                  </IconPreset>
+          <Button
+            onClick={() => {
+              if (!isLoggedIn) {
+                navigate('/login');
+              } else {
+                navigate('/collection');
+              }
+            }}
+            buttonSize="menuNarrow"
+            fontSize="small"
+            scheme="menu"
+            borderRadius="medium"
+            $active={isActive('/collection')}
+          >
+            <MenuContent>
+              <Folder
+                size={24}
+                width={50}
+                stroke={
+                  isActive('/collection')
+                    ? theme.color.hoverOverlay
+                    : theme.color.thirdText
+                }
+              />
 
-                  <Label $active={isActive('/collection')}>컬렉션</Label>
-                </MenuContent>
-              </Button>
+              <Label $active={isActive('/collection')}>컬렉션</Label>
+            </MenuContent>
+          </Button>
 
-              <Button
-                onClick={() => navigate('/mypage')}
-                buttonSize="menuNarrow"
-                fontSize="small"
-                scheme="menu"
-                borderRadius="medium"
-                $active={isActive('/mypage')}
-              >
-                <MenuContent>
-                  <IconPreset width={24} color={'thirdText'}>
-                    <User
-                      stroke={
-                        isActive('/mypage')
-                          ? theme.color.hoverOverlay
-                          : theme.color.thirdText
-                      }
-                    />
-                  </IconPreset>
-                  <Label $active={isActive('/mypage')}>마이페이지</Label>
-                </MenuContent>
-              </Button>
-            </>
-          )}
+          <Button
+            onClick={() => {
+              if (!isLoggedIn) {
+                navigate('/login');
+              } else {
+                navigate('/mypage');
+              }
+            }}
+            buttonSize="menuNarrow"
+            fontSize="small"
+            scheme="menu"
+            borderRadius="medium"
+            $active={isActive('/mypage')}
+          >
+            <MenuContent>
+              <User
+                size={24}
+                width={50}
+                stroke={
+                  isActive('/mypage')
+                    ? theme.color.hoverOverlay
+                    : theme.color.thirdText
+                }
+              />
+              <Label $active={isActive('/mypage')}>마이페이지</Label>
+            </MenuContent>
+          </Button>
         </Nav>
       </Top>
 
@@ -151,9 +163,7 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <IconPreset width={24} color={'thirdText'}>
-              <LogOut stroke={theme.color.thirdText} />
-            </IconPreset>
+            <LogOut size={24} width={50} stroke={theme.color.thirdText} />
           </Button>
         ) : (
           <Button
@@ -163,9 +173,7 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
           >
-            <IconPreset width={24} color={'thirdText'}>
-              <LogIn stroke={theme.color.thirdText} />
-            </IconPreset>
+            <LogIn size={24} width={50} stroke={theme.color.thirdText} />
           </Button>
         )}
 
@@ -176,9 +184,11 @@ export default function Sidebar() {
           scheme="menu"
           borderRadius="medium"
         >
-          <IconPreset width={24} color={'thirdText'}>
-            <Sun stroke={theme.color.thirdText} />
-          </IconPreset>
+          {themeMode === 'light' ? (
+            <Moon size={24} width={50} stroke={theme.color.thirdText} />
+          ) : (
+            <Sun size={24} width={50} stroke={theme.color.thirdText} />
+          )}{' '}
         </Button>
       </Bottom>
     </SidebarWrapper>
@@ -193,12 +203,11 @@ const SidebarWrapper = styled.aside`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border-right: 1px solid ${({ theme }) => theme.color.border};
   position: fixed;
   left: 0;
   top: 0;
   z-index: 10;
-`;
+ box-shadow: 4px 0 4px rgba(0,0,0,0.3);`;
 
 const Top = styled.div`
   display: flex;
@@ -227,16 +236,20 @@ const MenuContent = styled.span`
   button:hover & svg {
     stroke: ${({ theme }) => theme.color.hoverOverlay};
   }
+  button:hover & span {
+    color: ${({ theme }) => theme.color.hoverOverlay};
+    font-weight: bold;
+  }
 `;
 
 const Label = styled.span<LabelProps>`
   margin-top: 4px;
-  font-size: ${({ theme }) => theme.fontSize.xsmall};
+  font-size: 12px;
   color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
   font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
   text-align: center;
-  width: 100%;
-`;
+  width: 100%
+  `;
 
 const Bottom = styled.div`
   display: flex;
