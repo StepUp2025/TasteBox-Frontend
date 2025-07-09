@@ -2,9 +2,8 @@ import UpdatePasswordModal from 'features/auth/updatePassword/ui/UpdatePasswordM
 import { useGetUserProfile } from 'features/user/profile/hooks/useGetUserProfile';
 import UserProfileForm from 'features/user/profile/ui/UserProfileForm';
 import { useState } from 'react';
-import { Button } from 'shared/ui';
+import { Button, Title } from 'shared/ui';
 import styled from 'styled-components';
-import { MYPAGE_HEADER_MARGIN } from '../constants';
 
 const UserProfileSettingWidget = () => {
   const { data: user, isLoading } = useGetUserProfile();
@@ -15,7 +14,7 @@ const UserProfileSettingWidget = () => {
   if (isLoading || !user) return <div>로딩 중...</div>;
   return (
     <UserProfileSettingStyle>
-      <h2>프로필</h2>
+      <Title className="profile-title">프로필</Title>
       <div className="form-container">
         <UserProfileForm user={user} />
         {user.provider === 'local' && (
@@ -41,10 +40,10 @@ const UserProfileSettingStyle = styled.div`
   align-items: center;
   margin-bottom: 90px;
 
-    h2 {
-    align-self: flex-start;
-    margin-left: ${MYPAGE_HEADER_MARGIN};
+    .profile-title {
+    align-items: left;
     margin-bottom: 24px;
+    width: 800px;
   }
 
   .form-container {

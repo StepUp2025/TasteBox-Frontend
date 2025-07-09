@@ -12,12 +12,6 @@ const UserPreferenceWidget = () => {
         linkText="취향 수정하기"
       />
       <UserPreferenceList />
-
-      <ProfileWidgetHeader
-        title="내가 추가한 컬렉션"
-        linkTo="/collection"
-        linkText="컬렉션 생성하기"
-      />
     </UserPreferenceWidgetStyle>
   );
 };
