@@ -4,7 +4,7 @@ import { PackageOpen } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, IconPreset, InputText } from 'shared/ui';
+import { Button, IconPreset, InputText, Title } from 'shared/ui';
 
 import { useSignup } from '../hooks/useSignup';
 import { SignupFormValues, signupSchema } from '../validation/signupSchema';
@@ -32,6 +32,7 @@ const SignupForm = () => {
 
   return (
     <AuthFormLayout>
+      {isPending && <div className="loading">Loading...</div>}
       <div className="container">
         <div className="header">
           <Button
@@ -46,7 +47,9 @@ const SignupForm = () => {
               <PackageOpen />
             </IconPreset>
           </Button>
-          <h1>TasteBox 회원가입</h1>
+          <Title size="large" color="primary">
+            TasteBox 회원가입
+          </Title>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +85,7 @@ const SignupForm = () => {
             borderRadius="round"
             disabled={isPending}
           >
-            {isPending ? '가입 중...' : '회원가입'}
+            회원가입
           </Button>
         </form>
         <p className="to-link">
