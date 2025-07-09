@@ -10,7 +10,7 @@ export const phoneSchema = z
     if (!phoneRegex.test(val)) {
       ctx.addIssue({
         code: ZodIssueCode.custom,
-        message: '휴대폰 번호는 숫자만 9~11자리로 입력해주세요.',
+        message: '휴대폰 번호는 숫자만 10~11자리로 입력해주세요.',
       });
     }
   });
