@@ -1,6 +1,6 @@
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Title } from 'shared/ui';
 import { useGetCollectionDetail } from '../hooks/useGetCollectionDetail';
 import {
@@ -12,17 +12,31 @@ import {
 } from './CollectionHeader.style';
 
 interface CollectionHeaderProps {
-  showMoreButton?: boolean;
+  isEditMode?: boolean;
+  onToggleEditMode?: (edit: boolean) => void;
 }
 
 export const CollectionHeader = ({
-  showMoreButton = true,
+  isEditMode = false,
+  onToggleEditMode,
 }: CollectionHeaderProps) => {
   const { id } = useParams();
   const numericId = Number(id);
   const { data, isPending } = useGetCollectionDetail(numericId);
-  const [open, setOpen] = useState(false);
-  const handleToggle = () => setOpen((prev) => !prev);
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [editMode, setEditMode] = useState(isEditMode);
+
+  const navigate = useNavigate();
+
+  const handleToggle = () => setMenuOpen((prev) => !prev);
+
+  const handleToggleEdit = () => {
+    const newMode = !editMode;
+    setEditMode(newMode);
+    onToggleEditMode?.(newMode);
+    setMenuOpen(false);
+  };
 
   return (
     <>
@@ -30,15 +44,23 @@ export const CollectionHeader = ({
         <Title as="h1" size="xlarge">
           {data?.title}
         </Title>
-        {showMoreButton && (
+
+        {!editMode && (
           <>
             <MoreButton onClick={handleToggle}>
               <EllipsisVertical />
             </MoreButton>
-            {open && (
+
+            {menuOpen && (
               <Menu>
-                <MenuButton>컬렉션 보드 수정</MenuButton>
-                <MenuButton>컬렉션 콘텐츠 수정</MenuButton>
+                <MenuButton
+                  onClick={() => navigate(`/collection/${id}/modify`)}
+                >
+                  컬렉션 보드 수정
+                </MenuButton>
+                <MenuButton onClick={handleToggleEdit}>
+                  컬렉션 콘텐츠 수정
+                </MenuButton>
               </Menu>
             )}
           </>
