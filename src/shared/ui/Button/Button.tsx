@@ -15,6 +15,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   scheme: ButtonScheme;
   borderRadius: BorderRadiusKey;
   disableHoverOverlay?: boolean;
+  $active?: boolean;
 }
 
 const Button = ({
@@ -50,14 +51,16 @@ const ButtonStyle = styled.button.withConfig({
       'fontSize',
       'borderRadius',
       'disableHoverOverlay',
+      '$active',
     ].includes(prop),
 })<Omit<Props, 'children'>>`
   font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
   padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
   width: ${({ theme, buttonSize }) => (theme.buttonSize[buttonSize].width ? theme.buttonSize[buttonSize].width : 'auto')};
-  color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
+  color: ${({ theme, scheme, $active }) => ($active ? '#111' : theme.buttonScheme[scheme].color)};
   background-color: ${({ theme, scheme }) =>
     theme.buttonScheme[scheme].backgroundColor};
+  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
   border-radius: ${({ theme, borderRadius }) =>
     theme.borderRadius[borderRadius]};
   border: ${({ theme, scheme }) =>

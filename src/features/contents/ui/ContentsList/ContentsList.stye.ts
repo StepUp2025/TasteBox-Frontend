@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { CONTENT_ITEM_GAP, CONTENT_LIST_WIDTH } from '../constants';
 
 export const Wrapper = styled.section`
-  margin-bottom: 24px;
+  margin-top: 24px;
   width: ${CONTENT_LIST_WIDTH}px;
 `;
 
