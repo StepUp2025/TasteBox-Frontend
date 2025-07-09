@@ -15,8 +15,38 @@ const userPreference = {
         name: '모험',
         emoji: '🗺️',
       },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
     ],
-    count: 2,
+    count: 8,
   },
   tvs: {
     genres: [
@@ -25,8 +55,85 @@ const userPreference = {
         name: '드라마',
         emoji: '🎭',
       },
+      {
+        id: 20,
+        name: '드라마',
+        emoji: '🎭',
+      },
+      {
+        id: 20,
+        name: '드라마',
+        emoji: '🎭',
+      },
+      {
+        id: 20,
+        name: '드라마',
+        emoji: '🎭',
+      },
+      {
+        id: 20,
+        name: '드라마',
+        emoji: '🎭',
+      },
+      {
+        id: 20,
+        name: '드라마',
+        emoji: '🎭',
+      },
     ],
-    count: 1,
+    count: 6,
+  },
+};
+
+const _emptyPreference = {
+  movies: {
+    genres: [
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+      {
+        id: 1,
+        name: '액션',
+        emoji: '🔥',
+      },
+      {
+        id: 2,
+        name: '모험',
+        emoji: '🗺️',
+      },
+    ],
+    count: 8,
+  },
+  tvs: {
+    genres: [],
+    count: 0,
   },
 };
 
@@ -52,7 +159,7 @@ export const preferenceHandlers = [
   ),
 
   http.get(
-    `${import.meta.env.VITE_API_BASE_URL}/user/preferences`,
+    `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
     async () => {
       return createSuccessResponse(undefined, userPreference);
     },

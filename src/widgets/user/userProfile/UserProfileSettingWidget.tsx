@@ -39,6 +39,7 @@ const UserProfileSettingStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 90px;
 
     h2 {
     align-self: flex-start;

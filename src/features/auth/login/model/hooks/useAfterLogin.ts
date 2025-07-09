@@ -20,7 +20,7 @@ export const useAfterLogin = () => {
       navigate('/');
     } else {
       //장르 선택 페이지에 location.state로 'from'을 전달
-      navigate('/genre/movie', { state: { from: 'login' } });
+      navigate('/genre/movie', { state: { from: '/login' } });
     }
   };
 };
