@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthFormLayout } from 'features/auth/style/AuthFormLayout';
 import { PackageOpen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import googleLogo from 'shared/assets/images/google-logo-icon.png';
 import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
 import { Button, IconPreset, InputText } from 'shared/ui';
@@ -19,6 +19,7 @@ const LoginForm = () => {
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
+  const navigate = useNavigate();
 
   const { mutate, isPending } = useLocalLogin();
   const { loginWithGoogle, loginWithKakao } = useOAUthLogin();
@@ -27,6 +28,10 @@ const LoginForm = () => {
     console.log('제출된 값:', data);
     mutate(data);
   };
+  const handleGoToMain = () => {
+    navigate('/');
+  };
+
   return (
     <AuthFormLayout>
       <div className="container">
@@ -37,6 +42,7 @@ const LoginForm = () => {
             scheme="primary"
             borderRadius="medium"
             disableHoverOverlay={true}
+            onClick={handleGoToMain}
           >
             <IconPreset width={32} color="constantWhite">
               <PackageOpen />
