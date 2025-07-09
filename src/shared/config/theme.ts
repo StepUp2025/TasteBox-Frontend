@@ -102,7 +102,7 @@ export const dark: Theme = {
   color: darkColor,
   buttonScheme: createButtonScheme(darkColor),
   shadow: {
-    default: '0px 0px 10px rgba(255, 255, 255, 0.1)',
+    default: '0px 0px 10px rgba(255, 255, 255, 0.2)',
   },
 };
 

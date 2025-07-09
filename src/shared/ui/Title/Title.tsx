@@ -4,14 +4,15 @@ import styled from 'styled-components';
 
 interface TitleProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
-  size: FontSizeKey;
-  color: ColorKey;
+  size?: FontSizeKey;
+  color?: ColorKey;
   as?: keyof JSX.IntrinsicElements;
 }
 
 const StyledTitle = styled.span<Omit<TitleProps, 'children'>>`
   font-weight: bold;
   font-size: ${({ theme, size = 'large' }) => theme.fontSize[size]};
+  color: ${({ theme, color }) => theme.color[color as ColorKey]};
 `;
 
 export default function Title({
