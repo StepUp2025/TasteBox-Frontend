@@ -8,7 +8,8 @@ export const Wrapper = styled.div`
 export const LabelRow = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 8px;
+  margin-top: 8px;
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
   span {
     color: ${({ theme }) => theme.color.thirdText};
   }
