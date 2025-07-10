@@ -22,8 +22,9 @@ const StyledEmpty = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 300px;`;
+  width: 70vw;
+  height: 300px;
+`;
 
 const Text = styled.span`
   color: ${({ theme }) => theme.color.thirdText};
@@ -34,6 +35,7 @@ const Text = styled.span`
 const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.color.highlightText};
   font-weight: bold;
+  text-decoration: underline;
   padding-left: 12px;
   &:hover {
     color: ${({ theme }) => theme.color.primary};
