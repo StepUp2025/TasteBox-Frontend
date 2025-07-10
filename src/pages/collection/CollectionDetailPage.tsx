@@ -1,11 +1,12 @@
+import { Container } from 'features/collection/style/Container.style';
+import { CollectionDetailBody } from 'features/collection/ui/CollectionDetailBody';
 import { CollectionHeader } from 'features/collection/ui/CollectionHeader';
-import { useState } from 'react';
 
 export default function CollectionDetailPage() {
-  const [editMode, setEditMode] = useState(false);
   return (
-    <div>
-      <CollectionHeader isEditMode={editMode} onToggleEditMode={setEditMode} />
-    </div>
+    <Container>
+      <CollectionHeader />
+      <CollectionDetailBody />
+    </Container>
   );
 }
