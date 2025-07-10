@@ -1,18 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, To } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface EmptyProps {
   text: string;
-  linkText: string;
-  linkTo: string;
+  linkText?: string;
+  linkTo?: To;
+  state?: Record<string, unknown>;
 }
 
-export function Empty({ text, linkText, linkTo }: EmptyProps) {
+export function Empty({ text, linkText, linkTo, state }: EmptyProps) {
   return (
     <StyledEmpty>
       <Text>
         {text}
-        <StyledLink to={linkTo}>{linkText}</StyledLink>
+        {linkTo && linkText && (
+          <StyledLink to={linkTo} state={state}>
+            {linkText}
+          </StyledLink>
+        )}
       </Text>
     </StyledEmpty>
   );
@@ -23,7 +28,7 @@ const StyledEmpty = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 300px;`;
+  height: 200px;`;
 
 const Text = styled.span`
   color: ${({ theme }) => theme.color.thirdText};
