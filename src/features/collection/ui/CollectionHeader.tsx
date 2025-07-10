@@ -8,35 +8,20 @@ import {
   Menu,
   MenuButton,
   MoreButton,
+  MoreButtonWrapper,
   Wrapper,
-} from './CollectionHeader.style';
+} from '../style/CollectionHeader.style';
 
-interface CollectionHeaderProps {
-  isEditMode?: boolean;
-  onToggleEditMode?: (edit: boolean) => void;
-}
-
-export const CollectionHeader = ({
-  isEditMode = false,
-  onToggleEditMode,
-}: CollectionHeaderProps) => {
+export const CollectionHeader = () => {
   const { id } = useParams();
   const numericId = Number(id);
-  const { data, isPending } = useGetCollectionDetail(numericId);
+  const { data } = useGetCollectionDetail(numericId);
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const [editMode, setEditMode] = useState(isEditMode);
 
   const navigate = useNavigate();
 
   const handleToggle = () => setMenuOpen((prev) => !prev);
-
-  const handleToggleEdit = () => {
-    const newMode = !editMode;
-    setEditMode(newMode);
-    onToggleEditMode?.(newMode);
-    setMenuOpen(false);
-  };
 
   return (
     <>
@@ -45,26 +30,24 @@ export const CollectionHeader = ({
           {data?.title}
         </Title>
 
-        {!editMode && (
-          <>
-            <MoreButton onClick={handleToggle}>
-              <EllipsisVertical />
-            </MoreButton>
+        <MoreButtonWrapper>
+          <MoreButton onClick={handleToggle}>
+            <EllipsisVertical />
+          </MoreButton>
 
-            {menuOpen && (
-              <Menu>
-                <MenuButton
-                  onClick={() => navigate(`/collection/${id}/modify`)}
-                >
-                  컬렉션 보드 수정
-                </MenuButton>
-                <MenuButton onClick={handleToggleEdit}>
-                  컬렉션 콘텐츠 수정
-                </MenuButton>
-              </Menu>
-            )}
-          </>
-        )}
+          {menuOpen && (
+            <Menu>
+              <MenuButton onClick={() => navigate(`/collection/${id}/modify`)}>
+                컬렉션 보드 수정
+              </MenuButton>
+              <MenuButton
+                onClick={() => navigate(`/collection/${id}/content-modify`)}
+              >
+                컬렉션 콘텐츠 수정
+              </MenuButton>
+            </Menu>
+          )}
+        </MoreButtonWrapper>
       </Wrapper>
       <Description>{data?.description}</Description>
     </>
