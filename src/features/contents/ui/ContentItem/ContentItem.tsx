@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
 import { hoverOverlay } from 'shared/styles/hoverOverlay';
+import { getImageUrl } from 'shared/utils/getImageUrl';
 import styled from 'styled-components';
 import { CONTENT_ITEM_HEIGHT, CONTENT_ITEM_WIDTH } from '../constants';
 
@@ -26,7 +27,11 @@ const ContentItem = ({ content, isCheckable }: Props) => {
           />
           <div className="img">
             <img
-              src={content.poster_path ?? defaultContentsImage}
+              src={
+                content.posterPath
+                  ? getImageUrl(content.posterPath)
+                  : defaultContentsImage
+              }
               alt={content.title}
             />
           </div>
@@ -39,7 +44,11 @@ const ContentItem = ({ content, isCheckable }: Props) => {
           <div className="contents-wrapper">
             <div className="img">
               <img
-                src={content.poster_path ?? defaultContentsImage}
+                src={
+                  content.posterPath
+                    ? getImageUrl(content.posterPath)
+                    : defaultContentsImage
+                }
                 alt={content.title}
               />
             </div>
@@ -123,6 +132,9 @@ const ContentItemStyle = styled.div<{
       padding: 0 0 2px 4px;
       margin: 0;           /* ✅ 추가: 텍스트 마진 제거 */
       line-height: 1.2;    /* ✅ 필요 시 조정 */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 `;

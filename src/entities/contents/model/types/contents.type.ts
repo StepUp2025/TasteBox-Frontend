@@ -3,7 +3,7 @@ import { Genre } from 'entities/genre';
 export type ContentType = 'movie' | 'tv';
 export interface Contents {
   id: number;
-  poster_path: string | null;
+  posterPath: string | null;
   title: string;
   contentType: ContentType;
 }
@@ -11,11 +11,13 @@ export interface Contents {
 export interface ParameterTypes {
   genreId: number;
   page: number;
+  limit: number;
 }
 
 export interface ContentsResponse {
   contents: Contents[];
   page: number;
+  limit: number;
   totalPages: number;
 }
 

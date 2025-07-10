@@ -29,7 +29,7 @@ export interface GetCollectionResponse {
 export interface GetCollectionDetailResponse extends CollectionItem {
   contents: {
     id: number;
-    posterPath: string;
+    posterPath: string | null;
     title: string;
     contentType: ContentType;
   }[];
