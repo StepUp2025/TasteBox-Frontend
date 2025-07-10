@@ -11,11 +11,13 @@ export interface Contents {
 export interface ParameterTypes {
   genreId: number;
   page: number;
+  limit: number;
 }
 
 export interface ContentsResponse {
   contents: Contents[];
   page: number;
+  limit: number;
   totalPages: number;
 }
 
