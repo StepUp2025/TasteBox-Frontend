@@ -1,4 +1,4 @@
-import ContentsList from 'features/contents/ui/ContentsList/ContentsList';
+import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
 import { useParams } from 'react-router-dom';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
@@ -27,11 +27,15 @@ export const CollectionDetailBody = () => {
   return (
     <>
       {movies.length > 0 && (
-        <ContentsList title="영화" contents={movies} type="toggle" />
+        <ContentsListViewer title="영화" contents={movies} type="toggle" />
       )}
 
       {tvShows.length > 0 && (
-        <ContentsList title="TV 시리즈" contents={tvShows} type="toggle" />
+        <ContentsListViewer
+          title="TV 시리즈"
+          contents={tvShows}
+          type="toggle"
+        />
       )}
     </>
   );
