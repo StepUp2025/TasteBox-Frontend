@@ -1,9 +1,9 @@
 // src/app/routers.tsx
 
+import CollectionContentsModifyPage from 'pages/collection/CollectionContentsModifyPage';
 import CollectionCreatePage from 'pages/collection/CollectionCreatePage';
 import CollectionDetailPage from 'pages/collection/CollectionDetailPage';
 import CollectionModifyPage from 'pages/collection/CollectionModifyPage';
-
 import LoginPage from 'pages/login/LoginPage';
 import MainPage from 'pages/main/MainPage';
 import MovieDetailPage from 'pages/movie/MovieDetailPage';
@@ -37,6 +37,10 @@ export const Routers = () => {
 
         <Route path="/collection" element={<CollectionCreatePage />} />
         <Route path="/collection/:id" element={<CollectionDetailPage />} />
+        <Route
+          path="/collection/:id/content-modify"
+          element={<CollectionContentsModifyPage />}
+        />
         <Route
           path="/collection/:id/modify"
           element={<CollectionModifyPage />}
