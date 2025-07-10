@@ -17,26 +17,26 @@ export const mockGenres: Genre[] = [
 export const mockContents: Contents[] = [
   {
     id: 1,
-    posterPath: '/images/poster1.jpg',
+    posterPath: null,
     title: 'Inception',
     contentType: 'movie',
   },
 
   {
     id: 2,
-    posterPath: '/images/poster2.jpg',
+    posterPath: null,
     title: 'Interstellar',
     contentType: 'movie',
   },
   {
     id: 3,
-    posterPath: '/images/poster3.jpg',
+    posterPath: null,
     title: 'Breaking Bad',
     contentType: 'tv',
   },
   {
     id: 4,
-    posterPath: '/images/poster4.jpg',
+    posterPath: null,
     title: 'Stranger Things',
     contentType: 'tv',
   },
@@ -45,18 +45,20 @@ export const mockContents: Contents[] = [
 export const mockParameter: ParameterTypes = {
   genreId: 12,
   page: 1,
+  limit: 20,
 };
 
 export const mockContentsResponse: ContentsResponse = {
   contents: mockContents,
   page: 1,
   totalPages: 5,
+  limit: 20,
 };
 
 export const mockMovies: Movie[] = [
   {
     id: 1,
-    posterPath: '/images/movie1.jpg',
+    posterPath: null,
     title: 'Mock Movie 1',
     contentType: 'movie',
     originalLanguage: 'en',
@@ -71,7 +73,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 2,
-    posterPath: '/images/movie2.jpg',
+    posterPath: null,
     title: 'Mock Movie 2',
     contentType: 'movie',
     originalLanguage: 'ko',
@@ -89,7 +91,7 @@ export const mockMovies: Movie[] = [
 export const mockTVs: TVs[] = [
   {
     id: 101,
-    posterPath: '/images/tv1.jpg',
+    posterPath: null,
     title: 'Mock TV Series 1',
     contentType: 'tv',
     originalLanguage: 'ko',
@@ -110,6 +112,15 @@ export const mockTVs: TVs[] = [
 ];
 
 export const contentsHandlers = [
+  // 최근 추가한 컨텐츠 (전체)
+  http.get('/contents/latest', () => {
+    const sorted = [...mockContents].sort((a, b) => b.id - a.id);
+    return createSuccessResponse(undefined, {
+      ...mockContentsResponse,
+      contents: sorted,
+    });
+  }),
+
   // 장르별 영화 조회
   http.get('/movies/genre', ({ request }) => {
     const url = new URL(request.url);
