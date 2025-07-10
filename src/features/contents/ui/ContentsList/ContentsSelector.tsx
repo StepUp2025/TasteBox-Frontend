@@ -14,25 +14,25 @@ interface Props {
   title: string;
   contents: Contents[];
   selectedContents: ContentItem[];
-  set: Dispatch<SetStateAction<ContentItem[]>>;
+  setter: Dispatch<SetStateAction<ContentItem[]>>;
 }
 
 const ContentsSelector = ({
   title,
   contents,
   selectedContents = [],
-  set,
+  setter,
 }: Props) => {
-  const onCheck = (
+  const selectContent = (
     id: number,
     contentType: Contents['contentType'],
     checked: boolean,
   ) => {
     const contentItem: ContentItem = { id, contentType };
     if (checked) {
-      set((prev) => [...prev, contentItem]);
+      setter((prev) => [...prev, contentItem]);
     } else {
-      set((prev) => prev.filter((item) => item.id !== id));
+      setter((prev) => prev.filter((item) => item.id !== id));
     }
   };
 
@@ -48,7 +48,7 @@ const ContentsSelector = ({
             key={item.id}
             content={item}
             checked={selectedContents.some((c) => c.id === item.id)}
-            onCheck={onCheck}
+            onCheck={selectContent}
           />
         ))}
       </ContentsSelectorContainer>

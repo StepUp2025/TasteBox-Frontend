@@ -20,7 +20,7 @@ interface Props {
 
 const ContentItemEdit = ({ content, checked = false, onCheck }: Props) => {
   const handleChange = () => {
-    onCheck?.(content.id, content.contentType, !checked);
+    onCheck?.(content.id, content.contentType, !checked); // 체크 상태 업데이트
   };
 
   return (

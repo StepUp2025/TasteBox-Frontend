@@ -27,13 +27,13 @@ const CollectionContentsEditor = () => {
         title="영화"
         contents={movies}
         selectedContents={selectedMovies}
-        set={setSelectedMovies}
+        setter={setSelectedMovies}
       />
       <ContentsSelector
         title="TV 시리즈"
         contents={tvShows}
         selectedContents={selectedTvShows}
-        set={setSelectedTvShows}
+        setter={setSelectedTvShows}
       />
     </CollectionContentsEditorStyle>
   );
