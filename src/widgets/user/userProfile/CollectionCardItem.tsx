@@ -1,7 +1,5 @@
 import { CollectionItem } from 'entities/collection';
 import { Link } from 'react-router-dom';
-import defaultCollectionImage from 'shared/assets/images/default-collection-thumbnail.png';
-import { getImageUrl } from 'shared/utils/getImageUrl';
 import styled from 'styled-components';
 
 interface Props {
@@ -15,10 +13,7 @@ const CollectionCardItem = ({ collection }: Props) => {
       <Link to={`/collection/${id}`}>
         <div className="collection-wrapper">
           <div className="thumbnail-wrapper">
-            <img
-              src={thumbnail ? getImageUrl(thumbnail) : defaultCollectionImage}
-              alt={title}
-            />
+            <img src={thumbnail} alt={title} />
           </div>
           <div className="title-wrapper">
             <p className="title">{title}</p>
