@@ -2,7 +2,6 @@ import { rgba } from 'polished';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  position: relative;
   display: flex;
   justify-content: space-between;
 `;
@@ -10,6 +9,10 @@ export const Wrapper = styled.div`
 export const Description = styled.div`
   margin-top: 1rem;
   width: 60%;
+`;
+
+export const MoreButtonWrapper = styled.div`
+  position: relative;
 `;
 
 export const MoreButton = styled.button`
@@ -35,11 +38,13 @@ export const Menu = styled.div`
   padding: 0.5rem;
   box-shadow: ${({ theme }) => theme.shadow.default};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
+  background-color: ${({ theme }) => theme.color.basicBackground};
 `;
 
 export const MenuButton = styled.button`
   width: 220px;
   text-align: left;
+  background-color: ${({ theme }) => theme.color.basicBackground};
 
   padding: 0.5rem;
   border-radius: ${({ theme }) => theme.borderRadius.small};

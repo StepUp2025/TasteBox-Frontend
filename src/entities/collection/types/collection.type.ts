@@ -8,7 +8,7 @@ export interface ContentItem {
 export interface CollectionBase {
   title: string;
   description: string;
-  thumbnail: string | null;
+  thumbnail: string;
 }
 
 export type CreateCollectionRequest = CollectionBase;

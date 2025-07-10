@@ -20,7 +20,7 @@ export const authHandlers = [
       );
     }
 
-    if (body.email === 'already@mail.com') {
+    if (body.email === 'already@gmail.com') {
       return createErrorResponse(
         409,
         '이미 가입된 계정입니다 (undefined)',
@@ -34,7 +34,7 @@ export const authHandlers = [
   http.post(`${BASE}/auth/login`, async ({ request }) => {
     const body = (await request.json()) as LoginRequestType;
 
-    if (body.email === 'stepup@mail.com' && body.password === '123456') {
+    if (body.email === 'stepup@gmail.com' && body.password === '123456') {
       const accessToken = 'mock-access-token';
       const refreshToken = 'mock-refresh-token';
 
