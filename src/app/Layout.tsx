@@ -31,14 +31,12 @@ const LayoutWrapper = styled.div`
 `;
 
 const LayoutItem = styled.main`
-  margin-top: 90px;
+  margin-top: 3rem;
   margin-bottom: 50px;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;        
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
   `;
