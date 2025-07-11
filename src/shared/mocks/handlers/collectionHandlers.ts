@@ -1,7 +1,6 @@
 import {
   CreateCollectionRequest,
   GetCollectionDetailResponse,
-  ModifyContentsRequest,
   UpdateCollectionRequest,
 } from 'entities/collection/types/collection.type';
 import { http } from 'msw';
@@ -171,13 +170,10 @@ export const collectionHandlers = [
   // 컬렉션 생성
   http.post('/collections', async ({ request }) => {
     const body = (await request.json()) as CreateCollectionRequest;
-    const { title, description, thumbnail } = body;
 
     const newCollection: GetCollectionDetailResponse = {
       id: nextId++,
-      title,
-      description,
-      thumbnail,
+      ...body,
       contents: [],
     };
 
@@ -189,11 +185,12 @@ export const collectionHandlers = [
   // 컬렉션 리스트 조회
   http.get('/collections', () => {
     const summaryList = mockCollections.map(
-      ({ id, title, description, thumbnail }) => ({
+      ({ id, title, description, thumbnail, contents }) => ({
         id,
         title,
         description,
         thumbnail,
+        contents: contents.map((content) => content.id),
       }),
     );
 
@@ -241,8 +238,8 @@ export const collectionHandlers = [
   // 6. 콘텐츠 추가
   http.post('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
-    const body = (await request.json()) as ModifyContentsRequest;
-    const { contents } = body;
+    const url = new URL(request.url);
+    const contentIds = url.searchParams.getAll('contentId').map(Number);
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
@@ -253,14 +250,13 @@ export const collectionHandlers = [
       );
     }
 
-    const newContents = contents
-      .filter(
-        (item) => !mockCollections[idx].contents.some((c) => c.id === item.id),
-      )
-      .map((item) => ({
-        ...item,
-        title: `Mock Title ${item.id}`,
-        posterPath: `/images/content-${item.id}.jpg`,
+    const newContents = contentIds
+      .filter((cid) => !mockCollections[idx].contents.some((c) => c.id === cid))
+      .map((cid) => ({
+        id: cid,
+        title: `Mock Content ${cid}`,
+        posterPath: null,
+        contentType: cid % 2 === 0 ? ('movie' as const) : ('tv' as const),
       }));
 
     mockCollections[idx].contents.push(...newContents);
@@ -269,10 +265,10 @@ export const collectionHandlers = [
   }),
 
   // 콘텐츠 제거
-  http.post('/collections/:id/contents', async ({ params, request }) => {
+  http.patch('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
-    const body = (await request.json()) as ModifyContentsRequest;
-    const { contents } = body;
+    const url = new URL(request.url);
+    const contentIds = url.searchParams.getAll('contentId').map(Number);
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
@@ -283,9 +279,8 @@ export const collectionHandlers = [
       );
     }
 
-    const removeIds = new Set(contents.map((c) => c.id));
     mockCollections[idx].contents = mockCollections[idx].contents.filter(
-      (item) => !removeIds.has(item.id),
+      (c) => !contentIds.includes(c.id),
     );
 
     return createSuccessResponse('콘텐츠 삭제 완료');
