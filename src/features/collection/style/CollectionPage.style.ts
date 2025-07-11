@@ -1,7 +1,7 @@
 import { rgba } from 'polished';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const CollectionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;

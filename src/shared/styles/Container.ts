@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  margin: 0 auto;
+  margin: 3rem auto 0 auto;
 `;
