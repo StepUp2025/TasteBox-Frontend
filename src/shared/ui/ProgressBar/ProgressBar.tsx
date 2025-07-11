@@ -25,12 +25,12 @@ export const ProgressBar = ({ from, to, label }: ProgressBarProps) => {
 
   return (
     <Wrapper>
-      <LabelRow>
-        <span>{label}</span>
-      </LabelRow>
       <StyledProgress value={current} max={100}>
         <Indicator width={current} />
       </StyledProgress>
+      <LabelRow>
+        <span>{label}</span>
+      </LabelRow>
     </Wrapper>
   );
 };
