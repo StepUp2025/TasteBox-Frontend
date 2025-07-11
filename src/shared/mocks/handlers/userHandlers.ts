@@ -1,13 +1,20 @@
-import { LocalUser, ProfileUpdateType } from 'entities/user/model';
+import { LocalUser, OAuthUser, ProfileUpdateType } from 'entities/user/model';
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
 const localUser: LocalUser = {
   email: 'stepup@mail.com',
-  nickname: '쌈뽕한닉네임',
+  nickname: '쌈뽕한키아누리브스',
   contact: '01012345678',
-  image: 'https://example.com/image.jpg',
+  image: 'https://image.tmdb.org/t/p/original/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg',
   provider: 'local',
+};
+
+const _googleUser: OAuthUser = {
+  email: 'stepup@mail.com',
+  nickname: '구글키아누리브스',
+  image: 'https://image.tmdb.org/t/p/original/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg',
+  provider: 'google',
 };
 
 export const userHandlers = [

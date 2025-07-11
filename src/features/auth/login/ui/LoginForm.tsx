@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import googleLogo from 'shared/assets/images/google-logo-icon.png';
 import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
-import { Button, IconPreset, InputText } from 'shared/ui';
+import { Button, IconPreset, InputText, Title } from 'shared/ui';
+import Loading from 'shared/ui/Loading/Loading';
 import { useLocalLogin } from '../model/hooks/useLocalLogin';
 import { useOAUthLogin } from '../model/hooks/useOAuthLogin';
 import { LoginFormValues, loginSchema } from '../model/validation/loginSchema';
@@ -34,6 +35,7 @@ const LoginForm = () => {
 
   return (
     <AuthFormLayout>
+      {isPending && <Loading />}
       <div className="container">
         <div className="header">
           <Button
@@ -48,7 +50,9 @@ const LoginForm = () => {
               <PackageOpen />
             </IconPreset>
           </Button>
-          <h1>TasteBox 로그인</h1>
+          <Title size="large" color="primary">
+            TasteBox 로그인
+          </Title>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)}>

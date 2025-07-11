@@ -1,8 +1,8 @@
 import { Contents } from 'entities/contents/model/types/contents.type';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
-import ContentItem from '../ContentItem/ContentItem';
-import { ITEMS_PER_ROW } from '../constants';
+import ContentItemView from '../ContentItem/ContentItemView';
+import { MAX_ITEMS_PER_ROW } from '../constants';
 import {
   ContentListContainer,
   Header,
@@ -20,25 +20,20 @@ interface Props {
   contents: Contents[];
   type: ContentsListType;
   linkTo?: ContentsListLinkTo;
-  isCheckable?: boolean;
 }
 
-const ContentsList = ({
-  title,
-  contents,
-  type,
-  linkTo,
-  isCheckable,
-}: Props) => {
+const ContentsListViewer = ({ title, contents, type, linkTo }: Props) => {
   const [showAll, setShowAll] = useState(false);
   const visibleContents =
-    type === 'toggle' && !showAll ? contents.slice(0, ITEMS_PER_ROW) : contents;
+    type === 'toggle' && !showAll
+      ? contents.slice(0, MAX_ITEMS_PER_ROW)
+      : contents;
 
-  const showToggle = type === 'toggle' && contents.length > ITEMS_PER_ROW;
+  const showToggle = type === 'toggle' && contents.length > MAX_ITEMS_PER_ROW;
 
   return (
     <Wrapper>
-      <Header $scroll={type === 'scroll' || type === 'link'}>
+      <Header>
         <h2>{title}</h2>
         {type === 'link' && linkTo && (
           <MoreLink to={`/${linkTo}`}>더보기</MoreLink>
@@ -60,11 +55,11 @@ const ContentsList = ({
 
       <ContentListContainer $scroll={type === 'scroll' || type === 'link'}>
         {visibleContents.map((item) => (
-          <ContentItem key={item.id} content={item} isCheckable={isCheckable} />
+          <ContentItemView key={item.id} content={item} />
         ))}
       </ContentListContainer>
     </Wrapper>
   );
 };
 
-export default ContentsList;
+export default ContentsListViewer;

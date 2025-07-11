@@ -12,7 +12,7 @@ export const AuthFormLayout = styled.div`
   .container {
     min-width: 550px;
     min-height: 620px;
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.color.basicBackground};
     padding: 60px 72px;
     border-radius: ${({ theme }) => theme.borderRadius.large};
     box-sizing: border-box;

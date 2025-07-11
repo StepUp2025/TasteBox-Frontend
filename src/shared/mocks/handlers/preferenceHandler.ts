@@ -5,28 +5,36 @@ import { createErrorResponse, createSuccessResponse } from '../utils/response';
 const userPreference = {
   movies: {
     genres: [
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
     ],
-    count: 2,
+    count: 8,
   },
   tvs: {
     genres: [
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
+      { id: 10759, name: '액션 & 어드벤처', emoji: '🗡️' },
+      { id: 16, name: '애니메이션', emoji: '🎨' },
+      { id: 35, name: '코미디', emoji: '😂' },
+      { id: 80, name: '범죄', emoji: '🕵️‍♂️' },
+      { id: 99, name: '다큐멘터리', emoji: '🎥' },
+      { id: 18, name: '드라마', emoji: '🎭' },
+      { id: 10751, name: '가족', emoji: '👨‍👩‍👧‍👦' },
     ],
-    count: 1,
+    count: 6,
+  },
+};
+
+const _emptyPreference = {
+  movies: {
+    genres: [
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
+    ],
+    count: 8,
+  },
+  tvs: {
+    genres: [],
+    count: 0,
   },
 };
 
@@ -52,7 +60,7 @@ export const preferenceHandlers = [
   ),
 
   http.get(
-    `${import.meta.env.VITE_API_BASE_URL}/user/preferences`,
+    `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
     async () => {
       return createSuccessResponse(undefined, userPreference);
     },
