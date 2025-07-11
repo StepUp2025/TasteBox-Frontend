@@ -68,6 +68,7 @@ export default function MainPage() {
 }
 
 const MaintWrapper = styled.div`
+margin-top: 3rem;
 margin-left: 7rem;
-  padding-left: 7rem;
+padding-left: 7rem;
 `;
