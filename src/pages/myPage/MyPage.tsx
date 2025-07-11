@@ -1,13 +1,16 @@
-import UserCollectionList from 'widgets/user/userProfile/UserCollectionList';
+import styled from 'styled-components';
 import UserPreferenceWidget from 'widgets/user/userProfile/UserPreferenceWidget';
 import UserProfileSettingWidget from 'widgets/user/userProfile/UserProfileSettingWidget';
 
 export default function MyPage() {
   return (
-    <div>
+    <MyPageLayout>
       <UserProfileSettingWidget />
       <UserPreferenceWidget />
-      <UserCollectionList />
-    </div>
+    </MyPageLayout>
   );
 }
+
+const MyPageLayout = styled.div`
+  margin-top: 3rem;
+`;
