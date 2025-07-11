@@ -9,6 +9,7 @@ const CollectionListPage = () => {
   );
 };
 
-const CollectionListPageStyle = styled.div``;
+const CollectionListPageStyle = styled.div`
+margin-top: 3rem;`;
 
 export default CollectionListPage;
