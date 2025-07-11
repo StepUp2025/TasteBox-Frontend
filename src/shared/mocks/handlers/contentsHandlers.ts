@@ -17,26 +17,56 @@ export const mockGenres: Genre[] = [
 export const mockContents: Contents[] = [
   {
     id: 1,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/zTgjeblxSLSvomt6F6UYtpiD4n7.jpg',
+    title: 'Inception',
+    contentType: 'movie',
+  },
+  {
+    id: 2,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/ygr4hE8Qpagv8sxZbMw1mtYkcQE.jpg',
+    title: '쥬라기 월드: 새로운 시작',
+    contentType: 'movie',
+  },
+  {
+    id: 3,
     posterPath: null,
     title: 'Inception',
     contentType: 'movie',
   },
 
   {
-    id: 2,
-    posterPath: null,
+    id: 4,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/evoEi8SBSvIIEveM3V6nCJ6vKj8.jpg',
     title: 'Interstellar',
     contentType: 'movie',
   },
   {
-    id: 3,
+    id: 1,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+    title: 'Breaking Bad',
+    contentType: 'tv',
+  },
+  {
+    id: 2,
     posterPath: null,
     title: 'Breaking Bad',
     contentType: 'tv',
   },
   {
+    id: 3,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+    title: 'Squid Game',
+    contentType: 'tv',
+  },
+  {
     id: 4,
-    posterPath: null,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/yz4r477D8lljEF7xorrv3zvQxls.jpg',
     title: 'Stranger Things',
     contentType: 'tv',
   },
@@ -58,13 +88,15 @@ export const mockContentsResponse: ContentsResponse = {
 export const mockMovies: Movie[] = [
   {
     id: 1,
-    posterPath: null,
-    title: 'Mock Movie 1',
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/oAt6OtpwYCdJI76AVtVKW1eorYx.jpg',
+    title: ' The Shawshank Redemption',
     contentType: 'movie',
     originalLanguage: 'en',
     voteAverage: 8.2,
     voteCount: 1234,
-    backdropPath: '/images/movie1_backdrop.jpg',
+    backdropPath:
+      'https://www.themoviedb.org/t/p/w1280/oAt6OtpwYCdJI76AVtVKW1eorYx.jpg',
     overview: 'This is a mock movie overview.',
     status: 'Released',
     genres: mockGenres,
@@ -79,7 +111,7 @@ export const mockMovies: Movie[] = [
     originalLanguage: 'ko',
     voteAverage: 7.5,
     voteCount: 567,
-    backdropPath: '/images/movie2_backdrop.jpg',
+    backdropPath: null,
     overview: '이것은 또 다른 영화입니다.',
     status: 'Released',
     genres: [mockGenres[1]],
@@ -91,13 +123,15 @@ export const mockMovies: Movie[] = [
 export const mockTVs: TVs[] = [
   {
     id: 101,
-    posterPath: null,
-    title: 'Mock TV Series 1',
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
+    title: '나 혼자 산다',
     contentType: 'tv',
     originalLanguage: 'ko',
     voteAverage: 7.5,
     voteCount: 567,
-    backdropPath: '/images/tv1_backdrop.jpg',
+    backdropPath:
+      'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
     overview: 'This is a mock TV series overview.',
     status: 'Returning Series',
     genres: mockGenres,
@@ -105,8 +139,18 @@ export const mockTVs: TVs[] = [
     lastAirDate: '2023-01-01',
     numberOfSeasons: 2,
     seasons: [
-      { id: 1, title: 'Season 1', posterPath: '/images/tv1_season1.jpg' },
-      { id: 2, title: 'Season 2', posterPath: '/images/tv1_season2.jpg' },
+      {
+        id: 1,
+        title: 'Season 1',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
+      },
+      {
+        id: 2,
+        title: 'Season 2',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
+      },
     ],
   },
 ];
@@ -160,7 +204,8 @@ export const contentsHandlers = [
   // 추천 영화 (id 기반)
   http.get('/movies/:id/recommends', () => {
     return createSuccessResponse(undefined, {
-      contents: mockMovies.slice(0, 1),
+      mockContentsResponse,
+      contents: mockContents.filter((c) => c.contentType === 'movie'),
     });
   }),
 
