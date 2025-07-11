@@ -1,12 +1,12 @@
 import UserPreferenceList from 'features/user/preference/ui/UserPreferenceList';
 
 import styled from 'styled-components';
-import ProfileWidgetHeader from './ProfileWidgetHeader';
+import WidgetHeader from '../../WidgetHeader';
 
 const UserPreferenceWidget = () => {
   return (
     <UserPreferenceWidgetStyle>
-      <ProfileWidgetHeader
+      <WidgetHeader
         title="취향 목록 설정"
         linkTo="/genre/movie"
         linkText="취향 수정하기"
