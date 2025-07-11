@@ -13,7 +13,6 @@ export const Wrapper = styled.section`
   flex-direction: column;
   margin-top: 24px;
   width: 100%;
-  padding: 0 16px;
 `;
 
 export const Header = styled.div`

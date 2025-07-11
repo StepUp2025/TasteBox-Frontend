@@ -4,13 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Title } from 'shared/ui';
 import { useGetCollectionDetail } from '../hooks/useGetCollectionDetail';
 import {
+  CollectionWrapper,
   Description,
   Menu,
   MenuButton,
   MoreButton,
   MoreButtonWrapper,
-  Wrapper,
-} from '../style/CollectionHeader.style';
+} from '../style/CollectionPage.style';
 
 export const CollectionHeader = () => {
   const { id } = useParams();
@@ -25,7 +25,7 @@ export const CollectionHeader = () => {
 
   return (
     <>
-      <Wrapper>
+      <CollectionWrapper>
         <Title as="h1" size="xlarge">
           {data?.title}
         </Title>
@@ -48,7 +48,7 @@ export const CollectionHeader = () => {
             </Menu>
           )}
         </MoreButtonWrapper>
-      </Wrapper>
+      </CollectionWrapper>
       <Description>{data?.description}</Description>
     </>
   );
