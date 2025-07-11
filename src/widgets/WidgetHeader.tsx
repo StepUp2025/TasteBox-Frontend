@@ -2,28 +2,24 @@ import { Link } from 'react-router-dom';
 import { Title } from 'shared/ui';
 import styled from 'styled-components';
 
-interface ProfileWidgetHeaderProps {
+interface WidgetHeaderProps {
   title: string;
   linkTo: string;
   linkText: string;
 }
 
-const ProfileWidgetHeader = ({
-  title,
-  linkTo,
-  linkText,
-}: ProfileWidgetHeaderProps) => {
+const WidgetHeader = ({ title, linkTo, linkText }: WidgetHeaderProps) => {
   return (
-    <ProfileWidgetHeaderStyle>
+    <WidgetHeaderStyle>
       <Title size="medium">{title}</Title>
       <Link to={linkTo} state={{ from: '/mypage' }}>
         {linkText}
       </Link>
-    </ProfileWidgetHeaderStyle>
+    </WidgetHeaderStyle>
   );
 };
 
-const ProfileWidgetHeaderStyle = styled.div`
+const WidgetHeaderStyle = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,4 +37,4 @@ const ProfileWidgetHeaderStyle = styled.div`
   }
 `;
 
-export default ProfileWidgetHeader;
+export default WidgetHeader;

@@ -5,81 +5,20 @@ import { createErrorResponse, createSuccessResponse } from '../utils/response';
 const userPreference = {
   movies: {
     genres: [
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
     ],
     count: 8,
   },
   tvs: {
     genres: [
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
+      { id: 10759, name: '액션 & 어드벤처', emoji: '🗡️' },
+      { id: 16, name: '애니메이션', emoji: '🎨' },
+      { id: 35, name: '코미디', emoji: '😂' },
+      { id: 80, name: '범죄', emoji: '🕵️‍♂️' },
+      { id: 99, name: '다큐멘터리', emoji: '🎥' },
+      { id: 18, name: '드라마', emoji: '🎭' },
+      { id: 10751, name: '가족', emoji: '👨‍👩‍👧‍👦' },
     ],
     count: 6,
   },
@@ -88,46 +27,8 @@ const userPreference = {
 const _emptyPreference = {
   movies: {
     genres: [
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
     ],
     count: 8,
   },
