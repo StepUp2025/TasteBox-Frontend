@@ -1,15 +1,18 @@
+import qs from 'qs';
 import { authClient, httpClient } from 'shared/api';
-import { ContentsResponse, ParameterTypes } from '../types/contents.type';
+import { ContentsResponse } from '../types/contents.type';
 import { Movie } from '../types/movie.type';
 
 // 장르별 영화 조회
 export const fetchMoviesByGenre = async (
-  data: ParameterTypes,
+  genreIds: number[] = [],
   page: number = 1,
   limit: number = 20,
 ) => {
-  const response = await authClient.get<ContentsResponse>('/movies/genre', {
-    params: { data, page, limit },
+  const response = await authClient.get('/movies/genre', {
+    params: { genreId: genreIds, page, limit },
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: 'repeat' }),
   });
   return response.data;
 };
