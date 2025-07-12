@@ -1,8 +1,10 @@
+import { ContentType } from 'entities/contents/model/types/contents.type';
+
 export interface CollectionContent {
   id: number;
   posterPath: string | null;
   title: string;
-  contentType: 'movie' | 'tv';
+  contentType: ContentType;
 }
 
 export interface CollectionBase {
