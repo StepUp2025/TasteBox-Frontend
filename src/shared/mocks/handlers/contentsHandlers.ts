@@ -44,27 +44,27 @@ export const mockContents: Contents[] = [
     contentType: 'movie',
   },
   {
-    id: 1,
+    id: 5,
     posterPath:
       'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
     title: 'Breaking Bad',
     contentType: 'tv',
   },
   {
-    id: 2,
+    id: 6,
     posterPath: null,
     title: 'Breaking Bad',
     contentType: 'tv',
   },
   {
-    id: 3,
+    id: 7,
     posterPath:
       'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
     title: 'Squid Game',
     contentType: 'tv',
   },
   {
-    id: 4,
+    id: 8,
     posterPath:
       'https://www.themoviedb.org/t/p/w1280/yz4r477D8lljEF7xorrv3zvQxls.jpg',
     title: 'Stranger Things',
@@ -73,7 +73,7 @@ export const mockContents: Contents[] = [
 ];
 
 export const mockParameter: ParameterTypes = {
-  genreId: 12,
+  genreId: 1,
   page: 1,
   limit: 20,
 };
@@ -87,69 +87,226 @@ export const mockContentsResponse: ContentsResponse = {
 
 export const mockMovies: Movie[] = [
   {
-    id: 1,
+    id: 301,
     posterPath:
-      'https://www.themoviedb.org/t/p/w1280/oAt6OtpwYCdJI76AVtVKW1eorYx.jpg',
-    title: ' The Shawshank Redemption',
+      'https://www.themoviedb.org/t/p/w1280/fxBxoXFAYKWde6lKzXxSusn18Av.jpg',
+    title: 'The Matrix',
     contentType: 'movie',
     originalLanguage: 'en',
-    voteAverage: 8.2,
-    voteCount: 1234,
-    backdropPath:
-      'https://www.themoviedb.org/t/p/w1280/oAt6OtpwYCdJI76AVtVKW1eorYx.jpg',
-    overview: 'This is a mock movie overview.',
+    voteAverage: 8.7,
+    voteCount: 1700,
+    backdropPath: null,
+    overview: '가상현실과 혁명을 다룬 SF 액션 영화.',
     status: 'Released',
-    genres: mockGenres,
-    runtime: 120,
-    releaseDate: '2024-01-01',
+    genres: [{ id: 1, name: 'Action' }],
+    runtime: 136,
+    releaseDate: '1999-03-31',
   },
   {
-    id: 2,
-    posterPath: null,
-    title: 'Mock Movie 2',
+    id: 302,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/mSi0gskYpmf1FbXngM37s2HppXh.jpg',
+    title: '기생충',
     contentType: 'movie',
     originalLanguage: 'ko',
-    voteAverage: 7.5,
-    voteCount: 567,
+    voteAverage: 8.6,
+    voteCount: 950,
     backdropPath: null,
-    overview: '이것은 또 다른 영화입니다.',
+    overview: '빈부격차를 그린 한국 드라마 영화.',
     status: 'Released',
-    genres: [mockGenres[1]],
-    runtime: 95,
-    releaseDate: '2023-10-10',
+    genres: [{ id: 2, name: 'Drama' }],
+    runtime: 132,
+    releaseDate: '2019-05-30',
+  },
+  {
+    id: 303,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/z7ilT5rNN9kDo8JZmgyhM6ej2xv.jpg',
+    title: 'Avengers: Endgame',
+    contentType: 'movie',
+    originalLanguage: 'en',
+    voteAverage: 8.4,
+    voteCount: 2200,
+    backdropPath: null,
+    overview: '마블 히어로들의 마지막 전투.',
+    status: 'Released',
+    genres: [{ id: 1, name: 'Action' }],
+    runtime: 181,
+    releaseDate: '2019-04-26',
+  },
+  {
+    id: 304,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/iraQz6gdAe8JL45QcBifM1UhQ38.jpg',
+    title: 'Forrest Gump',
+    contentType: 'movie',
+    originalLanguage: 'en',
+    voteAverage: 8.8,
+    voteCount: 1600,
+    backdropPath: null,
+    overview: '한 남자의 인생과 미국 현대사를 그린 감동 드라마.',
+    status: 'Released',
+    genres: [{ id: 2, name: 'Drama' }],
+    runtime: 142,
+    releaseDate: '1994-07-06',
+  },
+  {
+    id: 305,
+    posterPath: null,
+    title: 'Inception',
+    contentType: 'movie',
+    originalLanguage: 'en',
+    voteAverage: 8.3,
+    voteCount: 2100,
+    backdropPath: null,
+    overview: '꿈속의 꿈을 다루는 SF 액션 스릴러.',
+    status: 'Released',
+    genres: [
+      { id: 1, name: 'Action' },
+      { id: 2, name: 'Drama' },
+    ],
+    runtime: 148,
+    releaseDate: '2010-07-16',
   },
 ];
 
 export const mockTVs: TVs[] = [
   {
-    id: 101,
+    id: 401,
     posterPath:
-      'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
-    title: '나 혼자 산다',
+      'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+    title: 'Breaking Bad',
     contentType: 'tv',
-    originalLanguage: 'ko',
-    voteAverage: 7.5,
-    voteCount: 567,
-    backdropPath:
-      'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
-    overview: 'This is a mock TV series overview.',
-    status: 'Returning Series',
-    genres: mockGenres,
-    firstAirDate: '2022-01-01',
-    lastAirDate: '2023-01-01',
-    numberOfSeasons: 2,
+    originalLanguage: 'en',
+    voteAverage: 9.5,
+    voteCount: 1800,
+    backdropPath: null,
+    overview: '마약 제조에 뛰어든 화학 교사의 충격적인 이야기.',
+    status: 'Ended',
+    genres: [{ id: 2, name: 'Drama' }],
+    firstAirDate: '2008-01-20',
+    lastAirDate: '2013-09-29',
+    numberOfSeasons: 5,
     seasons: [
       {
         id: 1,
         title: 'Season 1',
         posterPath:
-          'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
+          'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+      },
+      {
+        id: 2,
+        title: 'Season 2',
+        posterPath: 'https://www.themoviedb.org/t/p/w1280/breakingbad_s2.jpg',
+      },
+    ],
+  },
+  {
+    id: 402,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+    title: '오징어 게임',
+    contentType: 'tv',
+    originalLanguage: 'ko',
+    voteAverage: 8.7,
+    voteCount: 1200,
+    backdropPath: null,
+    overview: '생존 게임에 참가한 이들의 극한 경쟁 이야기.',
+    status: 'Returning Series',
+    genres: [
+      { id: 1, name: 'Action' },
+      { id: 2, name: 'Drama' },
+    ],
+    firstAirDate: '2021-09-17',
+    lastAirDate: '2021-09-17',
+    numberOfSeasons: 1,
+    seasons: [
+      {
+        id: 1,
+        title: 'Season 1',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+      },
+    ],
+  },
+  {
+    id: 403,
+    posterPath:
+      'hhttps://www.themoviedb.org/t/p/w1280/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
+    title: 'Stranger Things',
+    contentType: 'tv',
+    originalLanguage: 'en',
+    voteAverage: 8.9,
+    voteCount: 1500,
+    backdropPath: null,
+    overview: '초자연적 현상과 소년 소녀들의 모험을 그린 미스터리 시리즈.',
+    status: 'Returning Series',
+    genres: [{ id: 1, name: 'Action' }],
+    firstAirDate: '2016-07-15',
+    lastAirDate: '2022-07-01',
+    numberOfSeasons: 4,
+    seasons: [
+      {
+        id: 1,
+        title: 'Season 1',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
       },
       {
         id: 2,
         title: 'Season 2',
         posterPath:
-          'https://www.themoviedb.org/t/p/w1280/bq3Emv3pJLUyHvwGqiAXRwJvAmL.jpg',
+          'https://www.themoviedb.org/t/p/w1280/strangerthings_s2.jpg',
+      },
+    ],
+  },
+  {
+    id: 404,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
+    title: '우리들의 블루스',
+    contentType: 'tv',
+    originalLanguage: 'ko',
+    voteAverage: 8.2,
+    voteCount: 400,
+    backdropPath: null,
+    overview: '제주도를 배경으로 한 다양한 인물들의 삶과 사랑 이야기.',
+    status: 'Ended',
+    genres: [{ id: 2, name: 'Drama' }],
+    firstAirDate: '2022-04-09',
+    lastAirDate: '2022-06-12',
+    numberOfSeasons: 1,
+    seasons: [
+      {
+        id: 1,
+        title: 'Season 1',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
+      },
+    ],
+  },
+  {
+    id: 405,
+    posterPath:
+      'https://www.themoviedb.org/t/p/w1280/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
+    title: '도깨비',
+    contentType: 'tv',
+    originalLanguage: 'ko',
+    voteAverage: 8.6,
+    voteCount: 800,
+    backdropPath: null,
+    overview: '불멸의 도깨비와 죽음의 신, 그리고 인간 소녀의 판타지 로맨스.',
+    status: 'Ended',
+    genres: [{ id: 2, name: 'Drama' }],
+    firstAirDate: '2016-12-02',
+    lastAirDate: '2017-01-21',
+    numberOfSeasons: 1,
+    seasons: [
+      {
+        id: 1,
+        title: 'Season 1',
+        posterPath:
+          'https://www.themoviedb.org/t/p/w1280/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
       },
     ],
   },
@@ -168,12 +325,15 @@ export const contentsHandlers = [
   // 장르별 영화 조회
   http.get('/movies/genre', ({ request }) => {
     const url = new URL(request.url);
-    const genreId = Number(url.searchParams.get('genreId'));
+    const genreIds = url.searchParams.getAll('genreId').map(Number);
     const filtered = mockMovies.filter((m) =>
-      m.genres.some((g) => g.id === genreId),
+      m.genres.some((g) => genreIds.includes(g.id)),
     );
     return createSuccessResponse(undefined, {
       contents: filtered,
+      page: 1,
+      limit: 20,
+      totalPages: 1,
     });
   }),
 
@@ -221,12 +381,15 @@ export const contentsHandlers = [
   // 장르별 TV 조회
   http.get('/tvs/genre', ({ request }) => {
     const url = new URL(request.url);
-    const genreId = Number(url.searchParams.get('genreId'));
+    const genreIds = url.searchParams.getAll('genreId').map(Number);
     const filtered = mockTVs.filter((t) =>
-      t.genres.some((g) => g.id === genreId),
+      t.genres.some((g) => genreIds.includes(g.id)),
     );
     return createSuccessResponse(undefined, {
       contents: filtered,
+      page: 1,
+      limit: 20,
+      totalPages: 1,
     });
   }),
 
