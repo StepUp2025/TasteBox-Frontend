@@ -39,10 +39,11 @@ export const addCollectionContents = async (
   id: number,
   contentIds: number[],
 ): Promise<string> => {
-  const params = new URLSearchParams();
-  contentIds.forEach((id) => params.append('contentId', id.toString()));
-
-  const response = await authClient.post(`/collections/${id}/contents`);
+  const response = await authClient.post(`/collections/${id}/contents`, null, {
+    params: {
+      contentId: contentIds,
+    },
+  });
   return response.data;
 };
 
@@ -50,12 +51,11 @@ export const removeCollectionContents = async (
   id: number,
   contentIds: number[],
 ): Promise<string> => {
-  const params = new URLSearchParams();
-  contentIds.forEach((id) => params.append('contentId', id.toString()));
-
-  const response = await authClient.delete(
-    `/collections/${id}/contents?${params.toString()}`,
-  );
+  const response = await authClient.delete(`/collections/${id}/contents`, {
+    params: {
+      contentId: contentIds,
+    },
+  });
   return response.data;
 };
 

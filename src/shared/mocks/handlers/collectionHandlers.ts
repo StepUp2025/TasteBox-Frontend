@@ -265,7 +265,7 @@ export const collectionHandlers = [
   }),
 
   // 콘텐츠 제거
-  http.patch('/collections/:id/contents', async ({ params, request }) => {
+  http.delete('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
     const url = new URL(request.url);
     const contentIds = url.searchParams.getAll('contentId').map(Number);
