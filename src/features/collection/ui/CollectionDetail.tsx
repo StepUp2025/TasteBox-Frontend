@@ -5,6 +5,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Title } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
+import {
+  BackgroundImage,
+  BackgroundWrapper,
+} from '../../../shared/styles/backgroundStyle';
 import { useGetCollectionDetail } from '../hooks/useGetCollectionDetail';
 import {
   CollectionWrapper,
@@ -34,54 +38,62 @@ export const CollectionDetail = () => {
 
   return (
     <>
-      <CollectionWrapper>
-        <Title as="h1" size="xlarge">
-          {data?.title}
-        </Title>
+      {data?.thumbnail && <BackgroundImage $imageUrl={data.thumbnail} />}
+      <BackgroundWrapper>
+        <CollectionWrapper>
+          <Title as="h1" size="xlarge">
+            {data?.title}
+          </Title>
 
-        <MoreButtonWrapper>
-          <MoreButton onClick={handleToggle}>
-            <EllipsisVertical />
-          </MoreButton>
+          <MoreButtonWrapper>
+            <MoreButton onClick={handleToggle}>
+              <EllipsisVertical />
+            </MoreButton>
 
-          {menuOpen && (
-            <Menu>
-              <MenuButton onClick={() => navigate(`/collection/${id}/modify`)}>
-                컬렉션 보드 수정
-              </MenuButton>
-              <MenuButton
-                onClick={() => navigate(`/collection/${id}/content-modify`)}
-                disabled={isEmpty}
-                title={isEmpty ? '수정할 콘텐츠가 없습니다' : ''}
-              >
-                컬렉션 콘텐츠 수정
-              </MenuButton>
-            </Menu>
-          )}
-        </MoreButtonWrapper>
-      </CollectionWrapper>
-      <Description>{data?.description}</Description>
+            {menuOpen && (
+              <Menu>
+                <MenuButton
+                  onClick={() => navigate(`/collection/${id}/modify`)}
+                >
+                  컬렉션 보드 수정
+                </MenuButton>
+                <MenuButton
+                  onClick={() => navigate(`/collection/${id}/content-modify`)}
+                  disabled={isEmpty}
+                >
+                  컬렉션 콘텐츠 수정
+                </MenuButton>
+              </Menu>
+            )}
+          </MoreButtonWrapper>
+        </CollectionWrapper>
+        <Description>{data?.description}</Description>
 
-      {isEmpty ? (
-        <Empty
-          text="컬렉션에 콘텐츠를 담아주세요."
-          linkText="바로가기"
-          linkTo="/movie"
-        />
-      ) : (
-        <>
-          {movies.length > 0 && (
-            <ContentsListViewer title="영화" contents={movies} type="toggle" />
-          )}
-          {tvShows.length > 0 && (
-            <ContentsListViewer
-              title="TV 시리즈"
-              contents={tvShows}
-              type="toggle"
-            />
-          )}
-        </>
-      )}
+        {isEmpty ? (
+          <Empty
+            text="컬렉션에 콘텐츠를 담아주세요."
+            linkText="바로가기"
+            linkTo="/movie"
+          />
+        ) : (
+          <>
+            {movies.length > 0 && (
+              <ContentsListViewer
+                title="영화"
+                contents={movies}
+                type="toggle"
+              />
+            )}
+            {tvShows.length > 0 && (
+              <ContentsListViewer
+                title="TV 시리즈"
+                contents={tvShows}
+                type="toggle"
+              />
+            )}
+          </>
+        )}
+      </BackgroundWrapper>
     </>
   );
 };
