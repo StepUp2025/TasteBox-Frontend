@@ -1,15 +1,18 @@
+import qs from 'qs';
 import { authClient, httpClient } from 'shared/api';
-import { ContentsResponse, ParameterTypes } from '../types/contents.type';
+import { ContentsResponse } from '../types/contents.type';
 import { TVs } from '../types/tvs.type';
 
 // 장르별 TV 조회
 export const fetchTVsByGenre = async (
-  data: ParameterTypes,
+  genreIds: number[] = [],
   page: number = 1,
   limit: number = 20,
-) => {
+): Promise<ContentsResponse> => {
   const response = await authClient.get<ContentsResponse>('/tvs/genre', {
-    params: { data, page, limit },
+    params: { genreId: genreIds, page, limit },
+    paramsSerializer: (params) =>
+      qs.stringify(params, { arrayFormat: 'repeat' }),
   });
   return response.data;
 };
