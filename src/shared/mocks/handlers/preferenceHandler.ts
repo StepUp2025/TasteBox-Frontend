@@ -24,20 +24,6 @@ const userPreference = {
   },
 };
 
-const _emptyPreference = {
-  movies: {
-    genres: [
-      { id: 28, name: '액션', emoji: '🔫' },
-      { id: 12, name: '모험', emoji: '🧭' },
-    ],
-    count: 8,
-  },
-  tvs: {
-    genres: [],
-    count: 0,
-  },
-};
-
 export const preferenceHandlers = [
   http.put(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
