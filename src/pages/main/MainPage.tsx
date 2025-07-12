@@ -1,13 +1,19 @@
 import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useLatestContents } from 'features/contents/hooks/latest/useLatestContents';
-import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
+import { useMoviesByGenre } from 'features/contents/hooks/movie/useGetMoviesByGenre';
 import { usePopularMovies } from 'features/contents/hooks/movie/useGetPopularMovies';
 import { usePopularTVs } from 'features/contents/hooks/tvs/useGetPopularTVs';
-import { useRecommendsTVs } from 'features/contents/hooks/tvs/useGetRecommendsTVs';
+import { useTVsByGenre } from 'features/contents/hooks/tvs/useGetTVsByGenre';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
+import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 export default function MainPage() {
+  const [searchParams] = useSearchParams();
+  const genreIdsParam = searchParams.get('genreIds');
+  const parsedGenreIds = genreIdsParam
+    ? genreIdsParam.split(',').map(Number)
+    : [];
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
   const { data } = useLatestContents(10);
   const latestContents = data?.contents || [];
@@ -16,14 +22,11 @@ export default function MainPage() {
   const { data: popularTVsData } = usePopularTVs();
   const popularTVs = popularTVsData?.contents || [];
 
-  const recommendMovieId = 1;
-  const recommendTVId = 5;
+  const { data: genreMoviesData } = useMoviesByGenre(parsedGenreIds, 1, 20);
+  const genreMovies = genreMoviesData?.contents || [];
 
-  const { data: movieRecommendsData } = useMovieRecommends(recommendMovieId);
-  const movieRecommends = movieRecommendsData?.contents || [];
-
-  const { data: tvRecommendsData } = useRecommendsTVs(recommendTVId);
-  const tvRecommends = tvRecommendsData?.contents || [];
+  const { data: genreTVsData } = useTVsByGenre(parsedGenreIds, 1, 20);
+  const genreTVs = genreTVsData?.contents || [];
 
   return (
     <>
@@ -36,13 +39,13 @@ export default function MainPage() {
           />
           <ContentsListViewer
             title="추천 영화"
-            contents={movieRecommends}
+            contents={genreMovies}
             type="link"
             linkTo="movie"
           />
           <ContentsListViewer
             title="추천 TV시리즈"
-            contents={tvRecommends}
+            contents={genreTVs}
             type="link"
             linkTo="tv"
           />
