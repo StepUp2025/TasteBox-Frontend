@@ -75,14 +75,14 @@ export const mockContents: Contents[] = [
 export const mockParameter: ParameterTypes = {
   genreId: 1,
   page: 1,
-  limit: 20,
+  limit: 18,
 };
 
 export const mockContentsResponse: ContentsResponse = {
   contents: mockContents,
   page: 1,
   totalPages: 5,
-  limit: 20,
+  limit: 18,
 };
 
 export const mockMovies: Movie[] = [
@@ -332,7 +332,7 @@ export const contentsHandlers = [
     return createSuccessResponse(undefined, {
       contents: filtered,
       page: 1,
-      limit: 20,
+      limit: 18,
       totalPages: 1,
     });
   }),
@@ -388,7 +388,7 @@ export const contentsHandlers = [
     return createSuccessResponse(undefined, {
       contents: filtered,
       page: 1,
-      limit: 20,
+      limit: 18,
       totalPages: 1,
     });
   }),

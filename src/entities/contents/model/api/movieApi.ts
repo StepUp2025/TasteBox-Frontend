@@ -7,7 +7,7 @@ import { Movie } from '../types/movie.type';
 export const fetchMoviesByGenre = async (
   genreIds: number[] = [],
   page: number = 1,
-  limit: number = 20,
+  limit: number = 18,
 ) => {
   const response = await authClient.get('/movies/genre', {
     params: { genreId: genreIds, page, limit },
@@ -20,7 +20,7 @@ export const fetchMoviesByGenre = async (
 // 인기 영화
 export const fetchPopularMovies = async (
   page: number = 1,
-  limit: number = 20,
+  limit: number = 18,
 ) => {
   const response = await httpClient.get<ContentsResponse>('/movies/popular', {
     params: { page, limit },
@@ -31,7 +31,7 @@ export const fetchPopularMovies = async (
 // 현재 상영작
 export const fetchOnTheAirMovies = async (
   page: number = 1,
-  limit: number = 20,
+  limit: number = 18,
 ) => {
   const response = await httpClient.get<ContentsResponse>(
     '/movies/on-the-air',
@@ -43,7 +43,7 @@ export const fetchOnTheAirMovies = async (
 // 평점 높은 영화
 export const fetchTopRatedMovies = async (
   page: number = 1,
-  limit: number = 20,
+  limit: number = 18,
 ) => {
   const response = await httpClient.get<ContentsResponse>('/movies/top-rated', {
     params: { page, limit },
@@ -52,9 +52,14 @@ export const fetchTopRatedMovies = async (
 };
 
 // 추천 영화
-export const fetchRecommends = async (id: string | number) => {
+export const fetchRecommends = async (
+  id: string | number,
+  page: number = 1,
+  limit: number = 18,
+) => {
   const response = await authClient.get<ContentsResponse>(
     `/movies/${id}/recommends`,
+    { params: { page, limit } },
   );
   return response.data;
 };

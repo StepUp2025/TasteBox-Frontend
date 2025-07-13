@@ -15,17 +15,19 @@ export default function MainPage() {
     ? genreIdsParam.split(',').map(Number)
     : [];
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
-  const { data } = useLatestContents(10);
-  const latestContents = data?.contents || [];
-  const { data: popularMoviesData } = usePopularMovies();
+  const { data: latestContentsData } = useLatestContents(18);
+  const latestContents = latestContentsData?.contents || [];
+
+  const { data: popularMoviesData } = usePopularMovies(1, 18);
   const popularMovies = popularMoviesData?.contents || [];
-  const { data: popularTVsData } = usePopularTVs();
+
+  const { data: popularTVsData } = usePopularTVs(1, 18);
   const popularTVs = popularTVsData?.contents || [];
 
-  const { data: genreMoviesData } = useMoviesByGenre(parsedGenreIds, 1, 20);
+  const { data: genreMoviesData } = useMoviesByGenre(parsedGenreIds, 1, 18);
   const genreMovies = genreMoviesData?.contents || [];
 
-  const { data: genreTVsData } = useTVsByGenre(parsedGenreIds, 1, 20);
+  const { data: genreTVsData } = useTVsByGenre(parsedGenreIds, 1, 18);
   const genreTVs = genreTVsData?.contents || [];
 
   return (
