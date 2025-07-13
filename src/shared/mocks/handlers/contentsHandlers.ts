@@ -1,13 +1,16 @@
 import {
   Contents,
   ContentsResponse,
-  ParameterTypes,
 } from 'entities/contents/model/types/contents.type';
 import { Movie } from 'entities/contents/model/types/movie.type';
 import { TVs } from 'entities/contents/model/types/tvs.type';
 import { Genre } from 'entities/genre/types/genre.type';
 import { http } from 'msw';
+import mockContentsListJson from 'shared/mocks/data/mockContentsList.json';
+import { paginate } from '../utils/pagination';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
+
+const mockContentsList: Contents[] = mockContentsListJson as Contents[]; //타입 명시
 
 export const mockGenres: Genre[] = [
   { id: 1, name: 'Action' },
@@ -41,11 +44,6 @@ export const mockContents: Contents[] = [
     contentType: 'tv',
   },
 ];
-
-export const mockParameter: ParameterTypes = {
-  genreId: 12,
-  page: 1,
-};
 
 export const mockContentsResponse: ContentsResponse = {
   contents: mockContents,
@@ -113,37 +111,29 @@ export const contentsHandlers = [
   // 장르별 영화 조회
   http.get('/movies/genre', ({ request }) => {
     const url = new URL(request.url);
-    const genreId = Number(url.searchParams.get('genreId'));
-    const filtered = mockMovies.filter((m) =>
-      m.genres.some((g) => g.id === genreId),
-    );
-    return createSuccessResponse(undefined, {
-      contents: filtered,
-    });
+    const genreIds = url.searchParams.getAll('genreId').map(Number);
+    console.log('장르 ID:', genreIds);
+
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 인기 영화
-  http.get('/movies/popular', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'movie'),
-    });
+  http.get('/movies/popular', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 현재 상영작
-  http.get('/movies/now-playing', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'movie'),
-    });
+  http.get('/movies/now-playing', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 평점 높은 영화
-  http.get('/movies/top-rated', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'movie'),
-    });
+  http.get('/movies/top-rated', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 추천 영화 (id 기반)
@@ -165,37 +155,28 @@ export const contentsHandlers = [
   // 장르별 TV 조회
   http.get('/tvs/genre', ({ request }) => {
     const url = new URL(request.url);
-    const genreId = Number(url.searchParams.get('genreId'));
-    const filtered = mockTVs.filter((t) =>
-      t.genres.some((g) => g.id === genreId),
-    );
-    return createSuccessResponse(undefined, {
-      contents: filtered,
-    });
+    const _genreIds = url.searchParams.getAll('genreId').map(Number);
+
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 인기 TV
-  http.get('/tvs/popular', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'tv'),
-    });
+  http.get('/tvs/popular', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 현재 방영 중인 TV
-  http.get('/tvs/on-the-air', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'tv'),
-    });
+  http.get('/tvs/on-the-air', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 평점 높은 TV
-  http.get('/tvs/top-rated', () => {
-    return createSuccessResponse(undefined, {
-      mockContentsResponse,
-      contents: mockContents.filter((c) => c.contentType === 'tv'),
-    });
+  http.get('/tvs/top-rated', ({ request }) => {
+    const pagination = paginate(mockContentsList, request);
+    return createSuccessResponse(undefined, pagination);
   }),
 
   // 추천 TV (id 기반)
