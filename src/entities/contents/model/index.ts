@@ -1,2 +1,2 @@
-export * from './api/movieapi'
-export * from './api/tvsApi'
+export * from './api/movieApi';
+export * from './api/tvsApi';
