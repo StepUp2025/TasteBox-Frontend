@@ -3,8 +3,8 @@ import { ErrorBox } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
-import CollectionCardItem from './CollectionCardItem';
-import ProfileWidgetHeader from './ProfileWidgetHeader';
+import CollectionCardItem from '../user/userProfile/CollectionCardItem';
+import WidgetHeader from '../WidgetHeader';
 
 const UserCollectionList = () => {
   const { data, isPending } = useGetCollectionList();
@@ -14,9 +14,9 @@ const UserCollectionList = () => {
   const { collections } = data;
   return (
     <UserCollectionListStyle>
-      <ProfileWidgetHeader
+      <WidgetHeader
         title="내가 추가한 컬렉션"
-        linkTo="/collection"
+        linkTo="/collection/create"
         linkText="컬렉션 생성하기"
       />
 
