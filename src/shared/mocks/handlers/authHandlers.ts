@@ -28,7 +28,7 @@ export const authHandlers = [
       );
     }
 
-    return createSuccessResponse('회원가입 성공', undefined, 201);
+    return createSuccessResponse('회원가입 성공', undefined);
   }),
 
   http.post(`${BASE}/auth/login`, async ({ request }) => {

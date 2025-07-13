@@ -21,7 +21,7 @@ const UpdatePasswordModal = ({ open, onClose }: UpdatePasswordModalProps) => {
   } = useForm<UpdatePasswordFormValues>({
     resolver: zodResolver(updatePasswordSchema),
   });
-  const { mutate, isPending } = useUpdatePassword();
+  const { mutate } = useUpdatePassword();
 
   const onSubmit = (data: UpdatePasswordFormValues) => {
     console.log('제출된 값:', data);
