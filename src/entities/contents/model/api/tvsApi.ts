@@ -1,4 +1,3 @@
-import qs from 'qs';
 import { authClient, httpClient } from 'shared/api';
 import { ContentsResponse } from '../types/contents.type';
 import { TVs } from '../types/tvs.type';
@@ -11,8 +10,6 @@ export const fetchTVsByGenre = async (
 ): Promise<ContentsResponse> => {
   const response = await authClient.get<ContentsResponse>('/tvs/genre', {
     params: { genreId: genreIds, page, limit },
-    paramsSerializer: (params) =>
-      qs.stringify(params, { arrayFormat: 'repeat' }),
   });
   return response.data;
 };
