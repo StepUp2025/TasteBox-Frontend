@@ -11,6 +11,7 @@ export type ColorKey =
   | 'thirdText'
   | 'errorText'
   | 'constantWhite'
+  | 'defaultText'
   | 'hoverOverlay';
 
 export type ShadowKey = 'default';
