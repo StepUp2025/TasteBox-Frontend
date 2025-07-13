@@ -22,7 +22,6 @@ const SidebarWidth = 90;
 
 const LayoutWrapper = styled.div`
   margin-left: ${SidebarWidth}px;
-  width:${({ theme }) => theme.layout.width};
   min-height: 100vh;
   height: 100vh;
   display: flex;
