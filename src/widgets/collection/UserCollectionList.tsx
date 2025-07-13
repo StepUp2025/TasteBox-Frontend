@@ -3,8 +3,8 @@ import { ErrorBox } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
-import CollectionCardItem from '../user/userProfile/CollectionCardItem';
 import WidgetHeader from '../WidgetHeader';
+import CollectionCardItem from './CollectionCardItem';
 
 const UserCollectionList = () => {
   const { data, isPending } = useGetCollectionList();
