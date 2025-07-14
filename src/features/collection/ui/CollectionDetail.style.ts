@@ -1,7 +1,7 @@
 import { rgba } from 'polished';
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const CollectionWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
@@ -48,8 +48,15 @@ export const MenuButton = styled.button`
 
   padding: 0.5rem;
   border-radius: ${({ theme }) => theme.borderRadius.small};
+
   &:hover {
     font-weight: 500;
     background-color: ${({ theme }) => theme.color.subBackground};
+  }
+
+  &:disabled {
+    background-color: ${({ theme }) => theme.color.border};
+    color: ${({ theme }) => theme.color.thirdText};
+    cursor: not-allowed;
   }
 `;
