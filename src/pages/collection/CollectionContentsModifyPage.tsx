@@ -1,5 +1,5 @@
 import CollectionContentsEditor from 'features/collection/ui/CollectionContentsEditor';
-import { Container } from 'shared/styles/container';
+import { Container } from 'shared/styles/Container';
 
 export default function CollectionContentsModifyPage() {
   return (

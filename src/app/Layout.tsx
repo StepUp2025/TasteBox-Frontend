@@ -28,13 +28,9 @@ const LayoutWrapper = styled.div`
   flex-direction: column;
   overflow-y: auto;
 `;
-
 const LayoutItem = styled.main`
-  margin-bottom: 50px;
+  margin-left: 39px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;        
-  max-width: 1200px;
-  width: 100%;
   `;
