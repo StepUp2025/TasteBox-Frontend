@@ -3,7 +3,7 @@ name: Deploy to AWS S3
 on:
   push:
     branches:
-      - main
+      - fix/error
 
 jobs:
   deploy:
@@ -31,4 +31,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
       - name: Deploy to S3
-        run: aws s3 sync ./build s3://버킷이름 --delete --acl public-read
+        run: aws s3 sync ./build s3://taste-box-frontend --delete --acl public-read
