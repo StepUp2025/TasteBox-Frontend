@@ -26,12 +26,12 @@ export const fetchPopularMovies = async (
 };
 
 // 현재 상영작
-export const fetchOnTheAirMovies = async (
+export const fetchNowPlayingMovies = async (
   page: number = 1,
   limit: number = 18,
 ) => {
   const response = await httpClient.get<ContentsResponse>(
-    '/movies/on-the-air',
+    '/movies/now-playing',
     { params: { page, limit } },
   );
   return response.data;

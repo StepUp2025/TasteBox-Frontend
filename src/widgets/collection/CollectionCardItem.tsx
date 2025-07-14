@@ -1,9 +1,9 @@
-import { CollectionItem } from 'entities/collection';
+import { CollectionCard } from 'entities/collection';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props {
-  collection: CollectionItem;
+  collection: CollectionCard;
 }
 
 const CollectionCardItem = ({ collection }: Props) => {

@@ -30,3 +30,7 @@ export interface ContentsDetail extends Contents {
   status: string;
   genres: Genre[];
 }
+
+export interface InfiniteContents {
+  pages: ContentsResponse[];
+}
