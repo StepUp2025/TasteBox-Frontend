@@ -1,42 +1,36 @@
 import { ContentType } from 'entities/contents/model/types/contents.type';
 
-export interface ContentItem {
+export interface CollectionContent {
   id: number;
-  contentType: ContentType; // 'movie' | 'tv'
+  posterPath: string | null;
+  title: string;
+  contentType: ContentType;
 }
 
 export interface CollectionBase {
   title: string;
   description: string;
-  thumbnail: string;
+  thumbnail: string | null;
 }
 
-export type CreateCollectionRequest = CollectionBase;
+export interface CollectionListItem extends CollectionBase {
+  id: number;
+  contents: number[];
+}
+
+export interface CreateCollectionRequest extends CollectionBase {}
 
 export interface CreateCollectionResponse {
   id: number;
 }
 
-export interface CollectionItem extends CollectionBase {
-  id: number;
-}
-
-export interface GetCollectionResponse {
-  collections: CollectionItem[];
+export interface GetCollectionsResponse {
+  collections: CollectionListItem[];
   count: number;
 }
-
-export interface GetCollectionDetailResponse extends CollectionItem {
-  contents: {
-    id: number;
-    posterPath: string | null;
-    title: string;
-    contentType: ContentType;
-  }[];
+export interface GetCollectionDetailResponse extends CollectionBase {
+  id: number;
+  contents: CollectionContent[];
 }
 
 export type UpdateCollectionRequest = Partial<CollectionBase>;
-
-export interface ModifyContentsRequest {
-  contents: ContentItem[];
-}

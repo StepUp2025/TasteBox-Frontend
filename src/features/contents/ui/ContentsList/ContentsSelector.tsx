@@ -1,5 +1,4 @@
-import { ContentItem } from 'entities/collection';
-import { Contents } from 'entities/contents/model/types/contents.type';
+import { CollectionContent } from 'entities/collection';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import ContentItemEdit from '../ContentItem/ContentItemEdit';
@@ -12,9 +11,9 @@ import { Header, Wrapper } from './ContentsList.stye';
 
 interface Props {
   title: string;
-  contents: Contents[];
-  selectedContents: ContentItem[];
-  setter: Dispatch<SetStateAction<ContentItem[]>>;
+  contents: CollectionContent[];
+  selectedContents: number[];
+  setter: Dispatch<SetStateAction<number[]>>;
 }
 
 const ContentsSelector = ({
@@ -23,17 +22,10 @@ const ContentsSelector = ({
   selectedContents = [],
   setter,
 }: Props) => {
-  const selectContent = (
-    id: number,
-    contentType: Contents['contentType'],
-    checked: boolean,
-  ) => {
-    const contentItem: ContentItem = { id, contentType };
-    if (checked) {
-      setter((prev) => [...prev, contentItem]);
-    } else {
-      setter((prev) => prev.filter((item) => item.id !== id));
-    }
+  const toggleContent = (id: number, checked: boolean) => {
+    setter((prev) =>
+      checked ? [...prev, id] : prev.filter((contentId) => contentId !== id),
+    );
   };
 
   return (
@@ -47,8 +39,8 @@ const ContentsSelector = ({
           <ContentItemEdit
             key={item.id}
             content={item}
-            checked={selectedContents.some((c) => c.id === item.id)}
-            onCheck={selectContent}
+            checked={selectedContents.includes(item.id)}
+            onCheck={toggleContent}
           />
         ))}
       </ContentsSelectorContainer>

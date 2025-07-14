@@ -1,12 +1,10 @@
-import { Container } from 'features/collection/style/Container.style';
-import { CollectionDetailBody } from 'features/collection/ui/CollectionDetailBody';
-import { CollectionHeader } from 'features/collection/ui/CollectionHeader';
+import { CollectionDetail } from 'features/collection/ui/CollectionDetail';
+import { Container } from 'shared/styles/container';
 
 export default function CollectionDetailPage() {
   return (
     <Container>
-      <CollectionHeader />
-      <CollectionDetailBody />
+      <CollectionDetail />
     </Container>
   );
 }
