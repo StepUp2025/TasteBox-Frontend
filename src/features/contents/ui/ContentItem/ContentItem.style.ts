@@ -2,7 +2,6 @@
 
 import { hoverOverlay } from 'shared/styles/hoverOverlay';
 import styled, { css } from 'styled-components';
-import { CONTENT_ITEM_MAX_WIDTH, CONTENT_ITEM_MIN_WIDTH } from '../constants';
 
 export const ContentsWrapperStyle = css`
   display: inline-flex;
@@ -14,9 +13,7 @@ export const ContentsWrapperStyle = css`
   margin: 0;
   padding: 0;
   gap: 0;
-  width: 16vw;
-  max-width: ${CONTENT_ITEM_MAX_WIDTH}px;
-  min-width: ${CONTENT_ITEM_MIN_WIDTH}px;
+  width: 100%;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   overflow: hidden;
   position: relative;

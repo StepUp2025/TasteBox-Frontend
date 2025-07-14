@@ -2,11 +2,7 @@ import { CollectionContent } from 'entities/collection';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import ContentItemEdit from '../ContentItem/ContentItemEdit';
-import {
-  CONTENT_ITEM_GAP,
-  CONTENT_LIST_MAX_WIDTH,
-  CONTENT_LIST_MIN_WIDTH,
-} from '../constants';
+import { CONTENT_ITEM_GAP } from '../constants';
 import { Header, Wrapper } from './ContentsList.stye';
 
 interface Props {
@@ -49,15 +45,10 @@ const ContentsSelector = ({
 };
 
 const ContentsSelectorContainer = styled.div`
-  display: flex;
-  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: ${CONTENT_ITEM_GAP}px;
-  flex-wrap: wrap;
-  overflow-x: visible;
-  padding-bottom: 0;
   width: 100%;
-  max-width: ${CONTENT_LIST_MAX_WIDTH}px;
-  min-width: ${CONTENT_LIST_MIN_WIDTH}px;
 `;
 
 export default ContentsSelector;
