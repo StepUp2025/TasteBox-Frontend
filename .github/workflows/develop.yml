@@ -3,7 +3,7 @@ name: Deploy to AWS S3
 on:
   push:
     branches:
-      - feat/deploy-test
+      - develop
 
 jobs:
   deploy:
