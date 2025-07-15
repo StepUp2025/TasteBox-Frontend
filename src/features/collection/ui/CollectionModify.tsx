@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, InputText, Title } from 'shared/ui';
+import { Button, InputText, Modal, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
 import { useDeleteCollection } from '../hooks/useDeleteCollection';
@@ -12,6 +12,7 @@ import {
   EditCollectionFormValues,
   editCollectionFormSchema,
 } from '../validation/collectionFormSchema';
+import { ModalText } from './CollectionContentsEditor.style';
 import {
   CollectionFormBody,
   CollectionFormHeader,
@@ -26,6 +27,9 @@ export default function EditCollectionForm() {
   const { mutate: update, isPending } = useUpdateCollection(collectionId);
   const { mutate: deleteMutate } = useDeleteCollection();
   const navigate = useNavigate();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleToggle = () => setModalOpen((prev) => !prev);
 
   const {
     register,
@@ -142,6 +146,16 @@ export default function EditCollectionForm() {
             previewImageUrl={data.thumbnail ?? ''}
           />
 
+          <Modal
+            open={modalOpen}
+            title="컬렉션 삭제"
+            onClose={handleToggle}
+            confirmText="삭제"
+            onConfirm={onDelete}
+          >
+            <ModalText>컬렉션을 정말 삭제하시겠어요?</ModalText>
+          </Modal>
+
           <SubmitButtonWrapper>
             <Button
               type="button"
@@ -149,7 +163,7 @@ export default function EditCollectionForm() {
               fontSize="small"
               scheme="secondary"
               borderRadius="medium"
-              onClick={onDelete}
+              onClick={handleToggle}
             >
               삭제하기
             </Button>
