@@ -8,17 +8,17 @@ const UserPreferenceList = () => {
   const { data, isLoading } = useUserPreference();
   if (isLoading) return <Loading />;
   if (!data) return <ErrorBox errorMessage="취향을 불러오지 못했습니다" />;
-  const { movies, tvs } = data;
+  const { movie, tv } = data;
   return (
     <UserPreferenceListStyle>
       <Title size="small" color="thirdText" className="header">
         영화
       </Title>
       <div className="genre-buttons">
-        {movies.genres.length === 0 ? (
+        {movie.genres.length === 0 ? (
           <Empty text="영화 취향이 없습니다" />
         ) : (
-          movies.genres.map((genre) => (
+          movie.genres.map((genre) => (
             <Button
               buttonSize="genre"
               fontSize="small"
@@ -37,10 +37,10 @@ const UserPreferenceList = () => {
         TV 시리즈
       </Title>
       <div className="genre-buttons">
-        {tvs.genres.length === 0 ? (
+        {tv.genres.length === 0 ? (
           <Empty text="TV 시리즈 취향이 없습니다" />
         ) : (
-          tvs.genres.map((genre) => (
+          tv.genres.map((genre) => (
             <Button
               buttonSize="genre"
               fontSize="small"

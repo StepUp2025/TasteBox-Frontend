@@ -15,6 +15,6 @@ export interface UserContentsPreference {
 }
 
 export interface UserPreference {
-  movies: UserContentsPreference; // 선호하는 영화 장르 목록과 개수
-  tvs: UserContentsPreference; // 선호하는 TV 프로그램 장르 목록과 개
+  movie: UserContentsPreference; // 선호하는 영화 장르 목록과 개수
+  tv: UserContentsPreference; // 선호하는 TV 프로그램 장르 목록과 개
 }
