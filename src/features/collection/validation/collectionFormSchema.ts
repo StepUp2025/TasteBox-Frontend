@@ -6,7 +6,7 @@ import { z } from 'zod';
 export const createCollectionFormSchema = z.object({
   title: titleSchema,
   description: descriptionSchema,
-  thumbnail: thumbnailSchema,
+  thumbnail: thumbnailSchema.optional(),
 });
 
 export const editCollectionFormSchema = z.object({
