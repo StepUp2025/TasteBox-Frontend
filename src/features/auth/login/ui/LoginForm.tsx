@@ -24,6 +24,7 @@ const LoginForm = () => {
 
   const { mutate, isPending } = useLocalLogin({
     onError: (error) => {
+      console.log('로그인 실패:', error.response?.data);
       const message = error.response?.data?.message || '로그인에 실패했습니다.';
       toast.error(message);
     },

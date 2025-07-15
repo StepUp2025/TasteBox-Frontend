@@ -24,6 +24,7 @@ const SignupForm = () => {
       navigate('/login');
     },
     onError: (error) => {
+      console.log('회원가입 실패:', error.response?.data);
       const message =
         error.response?.data?.message || '회원가입에 실패했습니다.';
       toast.error(message);
@@ -87,8 +88,8 @@ const SignupForm = () => {
             />
             <InputText
               placeholder="전화번호를 입력해주세요"
-              {...register('phone')}
-              error={errors.phone?.message}
+              {...register('contact')}
+              error={errors.contact?.message}
             />
           </div>
 

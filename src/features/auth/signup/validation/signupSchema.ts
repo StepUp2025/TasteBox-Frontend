@@ -1,7 +1,7 @@
+import { contactSchema } from 'shared/validation/contactSchema';
 import { emailSchema } from 'shared/validation/emailSchema';
 import { nicknameSchema } from 'shared/validation/nicknameSchema';
 import { passwordSchema } from 'shared/validation/passwordSchema';
-import { phoneSchema } from 'shared/validation/phoneSchema';
 import { ZodIssueCode, z } from 'zod';
 
 export const signupSchema = z
@@ -10,7 +10,7 @@ export const signupSchema = z
     email: emailSchema,
     password: passwordSchema,
     passwordConfirm: z.string(),
-    phone: phoneSchema,
+    contact: contactSchema,
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.passwordConfirm) {
