@@ -1,3 +1,9 @@
+import CollectionCreate from 'features/collection/ui/CollectionCreate';
+
 export default function CollectionCreatePage() {
-  return <div>CollectionCreatePage</div>;
+  return (
+    <div>
+      <CollectionCreate />
+    </div>
+  );
 }
