@@ -38,9 +38,6 @@ export default function CreateCollectionForm() {
       formData.append('thumbnail', values.thumbnail[0]);
     }
 
-    console.log(values.thumbnail[0]);
-    console.log(formData.get('thumbnail'));
-
     mutate(formData, {
       onSuccess: (res) => navigate(`/collection/${res.id}`),
     });
