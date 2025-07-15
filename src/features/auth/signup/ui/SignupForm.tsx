@@ -5,7 +5,7 @@ import { PackageOpen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
-import Loading from 'shared/ui/Loading/Loading';
+import { toast } from 'sonner';
 import { useSignup } from '../hooks/useSignup';
 import { SignupFormValues, signupSchema } from '../validation/signupSchema';
 
@@ -18,7 +18,17 @@ const SignupForm = () => {
     resolver: zodResolver(signupSchema),
   });
 
-  const { mutate, isPending } = useSignup();
+  const { mutate, isPending } = useSignup({
+    onSuccess: () => {
+      toast.success('회원가입이 완료되었어요!');
+      navigate('/login');
+    },
+    onError: (error) => {
+      const message =
+        error.response?.data?.message || '회원가입에 실패했습니다.';
+      toast.error(message);
+    },
+  });
 
   const onSubmit = (data: SignupFormValues) => {
     console.log('제출된 값:', data);
@@ -32,7 +42,6 @@ const SignupForm = () => {
 
   return (
     <AuthFormLayout>
-      {isPending && <Loading />}
       <div className="container">
         <div className="header">
           <Button
@@ -63,6 +72,12 @@ const SignupForm = () => {
               placeholder="비밀번호를 입력해주세요"
               {...register('password')}
               error={errors.password?.message}
+              type="password"
+            />
+            <InputText
+              placeholder="비밀번호를 한 번 더 입력해주세요"
+              {...register('passwordConfirm')}
+              error={errors.passwordConfirm?.message}
               type="password"
             />
             <InputText

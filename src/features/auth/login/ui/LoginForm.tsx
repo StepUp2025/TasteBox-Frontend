@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import googleLogo from 'shared/assets/images/google-logo-icon.png';
 import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
-import Loading from 'shared/ui/Loading/Loading';
+import { toast } from 'sonner';
 import { useLocalLogin } from '../model/hooks/useLocalLogin';
 import { useOAUthLogin } from '../model/hooks/useOAuthLogin';
 import { LoginFormValues, loginSchema } from '../model/validation/loginSchema';
@@ -22,7 +22,12 @@ const LoginForm = () => {
   });
   const navigate = useNavigate();
 
-  const { mutate, isPending } = useLocalLogin();
+  const { mutate, isPending } = useLocalLogin({
+    onError: (error) => {
+      const message = error.response?.data?.message || '로그인에 실패했습니다.';
+      toast.error(message);
+    },
+  });
   const { loginWithGoogle, loginWithKakao } = useOAUthLogin();
 
   const onSubmit = (data: LoginFormValues) => {
@@ -35,7 +40,6 @@ const LoginForm = () => {
 
   return (
     <AuthFormLayout>
-      {isPending && <Loading />}
       <div className="container">
         <div className="header">
           <Button

@@ -11,6 +11,7 @@ const allowedDomains = [
   'outlook.com',
   'icloud.com',
   'nate.com',
+  'mail.com',
 ];
 
 export const emailSchema = z
