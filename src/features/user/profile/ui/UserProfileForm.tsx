@@ -17,7 +17,7 @@ interface Props {
 
 const UserProfileForm = ({ user }: Props) => {
   const { mutate, isPending } = useUpdateUserProfile();
-  const { nickname, image, provider } = user;
+  const { nickname, image } = user;
 
   const {
     register,
