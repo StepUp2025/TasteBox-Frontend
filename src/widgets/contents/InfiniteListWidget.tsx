@@ -28,8 +28,8 @@ const InfiniteListWidget = ({ contentType }: Props) => {
   const { data: preferenceData } = useUserPreference();
   const [_searchParams, setSearchParams] = useSearchParams();
 
-  const movieGenres = preferenceData?.movies.genres ?? [];
-  const tvGenres = preferenceData?.tvs.genres ?? [];
+  const movieGenres = preferenceData?.movie.genres ?? [];
+  const tvGenres = preferenceData?.tv.genres ?? [];
 
   const movieIds = useMemo(() => movieGenres.map((g) => g.id), [movieGenres]);
   const tvIds = useMemo(() => tvGenres.map((g) => g.id), [tvGenres]);
