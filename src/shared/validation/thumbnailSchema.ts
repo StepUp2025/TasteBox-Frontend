@@ -1,7 +1,7 @@
 import { ZodIssueCode, z } from 'zod';
 
 export const thumbnailSchema = z.any().superRefine((val, ctx) => {
-  if (val == null || (val instanceof FileList && val.length === 0)) {
+  if (val == null) {
     return;
   }
 

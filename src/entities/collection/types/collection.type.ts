@@ -14,11 +14,7 @@ export interface CollectionListItem extends CollectionBase {
   id: number;
   contents: number[];
 }
-export interface CreateCollectionRequest {
-  title: string;
-  description: string;
-  thumbnail: File | null;
-}
+export type CreateCollectionRequest = FormData;
 export interface CreateCollectionResponse {
   id: number;
 }
@@ -30,7 +26,8 @@ export interface GetCollectionDetailResponse extends CollectionBase {
   id: number;
   contents: CollectionContent[];
 }
-export type UpdateCollectionRequest = Partial<CreateCollectionRequest>;
+
+export type UpdateCollectionRequest = FormData;
 export interface CollectionCard {
   id: number;
   title: string;
