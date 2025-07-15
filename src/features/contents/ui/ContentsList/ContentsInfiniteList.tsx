@@ -5,11 +5,7 @@ import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
 import ContentItemView from '../ContentItem/ContentItemView';
-import {
-  CONTENT_ITEM_GAP,
-  CONTENT_LIST_MAX_WIDTH,
-  CONTENT_LIST_MIN_WIDTH,
-} from '../constants';
+import { CONTENT_ITEM_GAP } from '../constants';
 
 interface Props {
   data: InfiniteContents | undefined;
@@ -72,7 +68,6 @@ const ContentsInfiniteList = ({
 
 const ContentsInfiniteListStyle = styled.div`
   width: 100%;
-  padding: 0 16px;
   margin: 40px auto 0;
   display: flex;
   flex-direction: column;
@@ -81,11 +76,9 @@ const ContentsInfiniteListStyle = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: ${CONTENT_ITEM_GAP}px;
   width: 100%;
-  max-width: ${CONTENT_LIST_MAX_WIDTH}px;
-  min-width: ${CONTENT_LIST_MIN_WIDTH}px;
 `;
 
 export default ContentsInfiniteList;

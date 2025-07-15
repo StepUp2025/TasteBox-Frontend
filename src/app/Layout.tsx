@@ -6,31 +6,43 @@ import Sidebar from 'widgets/SideBar';
 
 export default function Layout() {
   return (
-    <>
+    <Wrapper>
       <Sidebar />
-      <LayoutWrapper>
-        <LayoutItem>
-          <Outlet /> {/* 이게 자식 라우트들 렌더링 위치 */}
-        </LayoutItem>
+      <MainWrapper>
+        <Container>
+          <Outlet />
+        </Container>
         <Footer />
-      </LayoutWrapper>
-    </>
+      </MainWrapper>
+    </Wrapper>
   );
 }
 
-const SidebarWidth = 90;
+const SIDEBAR_WIDTH = 106;
 
-const LayoutWrapper = styled.div`
-  margin-left: ${SidebarWidth}px;
-  min-height: 100vh;
-  height: 100vh;
+const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  overflow-y: auto;
+  min-height: 100vh;
+  width: 100vw;
+    overflow-x: hidden;
 `;
-const LayoutItem = styled.main`
-  margin-left: 39px;
+
+const MainWrapper = styled.main`
+  margin-left: ${SIDEBAR_WIDTH}px;
   flex: 1;
   display: flex;
   flex-direction: column;
-  `;
+    min-width: 0;
+  width: 100%; 
+`;
+
+const Container = styled.section`
+  width: 100%;
+  max-width: 1280px;
+  min-width: 280px;
+  margin: 0 auto;
+  padding: 3rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+`;

@@ -1,7 +1,6 @@
 import {
-  CreateCollectionRequest,
+  CollectionBase,
   GetCollectionDetailResponse,
-  UpdateCollectionRequest,
 } from 'entities/collection/types/collection.type';
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
@@ -167,9 +166,8 @@ const mockCollections: GetCollectionDetailResponse[] = [
 let nextId = 3;
 
 export const collectionHandlers = [
-  // 컬렉션 생성
   http.post('/collections', async ({ request }) => {
-    const body = (await request.json()) as CreateCollectionRequest;
+    const body = (await request.json()) as CollectionBase; // image string 값으로 처리
 
     const newCollection: GetCollectionDetailResponse = {
       id: nextId++,
@@ -182,7 +180,6 @@ export const collectionHandlers = [
     return createSuccessResponse(undefined, { id: newCollection.id });
   }),
 
-  // 컬렉션 리스트 조회
   http.get('/collections', () => {
     const summaryList = mockCollections.map(
       ({ id, title, description, thumbnail, contents }) => ({
@@ -200,7 +197,6 @@ export const collectionHandlers = [
     });
   }),
 
-  // 컬렉션 상세 조회
   http.get('/collections/:id', ({ params }) => {
     const { id } = params;
 
@@ -216,10 +212,9 @@ export const collectionHandlers = [
     return createSuccessResponse(undefined, mockCollections[idx]);
   }),
 
-  // 컬렉션 수정
   http.patch('/collections/:id', async ({ params, request }) => {
     const { id } = params;
-    const patchData = (await request.json()) as UpdateCollectionRequest;
+    const patchData = (await request.json()) as CollectionBase; // image string 값으로 처리
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
@@ -235,7 +230,6 @@ export const collectionHandlers = [
     return createSuccessResponse('컬렉션 수정 완료');
   }),
 
-  // 6. 콘텐츠 추가
   http.post('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
     const url = new URL(request.url);
@@ -264,7 +258,6 @@ export const collectionHandlers = [
     return createSuccessResponse('콘텐츠 추가 완료');
   }),
 
-  // 콘텐츠 제거
   http.delete('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
     const url = new URL(request.url);
@@ -286,7 +279,6 @@ export const collectionHandlers = [
     return createSuccessResponse('콘텐츠 삭제 완료');
   }),
 
-  // 컬렉션 삭제
   http.delete('/collections/:id', ({ params }) => {
     const { id } = params;
 
