@@ -4,12 +4,12 @@ import { TVs } from '../types/tvs.type';
 
 // 장르별 TV 조회
 export const fetchTVsByGenre = async (
-  genreIds: number[] = [],
+  genreId: number[] = [],
   page: number = 1,
   limit: number = 18,
 ): Promise<ContentsResponse> => {
-  const response = await authClient.get<ContentsResponse>('/tvs/genre', {
-    params: { genreId: genreIds, page, limit },
+  const response = await authClient.get<ContentsResponse>('/tvs', {
+    params: { genreId, page, limit },
   });
   return response.data;
 };
