@@ -1,21 +1,28 @@
 import { useMovieDetail } from 'features/contents/hooks/movie/useGetMovieDetail';
 import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
-import ContentsList from 'features/contents/ui/ContentsList/ContentsList';
+import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
 import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Title } from 'shared/ui';
-import styled, { useTheme } from 'styled-components';
+import { BackgroundImage } from 'shared/styles/backgroundStyle';
+import { Button, Modal, Title } from 'shared/ui';
+import Loading from 'shared/ui/Loading/Loading';
+import styled from 'styled-components';
 
 export default function MovieDetailPage() {
-  const theme = useTheme();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
   const { id } = useParams();
   const movieId = Number(id);
   const { data, isPending, isError, error } = useMovieDetail(movieId);
-  const recommendMovieId = 1;
-  const { data: movieRecommends, isPending: movieRecPending } =
-    useMovieRecommends(recommendMovieId);
+  const { data: movieRecommendsData } = useMovieRecommends(1, 18);
+  const movieRecommends = movieRecommendsData?.contents || [];
 
-  if (isPending) return <div>로딩 중...</div>;
+  const handleModal = () => {
+    setIsModalOpen(false);
+  };
+  if (isPending) return <Loading />;
   if (isError) return <div>에러 발생: {error?.message}</div>;
   if (!data) return <div>영화 정보를 찾을 수 없습니다.</div>;
 
@@ -33,15 +40,12 @@ export default function MovieDetailPage() {
   } = data;
   return (
     <Wrapper>
-      <BackgroundPoster
-        src={backdropPath || '/default-movie.png'}
-        alt="background"
-      />
+      <BackgroundImage $imageUrl={backdropPath || undefined} />
       <HeaderSection>
-        <Poster src={posterPath || '/default-movie.png'} alt={title} />
+        <Poster src={posterPath || 'default-contents-image'} alt={title} />
         <Info>
           <Title>{title}</Title>
-          <InfoRow>{genres?.map((g) => g.name).join(', ')}</InfoRow>
+          <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
           <InfoRow>
             <Star size={24} />
             {voteAverage}({voteCount})
@@ -49,38 +53,39 @@ export default function MovieDetailPage() {
           </InfoRow>
           <InfoRow>
             <Earth size={24} /> {originalLanguage?.toUpperCase()}
-          </InfoRow>
-          <InfoRow>
             <Clock size={24} />
             {runtime}분
           </InfoRow>
-          <Button
-            onClick={() => ''}
+          <CollectionButton
+            onClick={handleOpenModal}
             disabled={isPending}
             buttonSize="small"
             fontSize="small"
-            scheme="menu"
+            scheme="primary"
             borderRadius="large"
-            disableHoverOverlay={true}
           >
-            <CollectionButton>
-              <Plus size={24} stroke={theme.color.primary} />
-              컬렉션 추가
-            </CollectionButton>
-          </Button>
+            <Plus size={24} /> <p>컬렉션 추가</p>
+          </CollectionButton>
+          <Modal
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            title="콘텐츠 저장"
+            confirmText="새 컬렉션 만들기"
+            confirmType="button"
+            onConfirm={handleModal}
+          >
+            <ModalItem />
+          </Modal>
         </Info>
       </HeaderSection>
-
       <OverviewSection>
         <Title>줄거리</Title>
         {overview}
       </OverviewSection>
-
       <RecommendSection>
-        <Title>추천 영화</Title>
-        <ContentsList
-          title=""
-          contents={movieRecPending ? [] : movieRecommends?.contents || []}
+        <ContentsListViewer
+          title="추천영화"
+          contents={movieRecommends}
           type="link"
           linkTo="movie"
         />
@@ -88,43 +93,30 @@ export default function MovieDetailPage() {
     </Wrapper>
   );
 }
-const SidebarWidth = 107;
 const Wrapper = styled.div`
  position: relative;
   padding: 32px;
   margin: 0;
-  margin-left: 90px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   z-index: 99;
 `;
 
-const BackgroundPoster = styled.img`
-position: fixed;
-margin-left: ${SidebarWidth}px;  
-width: calc(100vw - ${SidebarWidth}px);  
-top: 0;
-left: 0;
-height: 40%;
-object-fit: cover;
-z-index: 1;
-opacity: 0.3;
-pointer-events: none;
-`;
-
 const HeaderSection = styled.section`
+ position: relative;
   display: flex;
   gap: 32px;
-  align-items: flex-start;
+  align-items: flex-end;
+  z-index: 3;
 `;
 
 const Poster = styled.img`
   width: 220px;
   height: 320px;
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  box-shadow: ${({ theme }) => theme.shadow.default};
   object-fit: cover;
+  margin-top: 60px;
 `;
 
 const Info = styled.div`
@@ -152,19 +144,42 @@ const RecommendSection = styled.section`
   margin: 40px 0 24px 0;
 `;
 
-const CollectionButton = styled.button`
-  color: ${({ theme }) => theme.color.primary};
-  border: 1.5px solid ${({ theme }) => theme.color.primary};
-  border-radius: ${({ theme }) => theme.borderRadius.large};
-  font-size: ${({ theme }) => theme.fontSize.medium};
-  padding: 6px 18px;
-  display: flex;
-  align-items: center;
-  margin-top:20px;
+const CollectionButton = styled(Button)`
+  width: 200px;
+  height: 43px;
+  margin-top: 40px;
   gap: 6px;
-  transition: background 0.2s;
-  &:hover {
-    background: ${({ theme }) => theme.color.subBackground};
-    font-weight: bold;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+
+`;
+
+export const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+export const ModalContainer = styled.div`
+  background: ${({ theme }) => theme.color.constantWhite};
+  padding: 24px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ModalItem = styled.div`
+  
 `;
