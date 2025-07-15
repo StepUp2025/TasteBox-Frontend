@@ -11,6 +11,11 @@ export const createCollection = async (body: CreateCollectionRequest) => {
   const response = await authClient.post<CreateCollectionResponse>(
     '/collections',
     body,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
   );
   return response.data;
 };
@@ -31,7 +36,11 @@ export const updateCollection = async (
   id: number,
   body: UpdateCollectionRequest,
 ): Promise<string> => {
-  const response = await authClient.patch(`/collections/${id}`, body);
+  const response = await authClient.patch(`/collections/${id}`, body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
   return response.data;
 };
 
