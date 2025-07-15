@@ -87,7 +87,7 @@ export const InputText = forwardRef<
             {...(rest as React.TextareaHTMLAttributes<HTMLTextAreaElement>)}
           />
         ) : isFile ? (
-          <FileUploadWrapper hasImage={!!previewUrl}>
+          <FileUploadWrapper $hasImage={!!previewUrl}>
             <HiddenInput
               ref={fileRef}
               id={name}

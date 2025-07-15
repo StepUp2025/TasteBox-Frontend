@@ -38,15 +38,15 @@ export const ErrorMsg = styled.span`
   margin-left: 0.5rem;
 `;
 
-export const FileUploadWrapper = styled.div<{ hasImage: boolean }>`
+export const FileUploadWrapper = styled.div<{ $hasImage: boolean }>`
   width: 100%;
   max-width: 420px;
   margin-top: 8px;
   aspect-ratio: 16 / 9;
-  border: ${({ hasImage, theme }) =>
-    hasImage ? 'none' : `2px dashed ${theme.color.primary}`};
-  box-shadow: ${({ hasImage, theme }) =>
-    hasImage ? `${theme.shadow.default}` : 'none'};
+  border: ${({ $hasImage, theme }) =>
+    $hasImage ? 'none' : `2px dashed ${theme.color.primary}`};
+  box-shadow: ${({ $hasImage, theme }) =>
+    $hasImage ? `${theme.shadow.default}` : 'none'};
   border-radius: 12px;
   position: relative;
   display: flex;
