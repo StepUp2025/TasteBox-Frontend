@@ -32,10 +32,7 @@ const TestUserMock = () => {
         label="프로필 조회 실패 (유저 없음)"
         onClick={async () => {
           try {
-            const url = new URL(
-              `${import.meta.env.VITE_API_BASE_URL}/users/profile`,
-              window.location.origin,
-            );
+            const url = new URL('/users/profile', window.location.origin);
             url.searchParams.set('mockError', 'not-found');
 
             const res = await fetch(url.toString()); // 강제로 실패 URL 호출
@@ -57,7 +54,6 @@ const TestUserMock = () => {
             const res = await updateProfile({
               nickname: '중복닉네임',
               contact: '010-0000-0000',
-              image: 'https://example.com/image.jpg',
             });
             logResult('updateProfile (중복 닉네임)', res);
           } catch (err) {
@@ -72,7 +68,6 @@ const TestUserMock = () => {
             const res = await updateProfile({
               nickname: '새닉네임',
               contact: '010-1234-5678',
-              image: 'https://example.com/new-image.jpg',
             });
             logResult('updateProfile (성공)', res);
           } catch (err) {

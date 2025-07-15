@@ -47,15 +47,16 @@ const UserProfileForm = ({ user }: Props) => {
     console.log('data 값:', data);
 
     const imageFile = imageInputRef.current?.files?.[0];
+
     const payload: ProfileUpdateType = {
       nickname: data.nickname,
       contact: data.phone,
-      image: imageFile ? URL.createObjectURL(imageFile) : undefined,
+      ...(imageFile && { image: imageFile }),
     };
 
-    console.log('payload 값:', payload);
-
     mutate(payload);
+
+    console.log('payload 값:', payload);
   };
 
   return (

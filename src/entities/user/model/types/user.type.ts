@@ -21,3 +21,9 @@ export interface ProfileUpdateType {
   contact?: string; // 변경할 연락처 정보
   image?: File; // 변경할 프로필 이미지 URL
 }
+
+export interface ProfieResponseType {
+  nickname: string;
+  contact: string;
+  image: string | null; // 프로필 이미지 URL
+}
