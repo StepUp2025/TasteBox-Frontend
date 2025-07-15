@@ -28,7 +28,7 @@ const UserProfileForm = ({ user }: Props) => {
     resolver: zodResolver(userProfileSchema),
     defaultValues: {
       nickname: nickname || '',
-      phone: '',
+      contact: '',
     },
   });
 
@@ -37,7 +37,7 @@ const UserProfileForm = ({ user }: Props) => {
 
     reset({
       nickname: user.nickname ?? '',
-      phone: user.provider === 'local' ? (user.contact ?? '') : '',
+      contact: user.provider === 'local' ? (user.contact ?? '') : '',
     });
   }, [user, reset]);
 
@@ -47,15 +47,16 @@ const UserProfileForm = ({ user }: Props) => {
     console.log('data 값:', data);
 
     const imageFile = imageInputRef.current?.files?.[0];
+
     const payload: ProfileUpdateType = {
       nickname: data.nickname,
-      contact: data.phone,
-      image: imageFile ? URL.createObjectURL(imageFile) : undefined,
+      contact: data.contact,
+      ...(imageFile && { image: imageFile }),
     };
 
-    console.log('payload 값:', payload);
-
     mutate(payload);
+
+    console.log('payload 값:', payload);
   };
 
   return (
@@ -77,8 +78,8 @@ const UserProfileForm = ({ user }: Props) => {
             <InputText
               label="전화번호"
               placeholder="전화번호를 입력해주세요"
-              {...register('phone')}
-              error={errors.phone?.message}
+              {...register('contact')}
+              error={errors.contact?.message}
             />
           )}
         </div>

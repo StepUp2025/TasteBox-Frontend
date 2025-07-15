@@ -8,6 +8,8 @@ import {
 } from 'shared/types/theme';
 import styled from 'styled-components';
 
+type ActiveScheme = 'menu' | 'genre';
+
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   buttonSize: ButtonSize;
@@ -15,7 +17,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   scheme: ButtonScheme;
   borderRadius: BorderRadiusKey;
   disableHoverOverlay?: boolean;
-  $active?: boolean;
+  activeScheme?: ActiveScheme;
 }
 
 const Button = ({
@@ -27,6 +29,7 @@ const Button = ({
   disableHoverOverlay = false,
   onClick,
   type = 'button',
+  className,
 }: Props) => {
   return (
     <ButtonStyle
@@ -37,6 +40,7 @@ const Button = ({
       onClick={onClick}
       type={type}
       disableHoverOverlay={disableHoverOverlay}
+      className={className}
     >
       {children}
     </ButtonStyle>
@@ -57,10 +61,10 @@ const ButtonStyle = styled.button.withConfig({
   font-size: ${({ theme, buttonSize, fontSize }) => (theme.buttonSize[buttonSize].fontSize ? theme.buttonSize[buttonSize].fontSize : theme.fontSize[fontSize])};
   padding: ${({ theme, buttonSize }) => theme.buttonSize[buttonSize].padding};
   width: ${({ theme, buttonSize }) => (theme.buttonSize[buttonSize].width ? theme.buttonSize[buttonSize].width : 'auto')};
-  color: ${({ theme, scheme, $active }) => ($active ? '#111' : theme.buttonScheme[scheme].color)};
+  color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) =>
     theme.buttonScheme[scheme].backgroundColor};
-  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
+  font-weight: 'normal';
   border-radius: ${({ theme, borderRadius }) =>
     theme.borderRadius[borderRadius]};
   border: ${({ theme, scheme }) =>

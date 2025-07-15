@@ -1,3 +1,9 @@
+import InfiniteListWidget from 'widgets/contents/InfiniteListWidget';
+
 export default function MovieListPage() {
-  return <div>MovieListPage</div>;
+  return (
+    <div>
+      <InfiniteListWidget contentType="movie" />
+    </div>
+  );
 }

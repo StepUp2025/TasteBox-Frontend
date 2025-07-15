@@ -21,7 +21,7 @@ const UpdatePasswordModal = ({ open, onClose }: UpdatePasswordModalProps) => {
   } = useForm<UpdatePasswordFormValues>({
     resolver: zodResolver(updatePasswordSchema),
   });
-  const { mutate, isPending } = useUpdatePassword();
+  const { mutate } = useUpdatePassword();
 
   const onSubmit = (data: UpdatePasswordFormValues) => {
     console.log('제출된 값:', data);
@@ -57,7 +57,7 @@ const UpdatePasswordModal = ({ open, onClose }: UpdatePasswordModalProps) => {
             />
             <InputText
               label="새 비밀번호 확인"
-              placeholder="새 비밀번호를 한번 더 입력해주세요"
+              placeholder="새 비밀번호를 한 번 더 입력해주세요"
               {...register('newPasswordConfirm')}
               error={errors.newPasswordConfirm?.message}
               type="password"

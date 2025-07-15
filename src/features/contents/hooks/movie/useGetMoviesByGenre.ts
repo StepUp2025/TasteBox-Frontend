@@ -1,16 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchMoviesByGenre } from 'entities/contents/model';
-import { ParameterTypes } from 'entities/contents/model/types/contents.type';
+import { ContentsResponse } from 'entities/contents/model/types/contents.type';
 
-export function useMoviesByGenre(
-  params: ParameterTypes,
-  page: number = 1,
-  limit: number = 20,
-) {
-  const { data, isPending, isError, error, refetch } = useQuery({
-    queryKey: ['movies', 'genre', params, page, limit],
-    queryFn: () => fetchMoviesByGenre(params, page, limit),
-    enabled: !!params,
+export function useMoviesByGenre(genreId: number[], page = 1, limit = 18) {
+  return useQuery<ContentsResponse>({
+    queryKey: ['movies', genreId, page, limit],
+    queryFn: () => fetchMoviesByGenre(genreId, page, limit),
+    enabled: genreId.length > 0,
   });
-  return { data, isPending, isError, error, refetch };
 }

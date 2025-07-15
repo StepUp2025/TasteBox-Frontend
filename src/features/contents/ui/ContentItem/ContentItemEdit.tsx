@@ -11,16 +11,12 @@ import {
 interface Props {
   content: Contents;
   checked?: boolean;
-  onCheck?: (
-    id: number,
-    contentType: Contents['contentType'],
-    checked: boolean,
-  ) => void;
+  onCheck?: (id: number, checked: boolean) => void;
 }
 
 const ContentItemEdit = ({ content, checked = false, onCheck }: Props) => {
   const handleChange = () => {
-    onCheck?.(content.id, content.contentType, !checked); // 체크 상태 업데이트
+    onCheck?.(content.id, !checked); // 체크 상태 업데이트
   };
 
   return (

@@ -1,4 +1,4 @@
-import { LocalUser, OAuthUser, ProfileUpdateType } from 'entities/user/model';
+import { LocalUser, ProfileUpdateType } from 'entities/user/model';
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
@@ -10,12 +10,12 @@ const localUser: LocalUser = {
   provider: 'local',
 };
 
-const _googleUser: OAuthUser = {
-  email: 'stepup@mail.com',
-  nickname: '구글키아누리브스',
-  image: 'https://image.tmdb.org/t/p/original/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg',
-  provider: 'google',
-};
+// const _googleUser: OAuthUser = {
+//   email: 'stepup@mail.com',
+//   nickname: '구글키아누리브스',
+//   image: 'https://image.tmdb.org/t/p/original/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg',
+//   provider: 'google',
+// };
 
 export const userHandlers = [
   http.get(
@@ -43,6 +43,8 @@ export const userHandlers = [
     async ({ request }) => {
       const body = (await request.json()) as ProfileUpdateType;
       const { nickname, contact, image } = body;
+      console.log('프로필 수정 요청:', body);
+      console.log('변경 내용:', nickname, contact, image);
 
       // 중복 닉네임 시뮬레이션
       if (nickname === '중복닉네임') {

@@ -12,6 +12,7 @@ import {
   User,
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ButtonScheme } from 'shared/types/theme';
 import { Button } from 'shared/ui';
 import styled, { useTheme } from 'styled-components';
 
@@ -41,7 +42,7 @@ export default function Sidebar() {
           <PackageOpen size={24} />
         </Logo>
         <Nav>
-          <Button
+          <MenuButton
             onClick={() => navigate('/movie')}
             buttonSize="menuNarrow"
             fontSize="small"
@@ -62,8 +63,8 @@ export default function Sidebar() {
 
               <Label $active={isActive('/movie')}>영화</Label>
             </MenuContent>
-          </Button>
-          <Button
+          </MenuButton>
+          <MenuButton
             onClick={() => navigate('/tv')}
             buttonSize="menuNarrow"
             fontSize="small"
@@ -84,8 +85,8 @@ export default function Sidebar() {
 
               <Label $active={isActive('/tv')}>TV 시리즈</Label>
             </MenuContent>
-          </Button>
-          <Button
+          </MenuButton>
+          <MenuButton
             onClick={() => {
               if (!isLoggedIn) {
                 navigate('/login');
@@ -112,9 +113,9 @@ export default function Sidebar() {
 
               <Label $active={isActive('/collection')}>컬렉션</Label>
             </MenuContent>
-          </Button>
+          </MenuButton>
 
-          <Button
+          <MenuButton
             onClick={() => {
               if (!isLoggedIn) {
                 navigate('/login');
@@ -140,7 +141,7 @@ export default function Sidebar() {
               />
               <Label $active={isActive('/mypage')}>마이페이지</Label>
             </MenuContent>
-          </Button>
+          </MenuButton>
         </Nav>
       </Top>
 
@@ -269,6 +270,15 @@ const Label = styled.span<LabelProps>`
     text-align: center;
     width: 60px;
     `;
+
+const MenuButton = styled(Button)<{ $active: boolean; scheme: ButtonScheme }>`
+  color: ${({ $active, theme, scheme }) => ($active ? theme.buttonScheme.menuActive.color : theme.buttonScheme[scheme].color)};
+  background-color: ${({ $active, theme, scheme }) =>
+    $active
+      ? theme.buttonScheme.menuActive.backgroundColor
+      : theme.buttonScheme[scheme].backgroundColor};
+  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
+`;
 
 const Bottom = styled.div`
     display: flex;

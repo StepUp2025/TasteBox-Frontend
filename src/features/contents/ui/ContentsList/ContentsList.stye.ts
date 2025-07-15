@@ -11,9 +11,8 @@ export const Wrapper = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-top: 24px;
+  margin-top: 4rem;
   width: 100%;
-  padding: 0 16px;
 `;
 
 export const Header = styled.div`
@@ -35,7 +34,6 @@ export const Header = styled.div`
 export const MoreLink = styled(Link)`
   font-size: ${({ theme }) => theme.fontSize.small};
   color: ${({ theme }) => theme.color.thirdText};
-  padding-right: 24px;
 `;
 
 export const ToggleButton = styled.button`
@@ -44,7 +42,6 @@ export const ToggleButton = styled.button`
   background: none;
   border: none;
   cursor: pointer;
-  padding-right: 24px;
 `;
 
 export const StyledIcon = styled.svg`

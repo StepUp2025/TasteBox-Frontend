@@ -4,15 +4,16 @@ import styled from 'styled-components';
 
 interface WidgetHeaderProps {
   title: string;
+  from?: string;
   linkTo: string;
   linkText: string;
 }
 
-const WidgetHeader = ({ title, linkTo, linkText }: WidgetHeaderProps) => {
+const WidgetHeader = ({ title, from, linkTo, linkText }: WidgetHeaderProps) => {
   return (
     <WidgetHeaderStyle>
       <Title size="medium">{title}</Title>
-      <Link to={linkTo} state={{ from: '/mypage' }}>
+      <Link to={linkTo} state={{ from: from }}>
         {linkText}
       </Link>
     </WidgetHeaderStyle>
