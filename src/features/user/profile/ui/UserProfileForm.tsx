@@ -17,7 +17,7 @@ interface Props {
 
 const UserProfileForm = ({ user }: Props) => {
   const { mutate, isPending } = useUpdateUserProfile();
-  const { nickname, image, provider } = user;
+  const { nickname, image } = user;
 
   const {
     register,
@@ -37,7 +37,7 @@ const UserProfileForm = ({ user }: Props) => {
 
     reset({
       nickname: user.nickname ?? '',
-      contact: user.provider === 'local' ? (user.contact ?? '') : '',
+      contact: user.contact ?? '',
     });
   }, [user, reset]);
 
@@ -74,14 +74,13 @@ const UserProfileForm = ({ user }: Props) => {
             {...register('nickname')}
             error={errors.nickname?.message}
           />
-          {provider === 'local' && (
-            <InputText
-              label="전화번호"
-              placeholder="전화번호를 입력해주세요"
-              {...register('contact')}
-              error={errors.contact?.message}
-            />
-          )}
+
+          <InputText
+            label="전화번호"
+            placeholder="전화번호를 입력해주세요"
+            {...register('contact')}
+            error={errors.contact?.message}
+          />
         </div>
         <Button
           buttonSize="large"

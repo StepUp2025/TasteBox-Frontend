@@ -6,7 +6,7 @@ export const BackgroundImage = styled.div<{ $imageUrl?: string }>`
   top: 0;
   left: 0;
   height: 240px; 
-  width: 100%;
+  width: 100vw;
   background-image: ${({ $imageUrl }) =>
     $imageUrl ? `url(${$imageUrl})` : 'none'};
   background-size: cover;
@@ -20,7 +20,7 @@ export const BackgroundImage = styled.div<{ $imageUrl?: string }>`
     top: 0;
     left: 0;
     height: 100%;
-    width: 100%;
+    width: 100vw;
     background: linear-gradient(
       to bottom,
     ${({ theme }) => rgba(theme.color.basicBackground, 0)} 0%,

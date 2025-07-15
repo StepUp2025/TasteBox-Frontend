@@ -13,6 +13,7 @@ const localUser: LocalUser = {
 // const _googleUser: OAuthUser = {
 //   email: 'stepup@mail.com',
 //   nickname: '구글키아누리브스',
+//   contact: '01012345678',
 //   image: 'https://image.tmdb.org/t/p/original/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg',
 //   provider: 'google',
 // };

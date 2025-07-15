@@ -8,7 +8,7 @@ export const CollectionWrapper = styled.div`
 
 export const Description = styled.div`
   margin-top: 1rem;
-  width: 60%;
+  width: 90%;
 `;
 
 export const MoreButtonWrapper = styled.div`

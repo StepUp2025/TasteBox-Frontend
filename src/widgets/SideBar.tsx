@@ -1,5 +1,6 @@
 import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useThemeStore } from 'entities/theme/model/store/themeStore';
+import { useLogout } from 'features/auth/logout/hooks/useLogout';
 import {
   Clapperboard,
   Folder,
@@ -21,15 +22,13 @@ interface LabelProps {
 }
 
 export default function Sidebar() {
+  const { mutate: logoutMutate, isPending } = useLogout();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
-  const resetAccessToken = useAuthStore((state) => state.resetAccessToken);
   const themeMode = useThemeStore((state) => state.theme);
   const { toggleTheme } = useThemeStore();
   const navigate = useNavigate();
   const handleLogout = () => {
-    resetAccessToken();
-    localStorage.removeItem('accessToken');
-    navigate('/');
+    logoutMutate();
   };
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
@@ -154,6 +153,7 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             disableHoverOverlay={true}
+            disabled={isPending}
           >
             <MenuContent $width={60}>
               <LogOut size={24} stroke={theme.color.thirdText} />

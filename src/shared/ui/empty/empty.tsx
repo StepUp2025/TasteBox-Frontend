@@ -27,8 +27,7 @@ const StyledEmpty = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70vw;
-  height: 300px;
+  height: 70vh;
 `;
 
 const Text = styled.span`

@@ -1,5 +1,5 @@
+import UserCollectionList from 'features/collection/ui/UserCollectionList';
 import styled from 'styled-components';
-import UserCollectionList from 'widgets/collection/UserCollectionList';
 
 const CollectionListPage = () => {
   return (
