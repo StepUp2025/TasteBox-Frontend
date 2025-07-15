@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LocalUser, OAuthUser, ProfileUpdateType } from 'entities/user/model';
+import { LocalUser, OAuthUser } from 'entities/user/model';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Button, InputText } from 'shared/ui';
@@ -46,17 +46,23 @@ const UserProfileForm = ({ user }: Props) => {
   const onSubmit = (data: UserProfileFormValues) => {
     console.log('data 값:', data);
 
+    const formData = new FormData();
+    formData.append('nickname', data.nickname);
+    formData.append('contact', data.contact ?? '');
     const imageFile = imageInputRef.current?.files?.[0];
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
 
-    const payload: ProfileUpdateType = {
-      nickname: data.nickname,
-      contact: data.contact,
-      ...(imageFile && { image: imageFile }),
-    };
+    // const payload: ProfileUpdateType = {
+    //   nickname: data.nickname,
+    //   contact: data.contact,
+    //   ...(imageFile && { image: imageFile }),
+    // };
 
-    mutate(payload);
+    mutate(formData);
 
-    console.log('payload 값:', payload);
+    console.log('payload 값:', formData);
   };
 
   return (
