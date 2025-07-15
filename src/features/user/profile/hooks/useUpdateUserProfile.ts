@@ -1,13 +1,15 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ProfileUpdateType, updateProfile } from 'entities/user/model';
+import { AxiosError, AxiosResponse } from 'axios';
+import { updateProfile } from 'entities/user/model';
+import { CustomErrorResponse } from 'shared/types/CustomErrorResponse';
 
 export const useUpdateUserProfile = () => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending, isSuccess, isError, error } = useMutation<
-    void,
-    unknown,
-    ProfileUpdateType
+    AxiosResponse,
+    AxiosError<CustomErrorResponse>,
+    FormData
   >({
     mutationFn: updateProfile,
     onSuccess: () => {

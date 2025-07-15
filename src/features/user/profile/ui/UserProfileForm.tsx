@@ -54,12 +54,6 @@ const UserProfileForm = ({ user }: Props) => {
       formData.append('image', imageFile);
     }
 
-    // const payload: ProfileUpdateType = {
-    //   nickname: data.nickname,
-    //   contact: data.contact,
-    //   ...(imageFile && { image: imageFile }),
-    // };
-
     mutate(formData);
 
     console.log('payload 값:', formData);
