@@ -3,6 +3,7 @@ export type AuthProvider = 'local' | 'google' | 'kakao';
 export interface SignupRequestType {
   email: string;
   password?: string;
+  passwordConfirm?: string;
   nickname: string;
   contact?: string;
   image?: string;
