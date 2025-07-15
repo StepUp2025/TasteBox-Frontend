@@ -22,6 +22,8 @@ jobs:
         run: npm install
 
       - name: Build project
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: npm run build
 
       - name: Configure AWS credentials
@@ -36,14 +38,6 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E105Q0P988GJCY --paths "/*"
-
-      - name: Create .env file for frontend
-        run: |
-          echo "VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}" > .env
-
-      - name: Upload .env to S3 root
-        run: aws s3 cp .env s3://taste-box-frontend/.env
-      
       
       
       
