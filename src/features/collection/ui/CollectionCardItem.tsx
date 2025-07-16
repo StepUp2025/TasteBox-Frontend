@@ -1,4 +1,5 @@
 import { CollectionCard } from 'entities/collection';
+import { rgba } from 'polished';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -38,6 +39,7 @@ const CollectionItemStyle = styled.li`
     aspect-ratio: 16 / 9;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     overflow: hidden;
+    border: 1px solid ${({ theme }) => rgba(theme.color.border, 0.5)};
 
     img {
       width: 100%;
