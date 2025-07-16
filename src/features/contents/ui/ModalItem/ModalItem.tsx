@@ -1,7 +1,8 @@
 import { useGetCollectionList } from 'features/collection/hooks/useGetCollectionList';
+import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
 
-interface ModalItemProps {
+export interface ModalItemProps {
   selectedIds: number[];
   setSelectedIds: (ids: number[]) => void;
 }
@@ -20,9 +21,9 @@ export default function ModalItem({
     }
   };
 
-  if (isPending) return <div>목록 불러오는 중...</div>;
+  if (isPending) return <Loading />;
   if (!data || !data.collections.length)
-    return <div>콜렉션을 추가해주세요.</div>;
+    return <CollectionEmpty> 컬렉션을 생성해주세요!</CollectionEmpty>;
 
   return (
     <Container>
@@ -59,13 +60,19 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   gap: 18px;
-  font-size: ${({ theme }) => theme.fontSize.medium};
+  font-size: ${({ theme }) => theme.fontSize.small};
   cursor: pointer;
 `;
 
 const CheckBox = styled.input`
   width: 24px;
   height: 24px;
-  accent-color: ${({ theme }) => theme.color.primary};
   cursor: pointer;
+`;
+
+const CollectionEmpty = styled.div`
+  text-align: center;
+  padding: 40px 0;
+  font-size: ${({ theme }) => theme.fontSize.small};
+  font-weight: 500;
 `;
