@@ -1,6 +1,7 @@
 import { Contents } from 'entities/contents/model/types/contents.type';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
+import { Empty } from 'shared/ui/empty/empty';
 import ContentItemView from '../ContentItem/ContentItemView';
 import { MAX_ITEMS_PER_ROW } from '../constants';
 import {
@@ -24,6 +25,7 @@ interface Props {
 
 const ContentsListViewer = ({ title, contents, type, linkTo }: Props) => {
   const [showAll, setShowAll] = useState(false);
+  console.log('콘텐츠 리스트:', contents);
   const visibleContents =
     type === 'toggle' && !showAll
       ? contents.slice(0, MAX_ITEMS_PER_ROW)
@@ -52,6 +54,12 @@ const ContentsListViewer = ({ title, contents, type, linkTo }: Props) => {
           </ToggleButton>
         )}
       </Header>
+
+      {contents.length === 0 && (
+        <div className="empty-wrapper">
+          <Empty text="컨텐츠가 없습니다." height="30vh" />
+        </div>
+      )}
 
       <ContentListContainer $scroll={type === 'scroll' || type === 'link'}>
         {visibleContents.map((item) => (
