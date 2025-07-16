@@ -3,6 +3,7 @@
 import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { LoginResponse } from 'entities/auth/model/types/auth.type';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export const useAfterLogin = () => {
   const navigate = useNavigate();
@@ -12,9 +13,12 @@ export const useAfterLogin = () => {
     if (!accessToken) return;
 
     console.log('로그인 성공');
-    console.log('token', accessToken);
-
+    toast.success('로그인에 성공했습니다!');
     setAccessToken(accessToken);
+    if (import.meta.env.MODE === 'development') {
+      console.log('received token', accessToken);
+      console.log('stored token', useAuthStore.getState().accessToken);
+    }
 
     if (isPreferenceSet) {
       navigate('/');

@@ -8,7 +8,7 @@ export const CollectionWrapper = styled.div`
 
 export const Description = styled.div`
   margin-top: 1rem;
-  width: 60%;
+  width: 90%;
 `;
 
 export const MoreButtonWrapper = styled.div`
@@ -56,7 +56,7 @@ export const MenuButton = styled.button`
 
   &:disabled {
     background-color: ${({ theme }) => theme.color.border};
-    color: ${({ theme }) => theme.color.thirdText};
+    color: ${({ theme }) => theme.color.secondText};
     cursor: not-allowed;
   }
 `;

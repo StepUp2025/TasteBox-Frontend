@@ -22,6 +22,8 @@ jobs:
         run: npm install
 
       - name: Build project
+        env:
+          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
         run: npm run build
 
       - name: Configure AWS credentials
@@ -36,3 +38,8 @@ jobs:
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id E105Q0P988GJCY --paths "/*"
+      
+      
+      
+      
+      

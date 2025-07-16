@@ -5,11 +5,7 @@ import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
 import ContentItemView from '../ContentItem/ContentItemView';
-import {
-  CONTENT_ITEM_GAP,
-  CONTENT_LIST_MAX_WIDTH,
-  CONTENT_LIST_MIN_WIDTH,
-} from '../constants';
+import { CONTENT_ITEM_GAP } from '../constants';
 
 interface Props {
   data: InfiniteContents | undefined;
@@ -29,8 +25,11 @@ const ContentsInfiniteList = ({
   error,
 }: Props) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const ENABLE_INFINITE_SCROLL = false; //  여기 false면 무한스크롤 비활성화
 
   useEffect(() => {
+    if (!ENABLE_INFINITE_SCROLL) return;
+
     if (!hasNextPage || isLoading || isFetchingNextPage) return;
 
     const observer = new IntersectionObserver(
@@ -59,20 +58,19 @@ const ContentsInfiniteList = ({
 
       <Grid>
         {data?.pages.map((page) =>
-          page.contents.map((content) => (
+          page.contents?.map((content) => (
             <ContentItemView key={content.id} content={content} />
           )),
         )}
       </Grid>
 
-      {hasNextPage && <div ref={observerRef} />}
+      {ENABLE_INFINITE_SCROLL && hasNextPage && <div ref={observerRef} />}
     </ContentsInfiniteListStyle>
   );
 };
 
 const ContentsInfiniteListStyle = styled.div`
   width: 100%;
-  padding: 0 16px;
   margin: 40px auto 0;
   display: flex;
   flex-direction: column;
@@ -81,11 +79,9 @@ const ContentsInfiniteListStyle = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: ${CONTENT_ITEM_GAP}px;
   width: 100%;
-  max-width: ${CONTENT_LIST_MAX_WIDTH}px;
-  min-width: ${CONTENT_LIST_MIN_WIDTH}px;
 `;
 
 export default ContentsInfiniteList;

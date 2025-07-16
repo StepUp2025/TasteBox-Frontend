@@ -25,7 +25,7 @@ export const MovieGenreSelectForm = () => {
     const hasSaved = saved && JSON.parse(saved).length > 0;
     if (!preferenceData || hasSaved) return;
 
-    const genres = preferenceData.movies.genres.map((g) => g.id);
+    const genres = preferenceData.movie.genres.map((g) => g.id);
     setSelectedGenres(genres);
     sessionStorage.setItem('selectedMovieGenres', JSON.stringify(genres));
   }, [preferenceData]);

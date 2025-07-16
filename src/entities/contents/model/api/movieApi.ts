@@ -4,12 +4,12 @@ import { Movie } from '../types/movie.type';
 
 // 장르별 영화 조회
 export const fetchMoviesByGenre = async (
-  genreIds: number[] = [],
+  genreId: number[] = [],
   page: number = 1,
   limit: number = 18,
 ) => {
-  const response = await authClient.get('/movies/genre', {
-    params: { genreId: genreIds, page, limit },
+  const response = await authClient.get('/movies', {
+    params: { genreId, page, limit },
   });
   return response.data;
 };
