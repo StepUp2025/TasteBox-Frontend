@@ -205,7 +205,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
@@ -221,7 +221,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
@@ -240,7 +240,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
@@ -268,7 +268,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
@@ -287,7 +287,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
     mockCollections.splice(idx, 1);

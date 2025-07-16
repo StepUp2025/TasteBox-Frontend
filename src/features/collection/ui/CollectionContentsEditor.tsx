@@ -6,7 +6,7 @@ import {
   BackgroundImage,
   BackgroundWrapper,
 } from 'shared/styles/backgroundStyle';
-import { Modal, Title } from 'shared/ui';
+import { ErrorBox, Modal, Title } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
@@ -36,6 +36,11 @@ const CollectionContentsEditor = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const handleToggle = () => setModalOpen((prev) => !prev);
 
+  const [errorInfo, setErrorInfo] = useState<{
+    status: number;
+    message?: string;
+  } | null>(null);
+
   const handleRemove = () => {
     const ids = [...selectedMovies, ...selectedTvShows];
     removeContents(ids, {
@@ -45,8 +50,39 @@ const CollectionContentsEditor = () => {
         setSelectedTvShows([]);
         handleToggle();
       },
+      onError: (error) => {
+        const res = error.response?.data;
+
+        if (!res || !res.error) {
+          toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
+          return;
+        }
+
+        switch (res.error) {
+          case 'FORBIDDEN':
+            setErrorInfo({ status: 403, message: res.message });
+            break;
+          case 'COLLECTION_NOT_FOUND':
+            setErrorInfo({ status: 404, message: res.message });
+            break;
+          default:
+            toast.error(
+              res.message || '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
+            );
+            break;
+        }
+      },
     });
   };
+
+  if (errorInfo) {
+    return (
+      <ErrorBox
+        statusCode={errorInfo?.status}
+        errorMessage={errorInfo?.message}
+      />
+    );
+  }
 
   if (isPending) return <Loading />;
 

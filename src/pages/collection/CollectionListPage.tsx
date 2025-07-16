@@ -1,15 +1,7 @@
-import UserCollectionList from 'features/collection/ui/UserCollectionList';
-import styled from 'styled-components';
+import CollectionList from 'features/collection/ui/Collection';
 
 const CollectionListPage = () => {
-  return (
-    <CollectionListPageStyle>
-      <UserCollectionList />
-    </CollectionListPageStyle>
-  );
+  return <CollectionList />;
 };
-
-const CollectionListPageStyle = styled.div`
-margin-top: 3rem;`;
 
 export default CollectionListPage;
