@@ -93,7 +93,7 @@ const InfiniteListWidget = ({ contentType }: Props) => {
   };
 
   const { queryKey, queryFn } = useMemo(() => {
-    if (selectedOption.id === 'byGenre') {
+    if (selectedOption.id === 'byGenre' && selectedGenreId.length > 0) {
       return {
         queryKey: [contentType, 'byGenre', ...selectedGenreId],
         queryFn:
