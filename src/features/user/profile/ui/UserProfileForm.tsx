@@ -124,7 +124,6 @@ const UserProfileFormStyle = styled.div`
   align-items: center;       // 가로 정렬
   justify-content: center;   // 세로 정렬
   width: 100%;
-  padding: 0 16px;
 
 
   form {
