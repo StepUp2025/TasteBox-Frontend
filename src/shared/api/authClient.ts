@@ -32,8 +32,7 @@ authClient.interceptors.response.use(
         return authClient(originalRequest); //  실패한 요청 재시도
       } catch (err) {
         useAuthStore.getState().resetAccessToken(); // 토큰 갱신 실패 시 토큰 초기화
-        // 로그인 페이지로 강제 이동
-        window.location.href = '/login';
+
         return Promise.reject(err); // refresh 실패 시 에러 반환
       }
     }
