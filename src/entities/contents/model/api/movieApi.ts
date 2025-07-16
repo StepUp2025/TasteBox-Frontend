@@ -20,7 +20,7 @@ export const fetchPopularMovies = async (
   limit: number = 18,
 ) => {
   const response = await httpClient.get<ContentsResponse>('/movies/popular', {
-    params: { page, limit },
+    params: { contentType: 'movie', page, limit },
   });
   return response.data;
 };
