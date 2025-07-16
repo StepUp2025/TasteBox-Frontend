@@ -8,7 +8,7 @@ export function useLatestContents(limit: number = 10) {
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['contents', 'latest', limit],
     queryFn: () => fetchLatestContents(limit),
-    enabled: isLoggedIn, // 로그인 상태에서만 데이터 요청
+    enabled: isLoggedIn, // 로그인 상태에서만 데이터 요청,
   });
   return { data, isPending, isError, error, refetch };
 }
