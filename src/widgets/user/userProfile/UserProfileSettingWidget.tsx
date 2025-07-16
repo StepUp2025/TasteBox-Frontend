@@ -41,18 +41,24 @@ const UserProfileSettingStyle = styled.div`
   margin-bottom: 90px;
 
     .profile-title {
-    align-items: left;
+    align-items: center;
     margin-bottom: 24px;
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 16px;
   }
 
   .form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-width: 520px;
-    margin-top: 24px;
+    width: 100%;
+    max-width: 520px;
+    min-width: 320px;
+    padding: 0 16px;
+    margin: 24px 16px 0;
   }
+
 `;
 
 export default UserProfileSettingWidget;
