@@ -25,8 +25,11 @@ const ContentsInfiniteList = ({
   error,
 }: Props) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
+  const ENABLE_INFINITE_SCROLL = false; //  여기 false면 무한스크롤 비활성화
 
   useEffect(() => {
+    if (!ENABLE_INFINITE_SCROLL) return;
+
     if (!hasNextPage || isLoading || isFetchingNextPage) return;
 
     const observer = new IntersectionObserver(
@@ -61,7 +64,7 @@ const ContentsInfiniteList = ({
         )}
       </Grid>
 
-      {hasNextPage && <div ref={observerRef} />}
+      {ENABLE_INFINITE_SCROLL && hasNextPage && <div ref={observerRef} />}
     </ContentsInfiniteListStyle>
   );
 };
