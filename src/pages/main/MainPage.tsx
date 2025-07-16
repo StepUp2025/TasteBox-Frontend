@@ -16,7 +16,7 @@ export default function MainPage() {
   const movieIds = useMemo(() => movieGenres.map((g) => g.id), [movieGenres]);
   const tvIds = useMemo(() => tvGenres.map((g) => g.id), [tvGenres]);
 
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { data: latestContentsData } = useLatestContents(10);
   const latestContents = latestContentsData?.contents || [];

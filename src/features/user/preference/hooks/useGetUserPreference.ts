@@ -9,7 +9,7 @@ export const useUserPreference = (option?: {
   onSuccess?: (data: UserPreference) => void;
   onError?: (error: AxiosError<CustomErrorResponse>) => void;
 }) => {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const { data, isLoading, isError, error } = useQuery<
     UserPreference,
     AxiosError<CustomErrorResponse>

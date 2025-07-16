@@ -23,7 +23,7 @@ interface LabelProps {
 
 export default function Sidebar() {
   const { mutate: logoutMutate, isPending } = useLogout();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const themeMode = useThemeStore((state) => state.theme);
   const { toggleTheme } = useThemeStore();
   const navigate = useNavigate();

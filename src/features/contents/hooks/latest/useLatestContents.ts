@@ -3,7 +3,7 @@ import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { fetchLatestContents } from 'entities/contents/model/api/latestApi';
 
 export function useLatestContents(limit: number = 10) {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   const { data, isPending, isError, error, refetch } = useQuery({
     queryKey: ['contents', 'latest', limit],
