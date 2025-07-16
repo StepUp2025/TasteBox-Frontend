@@ -29,21 +29,18 @@ export default function CreateCollectionForm() {
   const navigate = useNavigate();
 
   const onSubmit = (values: CreateCollectionFormValues) => {
-    console.log({
-      title: values.title,
-      description: values.description,
-      thumbnail: values.thumbnail?.[0] ?? null,
+    const formData = new FormData();
+
+    formData.append('title', values.title);
+    formData.append('description', values.description);
+
+    if (values.thumbnail?.[0]) {
+      formData.append('thumbnail', values.thumbnail[0]);
+    }
+
+    mutate(formData, {
+      onSuccess: (res) => navigate(`/collection/${res.id}`),
     });
-    mutate(
-      {
-        title: values.title,
-        description: values.description,
-        thumbnail: values.thumbnail?.[0] ?? null,
-      },
-      {
-        onSuccess: (res) => navigate(`/collection/${res.id}`),
-      },
-    );
   };
 
   return (
@@ -54,7 +51,7 @@ export default function CreateCollectionForm() {
             컬렉션 생성
           </Title>
           <p>
-            나만의 무드를 담은 재생목록을 만들어보세요. 컬렉션이 당신만의 감정,
+            나만의 무드를 담은 컬렉션을 만들어보세요. 컬렉션이 당신만의 감정,
             분위기, 이야기로 채워질 거예요.
           </p>
         </CollectionFormHeader>

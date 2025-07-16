@@ -6,11 +6,12 @@ interface EmptyProps {
   linkText?: string;
   linkTo?: To;
   state?: Record<string, unknown>;
+  height?: string;
 }
 
-export function Empty({ text, linkText, linkTo, state }: EmptyProps) {
+export function Empty({ text, linkText, linkTo, state, height }: EmptyProps) {
   return (
-    <StyledEmpty>
+    <StyledEmpty $height={height}>
       <Text>
         {text}
         {linkTo && linkText && (
@@ -23,11 +24,11 @@ export function Empty({ text, linkText, linkTo, state }: EmptyProps) {
   );
 }
 
-const StyledEmpty = styled.div`
+const StyledEmpty = styled.div<{ $height?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  height: ${({ $height }) => $height ?? '70vh'};
 `;
 
 const Text = styled.span`

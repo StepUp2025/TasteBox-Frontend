@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import googleLogo from 'shared/assets/images/google-logo-icon.png';
 import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
+import { isValidationError } from 'shared/types/CustomErrorResponse';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
+import { setErrorFromServer } from 'shared/validation/setErrorFromServer';
 import { toast } from 'sonner';
 import { useLocalLogin } from '../model/hooks/useLocalLogin';
 import { useOAUthLogin } from '../model/hooks/useOAuthLogin';
@@ -17,6 +19,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
@@ -25,8 +28,14 @@ const LoginForm = () => {
   const { mutate, isPending } = useLocalLogin({
     onError: (error) => {
       console.log('로그인 실패:', error.response?.data);
-      const message = error.response?.data?.message || '로그인에 실패했습니다.';
-      toast.error(message);
+      if (isValidationError(error)) {
+        // 백엔드에서 받은 유효성 에러를 폼에 띄움
+        setErrorFromServer<LoginFormValues>(error, setError);
+      } else {
+        // 일반적인 에러 처리
+        const message = error.response?.data?.message || '로그에 실패했습니다.';
+        toast.error(message as string);
+      }
     },
   });
   const { loginWithGoogle, loginWithKakao } = useOAUthLogin();

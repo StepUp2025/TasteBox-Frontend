@@ -15,7 +15,7 @@ export default function MainPage() {
     ? genreIdsParam.split(',').map(Number)
     : [];
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
-  const { data: latestContentsData } = useLatestContents(18);
+  const { data: latestContentsData } = useLatestContents(10);
   const latestContents = latestContentsData?.contents || [];
 
   const { data: popularMoviesData } = usePopularMovies(1, 18);
@@ -73,7 +73,4 @@ export default function MainPage() {
 }
 
 const MaintWrapper = styled.div`
-margin-top: 3rem;
-margin-left: 7rem;
-padding-left: 7rem;
 `;

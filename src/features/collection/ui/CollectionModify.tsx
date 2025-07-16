@@ -1,9 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { UpdateCollectionRequest } from 'entities/collection';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, InputText, Title } from 'shared/ui';
+import { Button, InputText, Modal, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
 import { useDeleteCollection } from '../hooks/useDeleteCollection';
@@ -13,6 +12,7 @@ import {
   EditCollectionFormValues,
   editCollectionFormSchema,
 } from '../validation/collectionFormSchema';
+import { ModalText } from './CollectionContentsEditor.style';
 import {
   CollectionFormBody,
   CollectionFormHeader,
@@ -28,6 +28,9 @@ export default function EditCollectionForm() {
   const { mutate: deleteMutate } = useDeleteCollection();
   const navigate = useNavigate();
 
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleToggle = () => setModalOpen((prev) => !prev);
+
   const {
     register,
     handleSubmit,
@@ -35,13 +38,12 @@ export default function EditCollectionForm() {
     trigger,
     reset,
     watch,
-    formState: { errors, isDirty },
+    formState: { errors },
   } = useForm<EditCollectionFormValues>({
     resolver: zodResolver(editCollectionFormSchema),
     defaultValues: {
       title: '',
       description: '',
-      thumbnail: '',
     },
   });
 
@@ -50,35 +52,44 @@ export default function EditCollectionForm() {
       reset({
         title: data.title,
         description: data.description,
-        thumbnail: data.thumbnail,
       });
     }
   }, [data, reset]);
+
+  if (!data) return <Loading />;
 
   const watchedTitle = watch('title');
   const watchedDescription = watch('description');
   const watchedThumbnail = watch('thumbnail');
 
-  if (!data) return <Loading />;
+  const isTitleChanged = watchedTitle !== data.title;
+  const isDescChanged = watchedDescription !== data.description;
+  const isThumbnailChanged = !!watchedThumbnail?.[0];
+  const isAnythingChanged =
+    isTitleChanged || isDescChanged || isThumbnailChanged;
 
   const onSubmit = (values: EditCollectionFormValues) => {
-    const isTitleChanged = watchedTitle !== data.title;
-    const isDescChanged = watchedDescription !== data.description;
-    const isThumbnailChanged = !!watchedThumbnail?.[0];
-
-    if (!isTitleChanged && !isDescChanged && !isThumbnailChanged) {
+    if (!isAnythingChanged) {
       toast.message('변경된 내용이 없습니다.');
       return;
     }
 
-    const body: Partial<UpdateCollectionRequest> = {};
-    if (values.title !== data.title) body.title = values.title;
-    if (values.description !== data.description)
-      body.description = values.description;
-    if (values.thumbnail?.[0]) body.thumbnail = values.thumbnail[0];
+    const formData = new FormData();
 
-    console.log(body);
-    update(body, {
+    if (isTitleChanged && values.title) {
+      formData.append('title', values.title);
+    }
+
+    if (isDescChanged && values.description !== undefined) {
+      formData.append('description', values.description ?? '');
+    }
+
+    if (isThumbnailChanged && values.thumbnail?.[0]) {
+      formData.append('thumbnail', values.thumbnail[0]);
+    }
+
+    console.log(formData);
+    update(formData, {
       onSuccess: () => navigate(`/collection/${collectionId}`),
     });
   };
@@ -135,6 +146,16 @@ export default function EditCollectionForm() {
             previewImageUrl={data.thumbnail ?? ''}
           />
 
+          <Modal
+            open={modalOpen}
+            title="컬렉션 삭제"
+            onClose={handleToggle}
+            confirmText="삭제"
+            onConfirm={onDelete}
+          >
+            <ModalText>컬렉션을 정말 삭제하시겠어요?</ModalText>
+          </Modal>
+
           <SubmitButtonWrapper>
             <Button
               type="button"
@@ -142,7 +163,7 @@ export default function EditCollectionForm() {
               fontSize="small"
               scheme="secondary"
               borderRadius="medium"
-              onClick={onDelete}
+              onClick={handleToggle}
             >
               삭제하기
             </Button>
@@ -153,7 +174,7 @@ export default function EditCollectionForm() {
               fontSize="small"
               scheme="primary"
               borderRadius="medium"
-              disabled={isPending || !isDirty}
+              disabled={isPending || !isAnythingChanged}
             >
               컬렉션 수정하기
             </Button>

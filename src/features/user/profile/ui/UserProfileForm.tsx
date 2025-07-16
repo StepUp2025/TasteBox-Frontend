@@ -1,8 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { LocalUser, OAuthUser, ProfileUpdateType } from 'entities/user/model';
+import { LocalUser, OAuthUser } from 'entities/user/model';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { isValidationError } from 'shared/types/CustomErrorResponse';
 import { Button, InputText } from 'shared/ui';
+import { setErrorFromServer } from 'shared/validation/setErrorFromServer';
+import { toast } from 'sonner';
 import styled from 'styled-components';
 import { useUpdateUserProfile } from '../hooks/useUpdateUserProfile';
 import {
@@ -16,7 +19,24 @@ interface Props {
 }
 
 const UserProfileForm = ({ user }: Props) => {
-  const { mutate, isPending } = useUpdateUserProfile();
+  const { mutate, isPending } = useUpdateUserProfile({
+    onSuccess: () => {
+      toast.success('프로필이 수정되었습니다!');
+    },
+    onError: (error) => {
+      console.error('프로필 수정 실패:', error.response?.data);
+
+      if (isValidationError(error)) {
+        // 백엔드에서 받은 유효성 에러를 폼에 띄움
+        setErrorFromServer<UserProfileFormValues>(error, setError);
+      } else {
+        // 일반적인 에러 처리
+        const message =
+          error.response?.data?.message || '프로필을 수정하지 못했어요.';
+        toast.error(message as string);
+      }
+    },
+  });
   const { nickname, image } = user;
 
   const {
@@ -24,6 +44,7 @@ const UserProfileForm = ({ user }: Props) => {
     handleSubmit,
     reset,
     formState: { errors },
+    setError,
   } = useForm<UserProfileFormValues>({
     resolver: zodResolver(userProfileSchema),
     defaultValues: {
@@ -46,17 +67,17 @@ const UserProfileForm = ({ user }: Props) => {
   const onSubmit = (data: UserProfileFormValues) => {
     console.log('data 값:', data);
 
+    const formData = new FormData();
+    formData.append('nickname', data.nickname);
+    formData.append('contact', data.contact ?? '');
     const imageFile = imageInputRef.current?.files?.[0];
+    if (imageFile) {
+      formData.append('image', imageFile);
+    }
 
-    const payload: ProfileUpdateType = {
-      nickname: data.nickname,
-      contact: data.contact,
-      ...(imageFile && { image: imageFile }),
-    };
+    mutate(formData);
 
-    mutate(payload);
-
-    console.log('payload 값:', payload);
+    console.log('payload 값:', formData);
   };
 
   return (

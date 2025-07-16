@@ -4,7 +4,9 @@ import { PackageOpen } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { isValidationError } from 'shared/types/CustomErrorResponse';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
+import { setErrorFromServer } from 'shared/validation/setErrorFromServer';
 import { toast } from 'sonner';
 import { useSignup } from '../hooks/useSignup';
 import { SignupFormValues, signupSchema } from '../validation/signupSchema';
@@ -14,6 +16,7 @@ const SignupForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
   });
@@ -25,9 +28,16 @@ const SignupForm = () => {
     },
     onError: (error) => {
       console.log('회원가입 실패:', error.response?.data);
-      const message =
-        error.response?.data?.message || '회원가입에 실패했습니다.';
-      toast.error(message);
+
+      if (isValidationError(error)) {
+        // 백엔드에서 받은 유효성 에러를 폼에 띄움
+        setErrorFromServer<SignupFormValues>(error, setError);
+      } else {
+        // 일반적인 에러 처리
+        const message =
+          error.response?.data?.message || '회원가입에 실패했습니다.';
+        toast.error(message as string);
+      }
     },
   });
 

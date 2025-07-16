@@ -56,7 +56,7 @@ export const MenuButton = styled.button`
 
   &:disabled {
     background-color: ${({ theme }) => theme.color.border};
-    color: ${({ theme }) => theme.color.thirdText};
+    color: ${({ theme }) => theme.color.secondText};
     cursor: not-allowed;
   }
 `;
