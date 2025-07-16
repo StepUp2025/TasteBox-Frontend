@@ -8,7 +8,7 @@ export const tabMap: Record<ContentType, TabOption[]> = {
       id: 'byGenre',
       label: '추천 영화',
       queryKey: ['movies', 'byGenre'],
-      queryFn: null as any, // 장르별 조회 밖에서 고차함수로 생
+      queryFn: null as any, // 장르별 조회 밖에서 고차함수로 생성
     },
     {
       id: 'popular',

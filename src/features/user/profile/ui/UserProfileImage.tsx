@@ -48,7 +48,13 @@ const UserProfileImage = forwardRef<HTMLInputElement, UserProfileImageProps>(
             onChange={handleFileChange}
           />
 
-          <FileUploadButton type="button" onClick={handleFileClick}>
+          <FileUploadButton
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation(); // 버블링 막기
+              handleFileClick();
+            }}
+          >
             <Plus />
           </FileUploadButton>
 
