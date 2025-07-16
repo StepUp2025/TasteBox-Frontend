@@ -64,11 +64,14 @@ const UserPreferenceList = () => {
 const UserPreferenceListStyle = styled.div`
   .genre-buttons {
     display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 20px;
     margin-bottom: 24px;
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
+    
   }
 
   .emoji {

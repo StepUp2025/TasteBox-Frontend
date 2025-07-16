@@ -123,6 +123,8 @@ const UserProfileFormStyle = styled.div`
   flex-direction: column;
   align-items: center;       // 가로 정렬
   justify-content: center;   // 세로 정렬
+  width: 100%;
+  padding: 0 16px;
 
 
   form {
@@ -130,7 +132,8 @@ const UserProfileFormStyle = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 24px; // 버튼과 input-group 사이 여유
-    min-width: 520px;
+    width: 100%;
+    max-width: 520px;
     margin-bottom: 16px;
     
   }
@@ -138,8 +141,9 @@ const UserProfileFormStyle = styled.div`
   .input-group {
     display: flex;
     flex-direction: column;
-    gap: 32px; 
-    min-width: 520px;
+    gap: 32px;
+    width: 100%; 
+    max-width: 520px;
   }
 `;
 
