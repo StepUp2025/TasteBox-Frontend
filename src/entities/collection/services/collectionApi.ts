@@ -3,19 +3,24 @@ import {
   CreateCollectionRequest,
   CreateCollectionResponse,
   GetCollectionDetailResponse,
-  GetCollectionResponse,
-  ModifyContentsRequest,
+  GetCollectionsResponse,
   UpdateCollectionRequest,
 } from '../types/collection.type';
 
-export const createCollection = async (
-  body: CreateCollectionRequest,
-): Promise<CreateCollectionResponse> => {
-  const response = await authClient.post('/collections', body);
+export const createCollection = async (body: CreateCollectionRequest) => {
+  const response = await authClient.post<CreateCollectionResponse>(
+    '/collections',
+    body,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
   return response.data;
 };
 
-export const getCollectionList = async (): Promise<GetCollectionResponse> => {
+export const getCollectionList = async (): Promise<GetCollectionsResponse> => {
   const response = await authClient.get('/collections');
   return response.data;
 };
@@ -30,26 +35,40 @@ export const getCollectionDetail = async (
 export const updateCollection = async (
   id: number,
   body: UpdateCollectionRequest,
-): Promise<void> => {
-  await authClient.patch(`/collections/${id}`, body);
+): Promise<string> => {
+  const response = await authClient.patch(`/collections/${id}`, body, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return response.data;
 };
 
 export const addCollectionContents = async (
   id: number,
-  body: ModifyContentsRequest,
-): Promise<void> => {
-  await authClient.post(`/collections/${id}/contents`, body);
+  contentIds: number[],
+): Promise<string> => {
+  const response = await authClient.post(`/collections/${id}/contents`, null, {
+    params: {
+      contentId: contentIds,
+    },
+  });
+  return response.data;
 };
 
 export const removeCollectionContents = async (
   id: number,
-  body: ModifyContentsRequest,
-): Promise<void> => {
-  await authClient.delete(`/collections/${id}/contents`, {
-    data: body,
+  contentIds: number[],
+): Promise<string> => {
+  const response = await authClient.delete(`/collections/${id}/contents`, {
+    params: {
+      contentId: contentIds,
+    },
   });
+  return response.data;
 };
 
-export const deleteCollection = async (id: number): Promise<void> => {
-  await authClient.delete(`/collections/${id}`);
+export const deleteCollection = async (id: number): Promise<string> => {
+  const response = await authClient.delete(`/collections/${id}`);
+  return response.data;
 };

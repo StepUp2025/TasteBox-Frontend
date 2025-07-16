@@ -16,6 +16,7 @@ const createButtonScheme = (color: Theme['color']): Theme['buttonScheme'] => ({
     backgroundColor: color.basicBackground,
   },
   menuActive: {
+    color: color.defaultText,
     backgroundColor: color.subBackground,
   },
   genre: {
@@ -29,6 +30,7 @@ const createButtonScheme = (color: Theme['color']): Theme['buttonScheme'] => ({
 });
 
 const lightColor: Theme['color'] = {
+  defaultText: '#111111',
   constantWhite: '#FFFFFF',
   primary: '#7762FF',
   basicBackground: '#FFFFFF',
@@ -94,6 +96,7 @@ const darkColor: Theme['color'] = {
   secondText: '#C7C7C7',
   thirdText: '#797979',
   hoverOverlay: '#FFFFFF',
+  defaultText: '#FFFFFF',
 };
 
 export const dark: Theme = {

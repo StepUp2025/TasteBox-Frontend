@@ -40,7 +40,7 @@ const TestContentMock = () => {
         label="장르별 영화 조회 (genreId: 1)"
         onClick={async () => {
           try {
-            const res = await fetchMoviesByGenre({ genreId: 1, page: 1 });
+            const res = await fetchMoviesByGenre([1], 1, 18);
             logResult('fetchMoviesByGenre', res);
           } catch (err) {
             logResult('fetchMoviesByGenre error', err);
@@ -99,7 +99,7 @@ const TestContentMock = () => {
         label="장르별 TV 조회 (genreId: 1)"
         onClick={async () => {
           try {
-            const res = await fetchTVsByGenre({ genreId: 1, page: 1 });
+            const res = await fetchTVsByGenre([1], 1, 18);
             logResult('fetchTVsByGenre', res);
           } catch (err) {
             logResult('fetchTVsByGenre error', err);

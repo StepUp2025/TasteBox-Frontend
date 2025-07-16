@@ -4,11 +4,11 @@ export interface User {
   email: string;
   nickname: string;
   image?: string; // 프로필 이미지 URL
+  contact: string; // 연락처 정보
   provider: AuthProvider; // 인증 제공자
 }
 
 export interface LocalUser extends User {
-  contact: string; // 연락처 정보
   provider: 'local';
 }
 
@@ -19,5 +19,11 @@ export interface OAuthUser extends User {
 export interface ProfileUpdateType {
   nickname?: string; // 변경할 닉네임
   contact?: string; // 변경할 연락처 정보
-  image?: string; // 변경할 프로필 이미지 URL
+  image?: File; // 변경할 프로필 이미지 URL
+}
+
+export interface ProfieResponseType {
+  nickname: string;
+  contact: string;
+  image: string | null; // 프로필 이미지 URL
 }

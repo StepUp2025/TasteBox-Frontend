@@ -1,9 +1,10 @@
-import { CollectionItem } from 'entities/collection';
+import { CollectionCard } from 'entities/collection';
+import { rgba } from 'polished';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props {
-  collection: CollectionItem;
+  collection: CollectionCard;
 }
 
 const CollectionCardItem = ({ collection }: Props) => {
@@ -24,18 +25,21 @@ const CollectionCardItem = ({ collection }: Props) => {
   );
 };
 
-const CollectionItemStyle = styled.div`
+const CollectionItemStyle = styled.li`
+  list-style: none;
+
 .collection-wrapper {
     display: flex;
     flex-direction: column;
-    width: 240px;
+    width: 100%;
   }
 
   .thumbnail-wrapper {
-    width: 240px;
-    height: 150px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
     border-radius: ${({ theme }) => theme.borderRadius.medium};
     overflow: hidden;
+    border: 1px solid ${({ theme }) => rgba(theme.color.border, 0.5)};
 
     img {
       width: 100%;
@@ -46,12 +50,18 @@ const CollectionItemStyle = styled.div`
   }
 
   .title-wrapper {
-    margin-top: 12px;
+    margin-top: 0.75rem;
     
 
     .title {
       font-size: ${({ theme }) => theme.fontSize.small};
-      text-align: left;
+      overflow: hidden;
+      white-space: normal;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      word-break: keep-all;
     }
   }
 `;

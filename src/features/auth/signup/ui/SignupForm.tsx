@@ -4,8 +4,10 @@ import { PackageOpen } from 'lucide-react';
 
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { isValidationError } from 'shared/types/CustomErrorResponse';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
-import Loading from 'shared/ui/Loading/Loading';
+import { setErrorFromServer } from 'shared/validation/setErrorFromServer';
+import { toast } from 'sonner';
 import { useSignup } from '../hooks/useSignup';
 import { SignupFormValues, signupSchema } from '../validation/signupSchema';
 
@@ -14,11 +16,30 @@ const SignupForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
   });
 
-  const { mutate, isPending } = useSignup();
+  const { mutate, isPending } = useSignup({
+    onSuccess: () => {
+      toast.success('회원가입이 완료되었어요!');
+      navigate('/login');
+    },
+    onError: (error) => {
+      console.log('회원가입 실패:', error.response?.data);
+
+      if (isValidationError(error)) {
+        // 백엔드에서 받은 유효성 에러를 폼에 띄움
+        setErrorFromServer<SignupFormValues>(error, setError);
+      } else {
+        // 일반적인 에러 처리
+        const message =
+          error.response?.data?.message || '회원가입에 실패했습니다.';
+        toast.error(message as string);
+      }
+    },
+  });
 
   const onSubmit = (data: SignupFormValues) => {
     console.log('제출된 값:', data);
@@ -32,7 +53,6 @@ const SignupForm = () => {
 
   return (
     <AuthFormLayout>
-      {isPending && <Loading />}
       <div className="container">
         <div className="header">
           <Button
@@ -66,14 +86,20 @@ const SignupForm = () => {
               type="password"
             />
             <InputText
+              placeholder="비밀번호를 한 번 더 입력해주세요"
+              {...register('passwordConfirm')}
+              error={errors.passwordConfirm?.message}
+              type="password"
+            />
+            <InputText
               placeholder="닉네임을 입력해주세요"
               {...register('nickname')}
               error={errors.nickname?.message}
             />
             <InputText
               placeholder="전화번호를 입력해주세요"
-              {...register('phone')}
-              error={errors.phone?.message}
+              {...register('contact')}
+              error={errors.contact?.message}
             />
           </div>
 

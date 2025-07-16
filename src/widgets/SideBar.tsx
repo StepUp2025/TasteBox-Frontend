@@ -1,5 +1,6 @@
 import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useThemeStore } from 'entities/theme/model/store/themeStore';
+import { useLogout } from 'features/auth/logout/hooks/useLogout';
 import {
   Clapperboard,
   Folder,
@@ -12,6 +13,7 @@ import {
   User,
 } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ButtonScheme } from 'shared/types/theme';
 import { Button } from 'shared/ui';
 import styled, { useTheme } from 'styled-components';
 
@@ -20,15 +22,13 @@ interface LabelProps {
 }
 
 export default function Sidebar() {
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
-  const resetAccessToken = useAuthStore((state) => state.resetAccessToken);
+  const { mutate: logoutMutate, isPending } = useLogout();
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const themeMode = useThemeStore((state) => state.theme);
   const { toggleTheme } = useThemeStore();
   const navigate = useNavigate();
   const handleLogout = () => {
-    resetAccessToken();
-    localStorage.removeItem('accessToken');
-    navigate('/');
+    logoutMutate();
   };
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
@@ -41,7 +41,7 @@ export default function Sidebar() {
           <PackageOpen size={24} />
         </Logo>
         <Nav>
-          <Button
+          <MenuButton
             onClick={() => navigate('/movie')}
             buttonSize="menuNarrow"
             fontSize="small"
@@ -62,8 +62,8 @@ export default function Sidebar() {
 
               <Label $active={isActive('/movie')}>영화</Label>
             </MenuContent>
-          </Button>
-          <Button
+          </MenuButton>
+          <MenuButton
             onClick={() => navigate('/tv')}
             buttonSize="menuNarrow"
             fontSize="small"
@@ -84,8 +84,8 @@ export default function Sidebar() {
 
               <Label $active={isActive('/tv')}>TV 시리즈</Label>
             </MenuContent>
-          </Button>
-          <Button
+          </MenuButton>
+          <MenuButton
             onClick={() => {
               if (!isLoggedIn) {
                 navigate('/login');
@@ -112,9 +112,9 @@ export default function Sidebar() {
 
               <Label $active={isActive('/collection')}>컬렉션</Label>
             </MenuContent>
-          </Button>
+          </MenuButton>
 
-          <Button
+          <MenuButton
             onClick={() => {
               if (!isLoggedIn) {
                 navigate('/login');
@@ -140,7 +140,7 @@ export default function Sidebar() {
               />
               <Label $active={isActive('/mypage')}>마이페이지</Label>
             </MenuContent>
-          </Button>
+          </MenuButton>
         </Nav>
       </Top>
 
@@ -153,6 +153,7 @@ export default function Sidebar() {
             scheme="menu"
             borderRadius="medium"
             disableHoverOverlay={true}
+            disabled={isPending}
           >
             <MenuContent $width={60}>
               <LogOut size={24} stroke={theme.color.thirdText} />
@@ -269,6 +270,15 @@ const Label = styled.span<LabelProps>`
     text-align: center;
     width: 60px;
     `;
+
+const MenuButton = styled(Button)<{ $active: boolean; scheme: ButtonScheme }>`
+  color: ${({ $active, theme, scheme }) => ($active ? theme.buttonScheme.menuActive.color : theme.buttonScheme[scheme].color)};
+  background-color: ${({ $active, theme, scheme }) =>
+    $active
+      ? theme.buttonScheme.menuActive.backgroundColor
+      : theme.buttonScheme[scheme].backgroundColor};
+  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
+`;
 
 const Bottom = styled.div`
     display: flex;

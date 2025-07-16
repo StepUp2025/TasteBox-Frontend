@@ -3,135 +3,36 @@ import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
 const userPreference = {
-  movies: {
+  movie: {
     genres: [
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
     ],
     count: 8,
   },
-  tvs: {
+  tv: {
     genres: [
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
-      {
-        id: 20,
-        name: '드라마',
-        emoji: '🎭',
-      },
+      { id: 10759, name: '액션 & 어드벤처', emoji: '🗡️' },
+      { id: 16, name: '애니메이션', emoji: '🎨' },
+      { id: 35, name: '코미디', emoji: '😂' },
+      { id: 80, name: '범죄', emoji: '🕵️‍♂️' },
+      { id: 99, name: '다큐멘터리', emoji: '🎥' },
+      { id: 18, name: '드라마', emoji: '🎭' },
+      { id: 10751, name: '가족', emoji: '👨‍👩‍👧‍👦' },
     ],
     count: 6,
   },
 };
 
 const _emptyPreference = {
-  movies: {
+  movie: {
     genres: [
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
-      {
-        id: 1,
-        name: '액션',
-        emoji: '🔥',
-      },
-      {
-        id: 2,
-        name: '모험',
-        emoji: '🗺️',
-      },
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
     ],
     count: 8,
   },
-  tvs: {
+  tv: {
     genres: [],
     count: 0,
   },
@@ -161,21 +62,21 @@ export const preferenceHandlers = [
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
     async () => {
-      return createSuccessResponse(undefined, userPreference);
+      return createSuccessResponse(undefined, _emptyPreference);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/movies`,
     async () => {
-      return createSuccessResponse(undefined, userPreference.movies);
+      return createSuccessResponse(undefined, userPreference.movie);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/tvs`,
     async () => {
-      return createSuccessResponse(undefined, userPreference.tvs);
+      return createSuccessResponse(undefined, userPreference.tv);
     },
   ),
 ];

@@ -3,7 +3,7 @@ import {
   SignupRequestType,
   UpdatePasswordRequestType,
 } from 'entities/auth/model/types/auth.type';
-import { http } from 'msw';
+import { HttpResponse, http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
 const BASE = import.meta.env.VITE_API_BASE_URL;
@@ -27,8 +27,21 @@ export const authHandlers = [
         'ALREADY_REGISTERED_ACCOUNT',
       );
     }
+    if (body.nickname === 'invalid') {
+      return HttpResponse.json(
+        {
+          statusCode: 400,
+          message: {
+            nickname: ['이미 존재하는 닉네임입니다.'],
+          },
+          error: 'VALIDATION_ERROR',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 },
+      );
+    }
 
-    return createSuccessResponse('회원가입 성공', undefined, 201);
+    return createSuccessResponse('회원가입 성공', undefined);
   }),
 
   http.post(`${BASE}/auth/login`, async ({ request }) => {

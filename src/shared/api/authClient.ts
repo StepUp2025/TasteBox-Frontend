@@ -1,8 +1,11 @@
 import { refreshToken } from 'entities/auth/model/services/authApi';
 import { useAuthStore } from 'entities/auth/model/store/authStore';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { createClient } from './httpClient';
 
 export const authClient = createClient();
+
+const errors = ErrorCode;
 
 authClient.interceptors.request.use((config) => {
   const token = useAuthStore.getState().accessToken;
@@ -18,8 +21,13 @@ authClient.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
+    const errorCode = error.response?.data?.error;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if (
+      error.response?.status === 401 &&
+      errorCode === errors.UnauthorizedException &&
+      !originalRequest._retry
+    ) {
       originalRequest._retry = true; //retry flag 설정 -> 무한 루프 방지
 
       try {
@@ -32,8 +40,7 @@ authClient.interceptors.response.use(
         return authClient(originalRequest); //  실패한 요청 재시도
       } catch (err) {
         useAuthStore.getState().resetAccessToken(); // 토큰 갱신 실패 시 토큰 초기화
-        // 로그인 페이지로 강제 이동
-        window.location.href = '/login';
+
         return Promise.reject(err); // refresh 실패 시 에러 반환
       }
     }

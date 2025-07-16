@@ -3,7 +3,9 @@
 import CollectionContentsModifyPage from 'pages/collection/CollectionContentsModifyPage';
 import CollectionCreatePage from 'pages/collection/CollectionCreatePage';
 import CollectionDetailPage from 'pages/collection/CollectionDetailPage';
+import CollectionListPage from 'pages/collection/CollectionListPage';
 import CollectionModifyPage from 'pages/collection/CollectionModifyPage';
+import NotFoundPage from 'pages/common/NotFoundPage';
 import LoginPage from 'pages/login/LoginPage';
 import MainPage from 'pages/main/MainPage';
 import MovieDetailPage from 'pages/movie/MovieDetailPage';
@@ -15,7 +17,6 @@ import SignupPage from 'pages/signup/SignupPage';
 import TVDetailPage from 'pages/tv/TVDetailPage';
 import TVListPage from 'pages/tv/TVListPage';
 import { Route, Routes } from 'react-router-dom';
-import { ErrorBox } from 'shared/ui';
 import Layout from './Layout';
 
 export const Routers = () => {
@@ -35,7 +36,8 @@ export const Routers = () => {
         <Route path="/tv" element={<TVListPage />} />
         <Route path="/tv/:id" element={<TVDetailPage />} />
 
-        <Route path="/collection" element={<CollectionCreatePage />} />
+        <Route path="/collection" element={<CollectionListPage />} />
+        <Route path="/collection/create" element={<CollectionCreatePage />} />
         <Route path="/collection/:id" element={<CollectionDetailPage />} />
         <Route
           path="/collection/:id/content-modify"
@@ -46,7 +48,7 @@ export const Routers = () => {
           element={<CollectionModifyPage />}
         />
 
-        <Route path="*" element={<ErrorBox />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   );

@@ -1,8 +1,6 @@
 import {
-  CreateCollectionRequest,
+  CollectionBase,
   GetCollectionDetailResponse,
-  ModifyContentsRequest,
-  UpdateCollectionRequest,
 } from 'entities/collection/types/collection.type';
 import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
@@ -168,16 +166,12 @@ const mockCollections: GetCollectionDetailResponse[] = [
 let nextId = 3;
 
 export const collectionHandlers = [
-  // 컬렉션 생성
   http.post('/collections', async ({ request }) => {
-    const body = (await request.json()) as CreateCollectionRequest;
-    const { title, description, thumbnail } = body;
+    const body = (await request.json()) as CollectionBase; // image string 값으로 처리
 
     const newCollection: GetCollectionDetailResponse = {
       id: nextId++,
-      title,
-      description,
-      thumbnail,
+      ...body,
       contents: [],
     };
 
@@ -186,14 +180,14 @@ export const collectionHandlers = [
     return createSuccessResponse(undefined, { id: newCollection.id });
   }),
 
-  // 컬렉션 리스트 조회
   http.get('/collections', () => {
     const summaryList = mockCollections.map(
-      ({ id, title, description, thumbnail }) => ({
+      ({ id, title, description, thumbnail, contents }) => ({
         id,
         title,
         description,
         thumbnail,
+        contents: contents.map((content) => content.id),
       }),
     );
 
@@ -203,7 +197,6 @@ export const collectionHandlers = [
     });
   }),
 
-  // 컬렉션 상세 조회
   http.get('/collections/:id', ({ params }) => {
     const { id } = params;
 
@@ -212,24 +205,23 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
     return createSuccessResponse(undefined, mockCollections[idx]);
   }),
 
-  // 컬렉션 수정
   http.patch('/collections/:id', async ({ params, request }) => {
     const { id } = params;
-    const patchData = (await request.json()) as UpdateCollectionRequest;
+    const patchData = (await request.json()) as CollectionBase; // image string 값으로 처리
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
@@ -238,29 +230,27 @@ export const collectionHandlers = [
     return createSuccessResponse('컬렉션 수정 완료');
   }),
 
-  // 6. 콘텐츠 추가
   http.post('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
-    const body = (await request.json()) as ModifyContentsRequest;
-    const { contents } = body;
+    const url = new URL(request.url);
+    const contentIds = url.searchParams.getAll('contentId').map(Number);
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
-    const newContents = contents
-      .filter(
-        (item) => !mockCollections[idx].contents.some((c) => c.id === item.id),
-      )
-      .map((item) => ({
-        ...item,
-        title: `Mock Title ${item.id}`,
-        posterPath: `/images/content-${item.id}.jpg`,
+    const newContents = contentIds
+      .filter((cid) => !mockCollections[idx].contents.some((c) => c.id === cid))
+      .map((cid) => ({
+        id: cid,
+        title: `Mock Content ${cid}`,
+        posterPath: null,
+        contentType: cid % 2 === 0 ? ('movie' as const) : ('tv' as const),
       }));
 
     mockCollections[idx].contents.push(...newContents);
@@ -268,30 +258,27 @@ export const collectionHandlers = [
     return createSuccessResponse('콘텐츠 추가 완료');
   }),
 
-  // 콘텐츠 제거
-  http.post('/collections/:id/contents', async ({ params, request }) => {
+  http.delete('/collections/:id/contents', async ({ params, request }) => {
     const { id } = params;
-    const body = (await request.json()) as ModifyContentsRequest;
-    const { contents } = body;
+    const url = new URL(request.url);
+    const contentIds = url.searchParams.getAll('contentId').map(Number);
 
     const idx = mockCollections.findIndex((c) => c.id === Number(id));
     if (idx === -1) {
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
 
-    const removeIds = new Set(contents.map((c) => c.id));
     mockCollections[idx].contents = mockCollections[idx].contents.filter(
-      (item) => !removeIds.has(item.id),
+      (c) => !contentIds.includes(c.id),
     );
 
     return createSuccessResponse('콘텐츠 삭제 완료');
   }),
 
-  // 컬렉션 삭제
   http.delete('/collections/:id', ({ params }) => {
     const { id } = params;
 
@@ -300,7 +287,7 @@ export const collectionHandlers = [
       return createErrorResponse(
         404,
         '컬렉션을 찾을 수 없습니다.',
-        'NOT_FOUND',
+        'COLLECTION_NOT_FOUND',
       );
     }
     mockCollections.splice(idx, 1);

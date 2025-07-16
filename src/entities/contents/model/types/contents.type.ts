@@ -5,7 +5,7 @@ export interface Contents {
   id: number;
   posterPath: string | null;
   title: string;
-  contentType: ContentType;
+  contentType?: ContentType;
 }
 
 export interface ParameterTypes {
@@ -15,10 +15,15 @@ export interface ParameterTypes {
 }
 
 export interface ContentsResponse {
+  contentType: ContentType;
   contents: Contents[];
   page: number;
-  limit: number;
   totalPages: number;
+}
+
+export interface LatestResponse {
+  contents: Contents[];
+  count: number;
 }
 
 export interface ContentsDetail extends Contents {
@@ -29,4 +34,8 @@ export interface ContentsDetail extends Contents {
   overview: string;
   status: string;
   genres: Genre[];
+}
+
+export interface InfiniteContents {
+  pages: ContentsResponse[];
 }
