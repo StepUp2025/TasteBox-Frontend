@@ -5,16 +5,19 @@ import { usePopularMovies } from 'features/contents/hooks/movie/useGetPopularMov
 import { usePopularTVs } from 'features/contents/hooks/tvs/useGetPopularTVs';
 import { useTVsByGenre } from 'features/contents/hooks/tvs/useGetTVsByGenre';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
-import { useSearchParams } from 'react-router-dom';
+import { useUserPreference } from 'features/user/preference/hooks/useGetUserPreference';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 
 export default function MainPage() {
-  const [searchParams] = useSearchParams();
-  const genreIdsParam = searchParams.get('genreIds');
-  const parsedGenreIds = genreIdsParam
-    ? genreIdsParam.split(',').map(Number)
-    : [];
+  const { data: preferenceData } = useUserPreference();
+  const movieGenres = preferenceData?.movie.genres ?? [];
+  const tvGenres = preferenceData?.tv.genres ?? [];
+  const movieIds = useMemo(() => movieGenres.map((g) => g.id), [movieGenres]);
+  const tvIds = useMemo(() => tvGenres.map((g) => g.id), [tvGenres]);
+
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+
   const { data: latestContentsData } = useLatestContents(10);
   const latestContents = latestContentsData?.contents || [];
 
@@ -24,10 +27,10 @@ export default function MainPage() {
   const { data: popularTVsData } = usePopularTVs(1, 18);
   const popularTVs = popularTVsData?.contents || [];
 
-  const { data: genreMoviesData } = useMoviesByGenre(parsedGenreIds, 1, 18);
+  const { data: genreMoviesData } = useMoviesByGenre(movieIds, 1, 18);
   const genreMovies = genreMoviesData?.contents || [];
 
-  const { data: genreTVsData } = useTVsByGenre(parsedGenreIds, 1, 18);
+  const { data: genreTVsData } = useTVsByGenre(tvIds, 1, 18);
   const genreTVs = genreTVsData?.contents || [];
 
   return (
