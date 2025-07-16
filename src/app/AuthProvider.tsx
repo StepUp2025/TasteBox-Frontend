@@ -5,12 +5,11 @@ import Loading from 'shared/ui/Loading/Loading';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { refresh, isPending } = useRefreshToken();
-  const isLoggedIn = useAuthStore((state) => state.isLoggedIn());
+  const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
 
   useEffect(() => {
-    if (!isLoggedIn) return;
     refresh();
-  }, [refresh, isLoggedIn]);
+  }, [refresh]);
 
   if (isPending) return <Loading />;
 

@@ -24,7 +24,7 @@ interface Props {
 }
 
 const InfiniteListWidget = ({ contentType }: Props) => {
-  const isLoggedIn = useAuthStore().isLoggedIn();
+  const isLoggedIn = useAuthStore().isLoggedIn;
   const { data: preferenceData } = useUserPreference();
   const [_searchParams, setSearchParams] = useSearchParams();
 
@@ -52,10 +52,8 @@ const InfiniteListWidget = ({ contentType }: Props) => {
     console.log('Saved tab:', saved);
 
     const defaultTab = isLoggedIn ? 'byGenre' : 'popular';
-    const validTabIds = tabMap[contentType].map((tab) => tab.id);
 
-    const initialTab =
-      saved && validTabIds.includes(saved) ? saved : defaultTab;
+    const initialTab = defaultTab;
 
     setSelectedTab(initialTab);
   }, [isLoggedIn, contentType]);
