@@ -55,7 +55,7 @@ const ContentsInfiniteList = ({
 
       <Grid>
         {data?.pages.map((page) =>
-          page.contents.map((content) => (
+          page.contents?.map((content) => (
             <ContentItemView key={content.id} content={content} />
           )),
         )}

@@ -16,7 +16,9 @@ const UserPreferenceList = () => {
       </Title>
       <div className="genre-buttons">
         {movie.genres.length === 0 ? (
-          <Empty text="영화 취향이 없습니다" />
+          <div className="empty-wrapper">
+            <Empty text="영화 취향이 없습니다" />
+          </div>
         ) : (
           movie.genres.map((genre) => (
             <Button
@@ -38,7 +40,9 @@ const UserPreferenceList = () => {
       </Title>
       <div className="genre-buttons">
         {tv.genres.length === 0 ? (
-          <Empty text="TV 시리즈 취향이 없습니다" />
+          <div className="empty-wrapper">
+            <Empty text="TV 시리즈 취향이 없습니다" />
+          </div>
         ) : (
           tv.genres.map((genre) => (
             <Button
@@ -59,6 +63,7 @@ const UserPreferenceList = () => {
 };
 
 const UserPreferenceListStyle = styled.div`
+
 .genre-buttons {
     display: flex;
     flex-wrap: wrap;
@@ -72,6 +77,11 @@ const UserPreferenceListStyle = styled.div`
     margin-right: none;
     margin-left: 4px;
     
+  }
+  .empty-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 가운데 정렬 */
   }
 `;
 
