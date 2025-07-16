@@ -14,6 +14,11 @@ export interface ParameterTypes {
   limit: number;
 }
 
+export interface LatestResponse {
+  contents: Contents[];
+  count: number;
+}
+
 export interface ContentsResponse {
   contents: Contents[];
   page: number;
