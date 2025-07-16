@@ -2,7 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Button, InputText, Modal, Title } from 'shared/ui';
+import { Button, ErrorBox, InputText, Modal, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
 import { useDeleteCollection } from '../hooks/useDeleteCollection';
@@ -27,6 +27,10 @@ export default function EditCollectionForm() {
   const { mutate: update, isPending } = useUpdateCollection(collectionId);
   const { mutate: deleteMutate } = useDeleteCollection();
   const navigate = useNavigate();
+  const [errorInfo, setErrorInfo] = useState<{
+    status: number;
+    message?: string;
+  } | null>(null);
 
   const [modalOpen, setModalOpen] = useState(false);
   const handleToggle = () => setModalOpen((prev) => !prev);
@@ -91,6 +95,28 @@ export default function EditCollectionForm() {
     console.log(formData);
     update(formData, {
       onSuccess: () => navigate(`/collection/${collectionId}`),
+      onError: (error) => {
+        const res = error.response?.data;
+
+        if (!res || !res.error) {
+          toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
+          return;
+        }
+
+        switch (res.error) {
+          case 'FORBIDDEN':
+            setErrorInfo({ status: 403, message: res.message });
+            break;
+          case 'COLLECTION_NOT_FOUND':
+            setErrorInfo({ status: 404, message: res.message });
+            break;
+          default:
+            toast.error(
+              res.message || '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
+            );
+            break;
+        }
+      },
     });
   };
 
@@ -100,8 +126,42 @@ export default function EditCollectionForm() {
         toast.success('컬렉션이 삭제되었습니다.');
         navigate('/collection');
       },
+      onError: (error) => {
+        const res = error.response?.data;
+
+        if (!res || !res.error) {
+          toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
+          return;
+        }
+
+        switch (res.error) {
+          case 'FORBIDDEN':
+            setErrorInfo({ status: 403, message: res.message });
+            break;
+          case 'COLLECTION_NOT_FOUND':
+            setErrorInfo({ status: 404, message: res.message });
+            break;
+          case 'S3_DELETE_FAIL':
+            toast.error('컬렉션 삭제에 실패했습니다. 다시 시도해주세요.');
+            break;
+          default:
+            toast.error(
+              res.message || '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
+            );
+            break;
+        }
+      },
     });
   };
+
+  if (errorInfo) {
+    return (
+      <ErrorBox
+        statusCode={errorInfo?.status}
+        errorMessage={errorInfo?.message}
+      />
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
