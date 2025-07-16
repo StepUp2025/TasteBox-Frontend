@@ -41,7 +41,7 @@ const UserPreferenceList = () => {
       <div className="genre-buttons">
         {tv.genres.length === 0 ? (
           <div className="empty-wrapper">
-            <Empty text="TV 시리즈 취향이 없습니다" />
+            <Empty text="TV 시리즈 취향이 없습니다" height="32px" />
           </div>
         ) : (
           tv.genres.map((genre) => (
