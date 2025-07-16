@@ -79,7 +79,7 @@ export const mockContentsResponse: ContentsResponse = {
   contents: mockContents,
   page: 1,
   totalPages: 5,
-  limit: 18,
+  contentType: 'movie', // 기본값 설정
 };
 
 export const mockMovies: Movie[] = [
@@ -320,7 +320,7 @@ export const contentsHandlers = [
   }),
 
   // 장르별 영화 조회
-  http.get('/movies/genre', ({ request }) => {
+  http.get('/movies', ({ request }) => {
     const url = new URL(request.url);
     const genreIds = url.searchParams.getAll('genreId').map(Number);
     console.log('장르 ID:', genreIds);
@@ -365,7 +365,7 @@ export const contentsHandlers = [
   }),
 
   // 장르별 TV 조회
-  http.get('/tvs/genre', ({ request }) => {
+  http.get('/tvs', ({ request }) => {
     const url = new URL(request.url);
     const genreIds = url.searchParams.getAll('genreId').map(Number);
     console.log('장르 ID:', genreIds);
