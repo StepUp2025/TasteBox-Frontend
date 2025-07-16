@@ -9,14 +9,14 @@ import { Routers } from './Routers';
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <ThemeProviders>
+      <ThemeProviders>
+        <AuthProvider>
           <BrowserRouter>
             <ScrollToTop />
             <Routers />
           </BrowserRouter>
-        </ThemeProviders>
-      </AuthProvider>
+        </AuthProvider>
+      </ThemeProviders>
     </QueryClientProvider>
   );
 }
