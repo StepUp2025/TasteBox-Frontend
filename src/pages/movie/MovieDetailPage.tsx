@@ -1,6 +1,8 @@
+import { useAddCollectionContents } from 'features/collection/hooks/useAddCollectionContents';
 import { useMovieDetail } from 'features/contents/hooks/movie/useGetMovieDetail';
 import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
+import ModalItem from 'features/contents/ui/ModalItem/ModalItem';
 import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -11,17 +13,41 @@ import styled from 'styled-components';
 
 export default function MovieDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { id } = useParams();
   const movieId = Number(id);
+
   const { data, isPending, isError, error } = useMovieDetail(movieId);
   const { data: movieRecommendsData } = useMovieRecommends(1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
 
-  const handleModal = () => {
-    setIsModalOpen(false);
+  const { mutate: addToCollections } = useAddCollectionContents(movieId);
+
+  const handleOpenModal = () => {
+    const isLoggedIn = !!localStorage.getItem('accessToken');
+
+    if (!isLoggedIn) {
+      alert('로그인이 필요한 기능입니다. 로그인 후 이용해주세요.');
+      return;
+    }
+
+    setIsModalOpen(true);
   };
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedIds([]); // 모달 닫을 때 선택 초기화
+  };
+  const handleModalSave = () => {
+    if (selectedIds.length === 0) {
+      alert('저장할 컬렉션을 선택해주세요.');
+      return;
+    }
+    addToCollections(selectedIds, {
+      onSuccess: handleCloseModal,
+      onError: () => alert('저장에 실패했습니다.'),
+    });
+  };
+
   if (isPending) return <Loading />;
   if (isError) return <div>에러 발생: {error?.message}</div>;
   if (!data) return <div>영화 정보를 찾을 수 없습니다.</div>;
@@ -38,6 +64,7 @@ export default function MovieDetailPage() {
     runtime,
     backdropPath,
   } = data;
+
   return (
     <Wrapper>
       <BackgroundImage $imageUrl={backdropPath || undefined} />
@@ -70,11 +97,14 @@ export default function MovieDetailPage() {
             open={isModalOpen}
             onClose={handleCloseModal}
             title="콘텐츠 저장"
-            confirmText="새 컬렉션 만들기"
+            confirmText="추가하기"
             confirmType="button"
-            onConfirm={handleModal}
+            onConfirm={handleModalSave}
           >
-            <ModalItem />
+            <ModalItem
+              selectedIds={selectedIds}
+              setSelectedIds={setSelectedIds}
+            />
           </Modal>
         </Info>
       </HeaderSection>
@@ -93,6 +123,7 @@ export default function MovieDetailPage() {
     </Wrapper>
   );
 }
+
 const Wrapper = styled.div`
  position: relative;
   padding: 32px;
@@ -172,14 +203,10 @@ export const Overlay = styled.div`
 export const ModalContainer = styled.div`
   background: ${({ theme }) => theme.color.constantWhite};
   padding: 24px;
-  border-radius: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-export const ModalItem = styled.div`
-  
 `;
