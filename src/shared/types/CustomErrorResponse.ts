@@ -43,4 +43,5 @@ export enum ErrorCode {
   COLLECTION_DELETE_FAILED = 'COLLECTION_DELETE_FAILED',
   COLLECTION_NOT_FOUND = 'COLLECTION_NOT_FOUND',
   FORBIDDEN = 'FORBIDDEN',
+  UnauthorizedException = 'UnauthorizedException',
 }
