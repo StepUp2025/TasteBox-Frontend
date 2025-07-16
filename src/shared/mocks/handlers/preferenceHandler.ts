@@ -3,14 +3,14 @@ import { http } from 'msw';
 import { createErrorResponse, createSuccessResponse } from '../utils/response';
 
 const userPreference = {
-  movies: {
+  movie: {
     genres: [
       { id: 28, name: '액션', emoji: '🔫' },
       { id: 12, name: '모험', emoji: '🧭' },
     ],
     count: 8,
   },
-  tvs: {
+  tv: {
     genres: [
       { id: 10759, name: '액션 & 어드벤처', emoji: '🗡️' },
       { id: 16, name: '애니메이션', emoji: '🎨' },
@@ -24,19 +24,19 @@ const userPreference = {
   },
 };
 
-// const _emptyPreference = {
-//   movies: {
-//     genres: [
-//       { id: 28, name: '액션', emoji: '🔫' },
-//       { id: 12, name: '모험', emoji: '🧭' },
-//     ],
-//     count: 8,
-//   },
-//   tvs: {
-//     genres: [],
-//     count: 0,
-//   },
-// };
+const _emptyPreference = {
+  movie: {
+    genres: [
+      { id: 28, name: '액션', emoji: '🔫' },
+      { id: 12, name: '모험', emoji: '🧭' },
+    ],
+    count: 8,
+  },
+  tv: {
+    genres: [],
+    count: 0,
+  },
+};
 
 export const preferenceHandlers = [
   http.put(
@@ -62,21 +62,21 @@ export const preferenceHandlers = [
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences`,
     async () => {
-      return createSuccessResponse(undefined, userPreference);
+      return createSuccessResponse(undefined, _emptyPreference);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/movies`,
     async () => {
-      return createSuccessResponse(undefined, userPreference.movies);
+      return createSuccessResponse(undefined, userPreference.movie);
     },
   ),
 
   http.get(
     `${import.meta.env.VITE_API_BASE_URL}/users/preferences/tvs`,
     async () => {
-      return createSuccessResponse(undefined, userPreference.tvs);
+      return createSuccessResponse(undefined, userPreference.tv);
     },
   ),
 ];
