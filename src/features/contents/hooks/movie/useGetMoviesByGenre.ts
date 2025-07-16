@@ -6,5 +6,6 @@ export function useMoviesByGenre(genreId: number[], page = 1, limit = 18) {
   return useQuery<ContentsResponse>({
     queryKey: ['movies', genreId, page, limit],
     queryFn: () => fetchMoviesByGenre(genreId, page, limit),
+    enabled: genreId.length > 0,
   });
 }
