@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { Button, InputText, Title } from 'shared/ui';
+import { toast } from 'sonner';
 import { useCreateCollection } from '../hooks/useCreateCollection';
 import {
   CreateCollectionFormValues,
@@ -40,6 +41,27 @@ export default function CreateCollectionForm() {
 
     mutate(formData, {
       onSuccess: (res) => navigate(`/collection/${res.id}`),
+      onError: (error) => {
+        const res = error.response?.data;
+
+        if (!res || !res.error) {
+          toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
+          return;
+        }
+
+        switch (res.error) {
+          case 'USER_NOT_FOUND':
+            toast.error('로그인이 필요해요.');
+            navigate('/login');
+            break;
+          case 'S3_UPLOAD_FAIL':
+            toast.error('이미지 업로드에 실패했어요. 다시 시도해주세요.');
+            break;
+          default:
+            toast.error(res.message || '문제가 발생했어요.');
+            break;
+        }
+      },
     });
   };
 

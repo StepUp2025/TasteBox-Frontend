@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
 
 export const ErrorTitle = styled.h1`
   font-size: 6rem;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 `;
 
 export const StatusText = styled.h2`
@@ -28,7 +28,7 @@ export const StatusText = styled.h2`
 `;
 
 export const Message = styled.p`
-  font-size: 1rem;
+  font-size: ${({ theme }) => theme.fontSize.medium};
   color: ${({ theme }) => theme.color.thirdText};
   margin-bottom: 2rem;
   white-space: pre-line;
