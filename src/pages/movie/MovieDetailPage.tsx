@@ -1,49 +1,25 @@
-import { useAddCollectionContents } from 'features/collection/hooks/useAddCollectionContents';
 import { useMovieDetail } from 'features/contents/hooks/movie/useGetMovieDetail';
 import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
-import ModalItem from 'features/contents/ui/ModalItem/ModalItem';
-import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
+import CollectionContentsModifyModal from 'features/contents/ui/ModalItem/CollectionContentsModifyModal';
+import { Calendar, Clock, Earth, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
-import { Button, Modal, Title } from 'shared/ui';
+import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { getImageUrl } from 'shared/utils/getImageUrl';
 import styled from 'styled-components';
 
 export default function MovieDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { id } = useParams();
   const contentId = Number(id);
   const navigate = useNavigate();
   const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
-
-  const { mutate: addToCollections } = useAddCollectionContents(contentId);
-
-  const handleOpenModal = () => {
-    const isLoggedIn = !!localStorage.getItem('accessToken');
-
-    if (!isLoggedIn) {
-      alert('로그인이 필요한 기능입니다. 로그인 후 이용해주세요.');
-      return;
-    }
-
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedIds([]); // 모달 닫을 때 선택 초기화
-  };
-  const handleModalSave = () => {
-    setIsModalOpen(false);
-    setSelectedIds([]);
-    navigate('/collection/create');
-  };
 
   if (isPending) return <Loading />;
   if (isError) return <div>에러 발생: {error?.message}</div>;
@@ -86,30 +62,26 @@ export default function MovieDetailPage() {
             {runtime}분
           </InfoRow>
           <CollectionButton
-            onClick={handleOpenModal}
+            onClick={() => setIsModalOpen(true)}
             disabled={isPending}
             buttonSize="small"
             fontSize="small"
             scheme="primary"
             borderRadius="large"
           >
-            <Plus size={24} /> <p>컬렉션 추가</p>
+            <p>컬렉션 추가</p>
           </CollectionButton>
-          <Modal
-            open={isModalOpen}
-            onClose={handleCloseModal}
-            title="새 컬렉션 만들기"
-            confirmText="새 컬렉션 만들기"
-            confirmType="button"
-            onConfirm={handleModalSave}
-          >
-            <ModalItem
-              selectedIds={selectedIds}
-              setSelectedIds={setSelectedIds}
+          <div>
+            <CollectionContentsModifyModal
               contentId={contentId}
-              addToCollections={addToCollections}
+              open={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onConfirm={() => {
+                setIsModalOpen(false);
+                navigate('/collection/create');
+              }}
             />
-          </Modal>
+          </div>
         </Info>
       </HeaderSection>
       <OverviewSection>
