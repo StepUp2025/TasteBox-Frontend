@@ -20,7 +20,7 @@ export default function TVDetailPage() {
   const navigate = useNavigate();
 
   const { data, isPending, isError, error } = useTVDetail(contentId);
-  const { data: tvRecommendsData } = useRecommendsTVs(1, 18);
+  const { data: tvRecommendsData } = useRecommendsTVs(contentId, 1, 18);
   const tvRecommends = tvRecommendsData?.contents || [];
 
   if (isPending) return <Loading />;
