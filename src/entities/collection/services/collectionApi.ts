@@ -46,13 +46,11 @@ export const updateCollection = async (
 
 export const addCollectionContents = async (
   id: number,
-  contentIds: number[],
+  contentId: number,
 ): Promise<string> => {
-  const response = await authClient.post(`/collections/${id}/contents`, null, {
-    params: {
-      contentId: contentIds,
-    },
-  });
+  const response = await authClient.post(
+    `/collections/${id}/contents/${contentId}`,
+  );
   return response.data;
 };
 

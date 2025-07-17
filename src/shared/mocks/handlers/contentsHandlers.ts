@@ -20,15 +20,13 @@ export const mockGenres: Genre[] = [
 export const mockContents: Contents[] = [
   {
     id: 1,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/zTgjeblxSLSvomt6F6UYtpiD4n7.jpg',
+    posterPath: '/zTgjeblxSLSvomt6F6UYtpiD4n7.jpg',
     title: 'Inception',
     contentType: 'movie',
   },
   {
     id: 2,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/ygr4hE8Qpagv8sxZbMw1mtYkcQE.jpg',
+    posterPath: '/ygr4hE8Qpagv8sxZbMw1mtYkcQE.jpg',
     title: '쥬라기 월드: 새로운 시작',
     contentType: 'movie',
   },
@@ -41,15 +39,13 @@ export const mockContents: Contents[] = [
 
   {
     id: 4,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/evoEi8SBSvIIEveM3V6nCJ6vKj8.jpg',
+    posterPath: '/evoEi8SBSvIIEveM3V6nCJ6vKj8.jpg',
     title: 'Interstellar',
     contentType: 'movie',
   },
   {
     id: 5,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+    posterPath: '/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
     title: 'Breaking Bad',
     contentType: 'tv',
   },
@@ -61,15 +57,13 @@ export const mockContents: Contents[] = [
   },
   {
     id: 7,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+    posterPath: '/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
     title: 'Squid Game',
     contentType: 'tv',
   },
   {
     id: 8,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/yz4r477D8lljEF7xorrv3zvQxls.jpg',
+    posterPath: '/yz4r477D8lljEF7xorrv3zvQxls.jpg',
     title: 'Stranger Things',
     contentType: 'tv',
   },
@@ -85,8 +79,7 @@ export const mockContentsResponse: ContentsResponse = {
 export const mockMovies: Movie[] = [
   {
     id: 301,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/fxBxoXFAYKWde6lKzXxSusn18Av.jpg',
+    posterPath: '/fxBxoXFAYKWde6lKzXxSusn18Av.jpg',
     title: 'The Matrix',
     contentType: 'movie',
     originalLanguage: 'en',
@@ -101,8 +94,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 302,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/mSi0gskYpmf1FbXngM37s2HppXh.jpg',
+    posterPath: '/mSi0gskYpmf1FbXngM37s2HppXh.jpg',
     title: '기생충',
     contentType: 'movie',
     originalLanguage: 'ko',
@@ -117,8 +109,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 303,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/z7ilT5rNN9kDo8JZmgyhM6ej2xv.jpg',
+    posterPath: '/z7ilT5rNN9kDo8JZmgyhM6ej2xv.jpg',
     title: 'Avengers: Endgame',
     contentType: 'movie',
     originalLanguage: 'en',
@@ -133,8 +124,7 @@ export const mockMovies: Movie[] = [
   },
   {
     id: 304,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/iraQz6gdAe8JL45QcBifM1UhQ38.jpg',
+    posterPath: '/iraQz6gdAe8JL45QcBifM1UhQ38.jpg',
     title: 'Forrest Gump',
     contentType: 'movie',
     originalLanguage: 'en',
@@ -170,8 +160,7 @@ export const mockMovies: Movie[] = [
 export const mockTVs: TVs[] = [
   {
     id: 401,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+    posterPath: '/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
     title: 'Breaking Bad',
     contentType: 'tv',
     originalLanguage: 'en',
@@ -188,20 +177,18 @@ export const mockTVs: TVs[] = [
       {
         id: 1,
         title: 'Season 1',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
+        posterPath: '/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg',
       },
       {
         id: 2,
         title: 'Season 2',
-        posterPath: 'https://www.themoviedb.org/t/p/w1280/breakingbad_s2.jpg',
+        posterPath: '/breakingbad_s2.jpg',
       },
     ],
   },
   {
     id: 402,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+    posterPath: '/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
     title: '오징어 게임',
     contentType: 'tv',
     originalLanguage: 'ko',
@@ -221,15 +208,13 @@ export const mockTVs: TVs[] = [
       {
         id: 1,
         title: 'Season 1',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
+        posterPath: '/yACIAqAkSLkX4coHafpyLWAtQjw.jpg',
       },
     ],
   },
   {
     id: 403,
-    posterPath:
-      'hhttps://www.themoviedb.org/t/p/w1280/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
+    posterPath: 'h/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
     title: 'Stranger Things',
     contentType: 'tv',
     originalLanguage: 'en',
@@ -246,21 +231,18 @@ export const mockTVs: TVs[] = [
       {
         id: 1,
         title: 'Season 1',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
+        posterPath: '/mpOQpOKdo2XJnTqRzo1lTmDNsc1.jpg',
       },
       {
         id: 2,
         title: 'Season 2',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/strangerthings_s2.jpg',
+        posterPath: '/strangerthings_s2.jpg',
       },
     ],
   },
   {
     id: 404,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
+    posterPath: '/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
     title: '우리들의 블루스',
     contentType: 'tv',
     originalLanguage: 'ko',
@@ -277,15 +259,13 @@ export const mockTVs: TVs[] = [
       {
         id: 1,
         title: 'Season 1',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
+        posterPath: '/1qbiyfmJe7tu4QpqCz5flW93mKj.jpg',
       },
     ],
   },
   {
     id: 405,
-    posterPath:
-      'https://www.themoviedb.org/t/p/w1280/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
+    posterPath: '/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
     title: '도깨비',
     contentType: 'tv',
     originalLanguage: 'ko',
@@ -302,8 +282,7 @@ export const mockTVs: TVs[] = [
       {
         id: 1,
         title: 'Season 1',
-        posterPath:
-          'https://www.themoviedb.org/t/p/w1280/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
+        posterPath: '/qZMEiTsNlCQV27hHQE27ZtlPWyv.jpg',
       },
     ],
   },

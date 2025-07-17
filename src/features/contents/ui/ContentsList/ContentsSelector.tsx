@@ -1,4 +1,4 @@
-import { CollectionContent } from 'entities/collection';
+import { Contents } from 'entities/contents/model';
 import { Dispatch, SetStateAction } from 'react';
 import styled from 'styled-components';
 import ContentItemEdit from '../ContentItem/ContentItemEdit';
@@ -7,7 +7,7 @@ import { Header, Wrapper } from './ContentsList.stye';
 
 interface Props {
   title: string;
-  contents: CollectionContent[];
+  contents: Contents[];
   selectedContents: number[];
   setter: Dispatch<SetStateAction<number[]>>;
 }

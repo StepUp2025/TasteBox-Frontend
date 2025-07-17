@@ -1,10 +1,4 @@
-import { ContentType } from 'entities/contents/model/types/contents.type';
-export interface CollectionContent {
-  id: number;
-  posterPath: string | null;
-  title: string;
-  contentType: ContentType;
-}
+import { Contents } from 'entities/contents/model/types/contents.type';
 export interface CollectionBase {
   title: string;
   description: string;
@@ -24,7 +18,7 @@ export interface GetCollectionsResponse {
 }
 export interface GetCollectionDetailResponse extends CollectionBase {
   id: number;
-  contents: CollectionContent[];
+  contents: Contents[];
 }
 
 export type UpdateCollectionRequest = FormData;

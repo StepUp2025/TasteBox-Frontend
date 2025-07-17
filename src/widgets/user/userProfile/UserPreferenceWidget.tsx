@@ -1,6 +1,6 @@
 import UserPreferenceList from 'features/user/preference/ui/UserPreferenceList';
 import styled from 'styled-components';
-import WidgetHeader from '../../WidgetHeader';
+import WidgetHeader from 'widgets/common/WidgetHeader';
 
 const UserPreferenceWidget = () => {
   return (

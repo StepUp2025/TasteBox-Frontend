@@ -80,9 +80,9 @@ export const light: Theme = {
     },
   },
   mediaQuery: {
-    mobile: '(max-width: 768px)',
-    tablet: '(max-width: 1024px)',
-    desktop: '(min-width: 1025px)',
+    mobile: '(max-width: 480px)',
+    tablet: '(max-width: 768px)',
+    desktop: '(max-width: 1024px)',
   },
 };
 
