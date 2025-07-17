@@ -10,6 +10,7 @@ import defaultContentsImage from 'shared/assets/images/default-contents-image.pn
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
+import { getImageUrl } from 'shared/utils/getImageUrl';
 import styled, { useTheme } from 'styled-components';
 
 export default function TVDetailPage() {
@@ -44,10 +45,12 @@ export default function TVDetailPage() {
 
   return (
     <Wrapper>
-      <BackgroundImage $imageUrl={backdropPath || undefined} />
+      <BackgroundImage
+        $imageUrl={backdropPath ? getImageUrl(backdropPath) : undefined}
+      />
       <HeaderSection>
         <Poster
-          src={posterPath ? posterPath : defaultContentsImage}
+          src={posterPath ? getImageUrl(posterPath) : defaultContentsImage}
           alt={title}
         />
         <Info>
