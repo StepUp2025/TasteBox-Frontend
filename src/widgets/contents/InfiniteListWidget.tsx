@@ -137,6 +137,7 @@ const InfiniteListWidget = ({ contentType }: Props) => {
         isLoading={isLoading}
         isFetchingNextPage={isFetchingNextPage}
         error={error}
+        contentType={contentType}
       />
     </InfiniteListWidgetStyle>
   );

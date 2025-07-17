@@ -5,7 +5,7 @@ export interface Contents {
   id: number;
   posterPath: string | null;
   title: string;
-  contentType: ContentType;
+  contentType?: ContentType;
 }
 
 export interface ParameterTypes {

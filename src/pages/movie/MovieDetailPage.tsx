@@ -2,7 +2,7 @@ import { useMovieDetail } from 'features/contents/hooks/movie/useGetMovieDetail'
 import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
 import CollectionContentsModifyModal from 'features/contents/ui/ModalItem/CollectionContentsModifyModal';
-import { Calendar, Clock, Earth, Star } from 'lucide-react';
+import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
@@ -10,12 +10,12 @@ import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { getImageUrl } from 'shared/utils/getImageUrl';
-import styled from 'styled-components';
-
+import styled, { useTheme } from 'styled-components';
 export default function MovieDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { id } = useParams();
   const contentId = Number(id);
+  const theme = useTheme();
   const navigate = useNavigate();
   const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(1, 18);
@@ -69,7 +69,7 @@ export default function MovieDetailPage() {
             scheme="primary"
             borderRadius="large"
           >
-            <p>컬렉션 추가</p>
+            <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
           </CollectionButton>
           <div>
             <CollectionContentsModifyModal
@@ -93,6 +93,7 @@ export default function MovieDetailPage() {
         contents={movieRecommends}
         type="link"
         linkTo="movie"
+        contentType="movie"
       />
     </Wrapper>
   );
