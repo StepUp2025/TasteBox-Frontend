@@ -48,9 +48,13 @@ export const addCollectionContents = async (
   id: number,
   contentId: number,
 ): Promise<string> => {
-  const response = await authClient.post(`/collections/${id}/contents`, {
-    params: { contentId },
-  });
+  const response = await authClient.post(
+    `/collections/${id}/contents`,
+    undefined,
+    {
+      params: { contentId },
+    },
+  );
   return response.data;
 };
 
