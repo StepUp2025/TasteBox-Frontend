@@ -62,18 +62,25 @@ const UserPreferenceList = () => {
 };
 
 const UserPreferenceListStyle = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 800px;
+
   .genre-buttons {
     display: flex;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     flex-wrap: wrap;
     gap: 20px;
     margin-top: 20px;
     margin-bottom: 24px;
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
+    
   }
 
   .emoji {
     display: inline-block;
-    margin-right: none;
     margin-left: 4px;
   }
 

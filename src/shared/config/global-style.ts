@@ -17,6 +17,15 @@ const GlobalStyle = createGlobalStyle<Props>`
   html, body {
     background-color: ${(props) => (props.themeName === 'light' ? 'white' : 'black')};
     font-family: 'Inter', sans-serif;
+
+
+    @media ${({ theme }) => theme.mediaQuery.tablet} {
+      font-size: 14px;
+    }
+
+    @media ${({ theme }) => theme.mediaQuery.mobile} {
+      font-size: 12px;
+    }
   }
 
   a {
@@ -58,6 +67,7 @@ const GlobalStyle = createGlobalStyle<Props>`
     color: white;
     pointer-events: none;
   }
+
 `;
 
 export default GlobalStyle;

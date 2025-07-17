@@ -22,6 +22,8 @@ export const ContentsWrapperStyle = css`
 
 export const ImgWrapper = styled.div`
   width: 100%;
+  aspect-ratio: 2 / 3;
+
   border-radius: ${({ theme }) => theme.borderRadius.medium};
   position: relative;
 

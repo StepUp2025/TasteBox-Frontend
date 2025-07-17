@@ -25,7 +25,7 @@ const ContentsInfiniteList = ({
   error,
 }: Props) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
-  const ENABLE_INFINITE_SCROLL = false; //  여기 false면 무한스크롤 비활성화
+  const ENABLE_INFINITE_SCROLL = true; //  여기 false면 무한스크롤 비활성화
 
   useEffect(() => {
     if (!ENABLE_INFINITE_SCROLL) return;
