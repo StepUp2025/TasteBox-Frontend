@@ -46,7 +46,7 @@ export const fetchTopRatedTVs = async (
 
 // TV 상세 정보 조회
 export const fetchTVDetail = async (id: number) => {
-  const response = await httpClient.get<TVs>(`/tv/${id}`);
+  const response = await httpClient.get<TVs>(`/tvs/${id}`);
   return response.data;
 };
 
@@ -57,7 +57,7 @@ export const fetchRecommendsTVs = async (
   limit: number = 18,
 ) => {
   const response = await authClient.get<ContentsResponse>(
-    `/tv/${id}/recommends`,
+    `/tvs/${id}/recommends`,
     { params: { page, limit } },
   );
   return response.data;
