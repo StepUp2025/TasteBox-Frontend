@@ -11,6 +11,7 @@ import {
   PackageOpen,
   Sun,
   Tv,
+  User,
 } from 'lucide-react';
 import {
   Bottom,
@@ -60,6 +61,12 @@ export default function Sidebar() {
           <IconTextWrapper>
             <Folder />
             컬렉션
+          </IconTextWrapper>
+        </IconLink>
+        <IconLink to={isLoggedIn ? '/mypage' : '/login'}>
+          <IconTextWrapper>
+            <User />
+            마이페이지
           </IconTextWrapper>
         </IconLink>
       </Top>
