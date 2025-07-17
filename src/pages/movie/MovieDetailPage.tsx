@@ -5,7 +5,7 @@ import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListVie
 import ModalItem from 'features/contents/ui/ModalItem/ModalItem';
 import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Modal, Title } from 'shared/ui';
@@ -18,7 +18,7 @@ export default function MovieDetailPage() {
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { id } = useParams();
   const contentId = Number(id);
-
+  const navigate = useNavigate();
   const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
@@ -40,20 +40,9 @@ export default function MovieDetailPage() {
     setSelectedIds([]); // 모달 닫을 때 선택 초기화
   };
   const handleModalSave = () => {
-    if (selectedIds.length === 0) {
-      alert('저장할 컬렉션을 선택해주세요.');
-      return;
-    }
-    Promise.all(
-      selectedIds.map((collectionId) =>
-        addToCollections(collectionId, {
-          onSuccess: () => {},
-          onError: () => alert(`저장실패!`),
-        }),
-      ),
-    )
-      .then(handleCloseModal)
-      .catch(() => alert('저장 중 에러가 발생했습니다.'));
+    setIsModalOpen(false);
+    setSelectedIds([]);
+    navigate('/collection/create');
   };
 
   if (isPending) return <Loading />;
@@ -109,14 +98,16 @@ export default function MovieDetailPage() {
           <Modal
             open={isModalOpen}
             onClose={handleCloseModal}
-            title="콘텐츠 저장"
-            confirmText="추가하기"
+            title="새 컬렉션 만들기"
+            confirmText="새 컬렉션 만들기"
             confirmType="button"
             onConfirm={handleModalSave}
           >
             <ModalItem
               selectedIds={selectedIds}
               setSelectedIds={setSelectedIds}
+              contentId={contentId}
+              addToCollections={addToCollections}
             />
           </Modal>
         </Info>
@@ -125,14 +116,12 @@ export default function MovieDetailPage() {
         <Title>줄거리</Title>
         {overview}
       </OverviewSection>
-      <RecommendSection>
-        <ContentsListViewer
-          title="추천영화"
-          contents={movieRecommends}
-          type="link"
-          linkTo="movie"
-        />
-      </RecommendSection>
+      <ContentsListViewer
+        title="추천영화"
+        contents={movieRecommends}
+        type="link"
+        linkTo="movie"
+      />
     </Wrapper>
   );
 }
@@ -184,10 +173,6 @@ const OverviewSection = styled.section`
   gap: 20px;
 `;
 
-const RecommendSection = styled.section`
-  margin: 40px 0 24px 0;
-`;
-
 const CollectionButton = styled(Button)`
   width: 200px;
   height: 43px;
@@ -196,17 +181,4 @@ const CollectionButton = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
-
-`;
-
-export const ModalContainer = styled.div`
-  background: ${({ theme }) => theme.color.constantWhite};
-  padding: 24px;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
