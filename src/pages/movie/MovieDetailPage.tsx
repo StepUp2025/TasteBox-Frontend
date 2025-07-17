@@ -10,6 +10,7 @@ import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { getImageUrl } from 'shared/utils/getImageUrl';
+import { toast } from 'sonner';
 import styled, { useTheme } from 'styled-components';
 export default function MovieDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,7 @@ export default function MovieDetailPage() {
   const contentId = Number(id);
   const theme = useTheme();
   const navigate = useNavigate();
+  const isLoggedIn = Boolean(localStorage.getItem('accessToken'));
   const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(contentId, 1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
@@ -62,7 +64,13 @@ export default function MovieDetailPage() {
             {runtime}분
           </InfoRow>
           <CollectionButton
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => {
+              if (!isLoggedIn) {
+                toast('로그인이 필요한 기능입니다.');
+                return;
+              }
+              setIsModalOpen(true);
+            }}
             disabled={isPending}
             buttonSize="small"
             fontSize="small"
