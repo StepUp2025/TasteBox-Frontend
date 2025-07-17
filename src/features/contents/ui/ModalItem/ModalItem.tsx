@@ -5,15 +5,22 @@ import styled from 'styled-components';
 export interface ModalItemProps {
   selectedIds: number[];
   setSelectedIds: (ids: number[]) => void;
+  contentId: number;
 }
 
+// ModalItem.tsx
 export default function ModalItem({
   selectedIds,
   setSelectedIds,
-}: ModalItemProps) {
+  contentId,
+}: ModalItemProps & { contentId: number }) {
   const { data, isPending } = useGetCollectionList();
 
-  const handleToggle = (id: number) => {
+  const isAlreadyChecked = (col: any) =>
+    col.contentIds ? col.contentIds.includes(contentId) : col.hasContent;
+
+  const handleToggle = (id: number, already: boolean) => {
+    if (already) return;
     if (selectedIds.includes(id)) {
       setSelectedIds(selectedIds.filter((item) => item !== id));
     } else {
@@ -28,16 +35,25 @@ export default function ModalItem({
   return (
     <Container>
       <CollectionList>
-        {data.collections.map((col) => (
-          <Label key={col.id}>
-            <CheckBox
-              type="checkbox"
-              checked={selectedIds.includes(col.id)}
-              onChange={() => handleToggle(col.id)}
-            />
-            {col.title}
-          </Label>
-        ))}
+        {data.collections.map((col) => {
+          const already = isAlreadyChecked(col);
+          return (
+            <Label key={col.id}>
+              <CheckBox
+                type="checkbox"
+                checked={already || selectedIds.includes(col.id)}
+                disabled={already}
+                onChange={() => handleToggle(col.id, already)}
+              />
+              {col.title}
+              {already && (
+                <span style={{ color: 'primary', fontSize: 12 }}>
+                  (이미 저장됨)
+                </span>
+              )}
+            </Label>
+          );
+        })}
       </CollectionList>
     </Container>
   );
