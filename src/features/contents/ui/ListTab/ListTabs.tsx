@@ -47,7 +47,7 @@ const TabButton = styled.button<{ $selected: boolean }>`
     left: 0;
     width: 100%;
     height: 2px; /* 밑줄 굵기 */
-    background-color: #C1B7FD;
+    background-color: ${({ theme }) => theme.color.primary};
     border-radius: 2px;
   }
 `;
