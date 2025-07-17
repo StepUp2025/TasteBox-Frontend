@@ -4,287 +4,229 @@ import { useLogout } from 'features/auth/logout/hooks/useLogout';
 import {
   Clapperboard,
   Folder,
+  House,
   LogIn,
   LogOut,
   Moon,
   PackageOpen,
   Sun,
   Tv,
-  User,
 } from 'lucide-react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { ButtonScheme } from 'shared/types/theme';
+import { NavLink } from 'react-router-dom';
+import {
+  SIDEBAR_WIDTH,
+  TABLE_SIDEBAR_WIDTH,
+} from 'shared/constants/mediaquery';
+import { hoverOverlay } from 'shared/styles/hoverOverlay';
 import { Button } from 'shared/ui';
 import styled, { useTheme } from 'styled-components';
 
-interface LabelProps {
-  $active?: boolean;
-}
-
 export default function Sidebar() {
-  const { mutate: logoutMutate, isPending } = useLogout();
+  const { mutate: logoutMutate } = useLogout();
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
   const themeMode = useThemeStore((state) => state.theme);
   const { toggleTheme } = useThemeStore();
-  const navigate = useNavigate();
   const handleLogout = () => {
     logoutMutate();
   };
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
   const theme = useTheme();
 
   return (
     <SidebarWrapper>
       <Top>
-        <Logo onClick={() => navigate('/')}>
-          <PackageOpen size={24} />
+        <Logo to={'/'}>
+          <PackageOpen />
         </Logo>
-        <Nav>
-          <MenuButton
-            onClick={() => navigate('/movie')}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            $active={isActive('/movie')}
-            disableHoverOverlay={true}
-          >
-            <MenuContent $width={60} $active={isActive('/movie')}>
-              <Clapperboard
-                size={24}
-                stroke={
-                  isActive('/movie')
-                    ? theme.color.hoverOverlay
-                    : theme.color.thirdText
-                }
-              />
-
-              <Label $active={isActive('/movie')}>영화</Label>
-            </MenuContent>
-          </MenuButton>
-          <MenuButton
-            onClick={() => navigate('/tv')}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            $active={isActive('/tv')}
-            disableHoverOverlay={true}
-          >
-            <MenuContent $width={60} $active={isActive('/tv')}>
-              <Tv
-                size={24}
-                stroke={
-                  isActive('/tv')
-                    ? theme.color.hoverOverlay
-                    : theme.color.thirdText
-                }
-              />
-
-              <Label $active={isActive('/tv')}>TV 시리즈</Label>
-            </MenuContent>
-          </MenuButton>
-          <MenuButton
-            onClick={() => {
-              if (!isLoggedIn) {
-                navigate('/login');
-              } else {
-                navigate('/collection');
-              }
-            }}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            $active={isActive('/collection')}
-            disableHoverOverlay={true}
-          >
-            <MenuContent $width={60} $active={isActive('/collection')}>
-              <Folder
-                size={24}
-                stroke={
-                  isActive('/collection')
-                    ? theme.color.hoverOverlay
-                    : theme.color.thirdText
-                }
-              />
-
-              <Label $active={isActive('/collection')}>컬렉션</Label>
-            </MenuContent>
-          </MenuButton>
-
-          <MenuButton
-            onClick={() => {
-              if (!isLoggedIn) {
-                navigate('/login');
-              } else {
-                navigate('/mypage');
-              }
-            }}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            $active={isActive('/mypage')}
-            disableHoverOverlay={true}
-          >
-            <MenuContent $width={60} $active={isActive('/mypage')}>
-              <User
-                size={24}
-                stroke={
-                  isActive('/mypage')
-                    ? theme.color.hoverOverlay
-                    : theme.color.thirdText
-                }
-              />
-              <Label $active={isActive('/mypage')}>마이페이지</Label>
-            </MenuContent>
-          </MenuButton>
-        </Nav>
+        <IconLink to={'/'}>
+          <IconTextWrapper>
+            <House />홈
+          </IconTextWrapper>
+        </IconLink>
+        <IconLink to={'/movie'}>
+          <IconTextWrapper>
+            <Clapperboard />
+            영화
+          </IconTextWrapper>
+        </IconLink>
+        <IconLink to={'/tv'}>
+          <IconTextWrapper>
+            <Tv />
+            TV
+          </IconTextWrapper>
+        </IconLink>
+        <IconLink to={isLoggedIn ? '/collection' : '/login'}>
+          <IconTextWrapper>
+            <Folder />
+            컬렉션
+          </IconTextWrapper>
+        </IconLink>
       </Top>
 
       <Bottom>
         {isLoggedIn ? (
-          <Button
-            onClick={handleLogout}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            disableHoverOverlay={true}
-            disabled={isPending}
-          >
-            <MenuContent $width={60}>
-              <LogOut size={24} stroke={theme.color.thirdText} />
-            </MenuContent>
-          </Button>
+          <LogOutInLink to={'/'} onClick={handleLogout}>
+            <IconTextWrapper>
+              <LogOut size={20} />
+              로그아웃
+            </IconTextWrapper>
+          </LogOutInLink>
         ) : (
-          <Button
-            onClick={() => navigate('/login')}
-            buttonSize="menuNarrow"
-            fontSize="small"
-            scheme="menu"
-            borderRadius="medium"
-            disableHoverOverlay={true}
-          >
-            <MenuContent $width={60}>
-              <LogIn size={24} stroke={theme.color.thirdText} />
-            </MenuContent>
-          </Button>
+          <LogInLink to={'/login'}>
+            <IconTextWrapper>
+              <LogIn size={20} />
+              로그인
+            </IconTextWrapper>
+          </LogInLink>
         )}
-
-        <Button
+        <ThemeButton
           onClick={toggleTheme}
           buttonSize="menuNarrow"
           fontSize="small"
           scheme="menu"
           borderRadius="medium"
-          disableHoverOverlay={true}
         >
-          <MenuContent $width={60}>
-            {themeMode === 'light' ? (
-              <Moon size={24} stroke={theme.color.thirdText} />
-            ) : (
-              <Sun size={24} stroke={theme.color.thirdText} />
-            )}
-          </MenuContent>
-        </Button>
+          {themeMode === 'light' ? (
+            <Moon stroke={theme.color.thirdText} />
+          ) : (
+            <Sun stroke={theme.color.thirdText} />
+          )}
+        </ThemeButton>
       </Bottom>
     </SidebarWrapper>
   );
 }
 
-const SidebarWrapper = styled.aside`
-    width: auto;
-    height: 100vh;
-    background: ${({ theme }) => theme.color.basicBackground};
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    z-index: 10;
-    box-shadow: ${({ theme }) => theme.shadow.default};
+const SidebarWrapper = styled.nav`
+  width: ${SIDEBAR_WIDTH}px;
+  height: 100vh;
+  padding: 2rem 0;
+  background: ${({ theme }) => theme.color.basicBackground};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  box-shadow: ${({ theme }) => theme.shadow.default};
+
+    @media ${({ theme }) => theme.mediaQuery.tablet} {
+      width: ${TABLE_SIDEBAR_WIDTH}px;
+    }
   `;
 
 const Top = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
   `;
-
-const Nav = styled.nav`
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    align-items: center;
-    margin-top: 16px;
-  `;
-
-const MenuContent = styled.span<{ $width?: number; $active?: boolean }>`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
-    height: 65px;
-    border-radius:10px;
-    padding: 10px 10px;
-    background: ${({ $active, theme }) =>
-      $active ? theme.color.subBackground : 'transparent'};
-    transition: background 0.2s;
-    &:hover {
-    background: ${({ theme }) => theme.color.subBackground};
-  }
-    button:hover & svg {
-      stroke: ${({ theme }) => theme.color.hoverOverlay};
-    }
-    button:hover & span {
-      color: ${({ theme }) => theme.color.hoverOverlay};
-      font-weight: bold;
-    }
-     `;
-const Logo = styled.button`
- display: flex;
- justify-content: center;
- align-items: center;
- padding: 10px;
- border-radius: ${({ theme }) => theme.borderRadius.medium};
- background-color: ${({ theme }) => theme.color.primary};
- svg{
-  stroke:  ${({ theme }) => theme.color.constantWhite};
- }
-`;
-
-const Label = styled.span<LabelProps>`
-    margin-top: 4px;
-    font-size: 12px;
-    color: ${({ $active, theme }) => ($active ? theme.color.hoverOverlay : theme.color.thirdText)};
-    font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
-    text-align: center;
-    width: 60px;
-    `;
-
-const MenuButton = styled(Button)<{ $active: boolean; scheme: ButtonScheme }>`
-  color: ${({ $active, theme, scheme }) => ($active ? theme.buttonScheme.menuActive.color : theme.buttonScheme[scheme].color)};
-  background-color: ${({ $active, theme, scheme }) =>
-    $active
-      ? theme.buttonScheme.menuActive.backgroundColor
-      : theme.buttonScheme[scheme].backgroundColor};
-  font-weight: ${({ $active }) => ($active ? 'bold' : 'normal')};
-`;
 
 const Bottom = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 8px;
     align-items: center;
-    margin-bottom: 24px;
-    padding: 15px;
+    width: 100%;
+    gap: 1rem;
   `;
+
+const IconLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+
+
+  svg {
+    stroke: ${({ theme }) => theme.color.thirdText};
+
+    @media ${({ theme }) => theme.mediaQuery.tablet} {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &.active {
+    div {
+    color: ${({ theme }) => theme.color.defaultText};
+    font-weight: 700;
+
+    }
+
+    svg {
+      stroke: ${({ theme }) => theme.color.defaultText};
+    }
+  }
+
+  &:hover {
+    background: ${({ theme }) => theme.color.subBackground};
+  }
+`;
+
+const IconTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 12px;
+  color: ${({ theme }) => theme.color.thirdText};
+  font-weight: 500;
+`;
+
+const Logo = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  background: ${({ theme }) => theme.color.primary};
+  margin-bottom: 1rem;
+
+  svg {
+    stroke: ${({ theme }) => theme.color.constantWhite};
+  }
+  `;
+
+const LogInLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+  background: ${({ theme }) => theme.color.subBackground};
+
+  div {
+    color: ${({ theme }) => theme.color.highlightText};
+    font-size: 10px;
+  }
+
+  svg {
+    stroke: ${({ theme }) => theme.color.highlightText};
+  }
+`;
+
+const LogOutInLink = styled(NavLink)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: ${({ theme }) => theme.borderRadius.medium};
+
+  div {
+    font-size: 10px;
+  }
+
+  svg {
+    stroke: ${({ theme }) => theme.color.thirdText};
+  }
+
+  ${hoverOverlay}
+  `;
+
+const ThemeButton = styled(Button)`
+  padding: 1rem;
+`;

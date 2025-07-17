@@ -5,6 +5,7 @@ import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useNavigate } from 'react-router-dom';
 import { queryClient } from 'shared/lib/queryClient';
 import { CustomErrorResponse } from 'shared/types/CustomErrorResponse';
+import { toast } from 'sonner';
 
 export const useLogout = (option?: {
   onSuccess?: () => void;
@@ -26,6 +27,7 @@ export const useLogout = (option?: {
       queryClient.clear();
       console.log('Successfully logged out');
       option?.onSuccess?.();
+      toast.message('로그아웃이 완료되었습니다. 다음에 또 만나요 👋');
     },
     onError: (error) => {
       console.error('Logout failed', error);
