@@ -6,22 +6,24 @@ import ModalItem from 'features/contents/ui/ModalItem/ModalItem';
 import { Calendar, Clock, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Modal, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
+import { getImageUrl } from 'shared/utils/getImageUrl';
 import styled from 'styled-components';
 
 export default function MovieDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
   const { id } = useParams();
-  const movieId = Number(id);
+  const contentId = Number(id);
 
-  const { data, isPending, isError, error } = useMovieDetail(movieId);
+  const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
 
-  const { mutate: addToCollections } = useAddCollectionContents(movieId);
+  const { mutate: addToCollections } = useAddCollectionContents(contentId);
 
   const handleOpenModal = () => {
     const isLoggedIn = !!localStorage.getItem('accessToken');
@@ -42,10 +44,16 @@ export default function MovieDetailPage() {
       alert('저장할 컬렉션을 선택해주세요.');
       return;
     }
-    addToCollections(selectedIds, {
-      onSuccess: handleCloseModal,
-      onError: () => alert('저장에 실패했습니다.'),
-    });
+    Promise.all(
+      selectedIds.map((collectionId) =>
+        addToCollections(collectionId, {
+          onSuccess: () => {},
+          onError: () => alert(`저장실패!`),
+        }),
+      ),
+    )
+      .then(handleCloseModal)
+      .catch(() => alert('저장 중 에러가 발생했습니다.'));
   };
 
   if (isPending) return <Loading />;
@@ -67,9 +75,14 @@ export default function MovieDetailPage() {
 
   return (
     <Wrapper>
-      <BackgroundImage $imageUrl={backdropPath || undefined} />
+      <BackgroundImage
+        $imageUrl={backdropPath ? getImageUrl(backdropPath) : undefined}
+      />
       <HeaderSection>
-        <Poster src={posterPath || 'default-contents-image'} alt={title} />
+        <Poster
+          src={posterPath ? getImageUrl(posterPath) : defaultContentsImage}
+          alt={title}
+        />
         <Info>
           <Title>{title}</Title>
           <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
