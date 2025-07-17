@@ -1,6 +1,9 @@
+import axios from 'axios';
 import { ContentType } from 'entities/contents/model/types/contents.type';
-import { Button } from 'shared/ui';
+import { CustomErrorResponse } from 'shared/types/CustomErrorResponse';
+import { Button, ErrorBox } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
+import { toast } from 'sonner';
 import { useGetMovieGenres } from '../hooks/useGetMovieGenres';
 import { useGetTVSeriesGenres } from '../hooks/useGetTVSeriesGenres';
 import { GenreButton } from '../style/GenreSelectPage.style';
@@ -19,6 +22,36 @@ export const GenreSelector = ({ type, selectedIds, onSelect }: Props) => {
     type === 'movie'
       ? movieGenresQuery.data?.genres
       : tvGenresQuery.data?.genres;
+
+  const isError =
+    type === 'movie' ? movieGenresQuery.isError : tvGenresQuery.isError;
+
+  const error = type === 'movie' ? movieGenresQuery.error : tvGenresQuery.error;
+
+  if (isError && axios.isAxiosError(error)) {
+    const res = error.response?.data as CustomErrorResponse;
+
+    switch (res?.error) {
+      case 'CONTENT_NOT_FOUND':
+        return (
+          <ErrorBox
+            statusCode={400}
+            errorMessage="장르 정보를 불러오는 중 문제가 발생했어요."
+          />
+        );
+      case 'TMDB_API_ERROR':
+        return (
+          <ErrorBox
+            statusCode={500}
+            errorMessage="장르 정보를 불러오는 중 문제가 발생했어요."
+          />
+        );
+      default:
+        toast.error(
+          res?.message ?? '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
+        );
+    }
+  }
 
   const isLoading =
     type === 'movie' ? movieGenresQuery.isLoading : tvGenresQuery.isLoading;
