@@ -5,13 +5,15 @@ export const AuthFormLayout = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-
-  
+  width: 100%;
+  min-width: 320px; 
   
 
   .container {
-    min-width: 550px;
-    min-height: 620px;
+    width: 52vw;
+    max-width: 550px;
+    min-width: 480px;
+    padding: 2rem;
     background-color: ${({ theme }) => theme.color.basicBackground};
     padding: 60px 72px;
     border-radius: ${({ theme }) => theme.borderRadius.large};
@@ -25,8 +27,8 @@ export const AuthFormLayout = styled.div`
   .header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 40px;
+    gap: 2vw;
+    margin-bottom: 4vh;
     justify-content: center;
 
     h1 {
@@ -46,14 +48,13 @@ export const AuthFormLayout = styled.div`
   .input-group {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 1rem;
     width: 100%;
-    max-width: 400px;
-    margin-bottom: 32px;
+    width: 100%;
+    margin-bottom: 2rem;
   }
 
   form > button {
-    max-width: 400px;
     width: 100%;
   }
 
@@ -76,9 +77,8 @@ export const AuthFormLayout = styled.div`
   .divider {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 10px;
-  margin-bottom: 24px;
+  gap: 0.5rem;
+  margin: 1rem 0;
 
   span {
     flex: 1;
@@ -96,9 +96,10 @@ export const AuthFormLayout = styled.div`
 .oauth-buttons {
   display: flex;
   justify-content: center;
-  gap: 64px;
-  margin-bottom: 24px;
-
+  gap: 4vw;
+  margin-bottom: 2rem;
 
 }
+
+
 `;

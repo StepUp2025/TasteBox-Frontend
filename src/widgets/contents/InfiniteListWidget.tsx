@@ -6,10 +6,7 @@ import {
 } from 'features/contents/hooks/createGenreQueryFn';
 import { useInfiniteContents } from 'features/contents/hooks/useInfiniteContents';
 import ContentsInfiniteList from 'features/contents/ui/ContentsList/ContentsInfiniteList';
-import {
-  CONTENT_LIST_MAX_WIDTH,
-  CONTENT_LIST_MIN_WIDTH,
-} from 'features/contents/ui/constants';
+import { CONTENT_LIST_MAX_WIDTH } from 'features/contents/ui/constants';
 import ListTabs from 'features/contents/ui/ListTab/ListTabs';
 import { tabMap } from 'features/contents/ui/ListTab/tabMap';
 import { useUserPreference } from 'features/user/preference/hooks/useGetUserPreference';
@@ -24,7 +21,7 @@ interface Props {
 }
 
 const InfiniteListWidget = ({ contentType }: Props) => {
-  const isLoggedIn = useAuthStore().isLoggedIn();
+  const isLoggedIn = useAuthStore().isLoggedIn;
   const { data: preferenceData } = useUserPreference();
   const [_searchParams, setSearchParams] = useSearchParams();
 
@@ -52,10 +49,8 @@ const InfiniteListWidget = ({ contentType }: Props) => {
     console.log('Saved tab:', saved);
 
     const defaultTab = isLoggedIn ? 'byGenre' : 'popular';
-    const validTabIds = tabMap[contentType].map((tab) => tab.id);
 
-    const initialTab =
-      saved && validTabIds.includes(saved) ? saved : defaultTab;
+    const initialTab = defaultTab;
 
     setSelectedTab(initialTab);
   }, [isLoggedIn, contentType]);
@@ -156,7 +151,7 @@ const InfiniteListWidgetStyle = styled.div`
   .tab-bar {
     width: 100%;
     max-width: ${CONTENT_LIST_MAX_WIDTH}px;
-    min-width: ${CONTENT_LIST_MIN_WIDTH}px;
+    padding: 0 16px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;

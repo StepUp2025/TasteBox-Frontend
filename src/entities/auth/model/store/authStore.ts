@@ -4,12 +4,12 @@ export interface AuthState {
   accessToken: string | null;
   setAccessToken: (token: string) => void;
   resetAccessToken: () => void;
-  isLoggedIn: () => boolean;
+  isLoggedIn: boolean;
 }
 
-export const useAuthStore = create<AuthState>((set, get) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   accessToken: null,
-  setAccessToken: (token) => set({ accessToken: token }),
-  resetAccessToken: () => set({ accessToken: null }),
-  isLoggedIn: () => !!get().accessToken,
+  setAccessToken: (token) => set({ accessToken: token, isLoggedIn: !!token }),
+  resetAccessToken: () => set({ accessToken: null, isLoggedIn: false }),
+  isLoggedIn: false,
 }));

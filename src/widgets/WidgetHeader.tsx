@@ -26,7 +26,8 @@ const WidgetHeaderStyle = styled.div`
   align-items: center;
   margin-top: 60px;
   margin-bottom: 16px;
-  width: 800px;
+  width: 100%;
+  max-width: 800px;
 
   a {
     font-size: ${({ theme }) => theme.fontSize.small};
