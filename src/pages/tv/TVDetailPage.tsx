@@ -104,6 +104,7 @@ export default function TVDetailPage() {
         contents={tvRecommends}
         type="link"
         linkTo="tv"
+        contentType="tv"
       />
     </Wrapper>
   );
