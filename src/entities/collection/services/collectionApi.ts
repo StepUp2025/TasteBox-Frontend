@@ -48,9 +48,9 @@ export const addCollectionContents = async (
   id: number,
   contentId: number,
 ): Promise<string> => {
-  const response = await authClient.post(
-    `/collections/${id}/contents/${contentId}`,
-  );
+  const response = await authClient.post(`/collections/${id}/contents`, null, {
+    params: { contentId },
+  });
   return response.data;
 };
 

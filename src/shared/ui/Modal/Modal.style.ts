@@ -12,11 +12,13 @@ export const Overlay = styled.div`
 `;
 
 export const ModalContainer = styled.div`
+  min-width: 320px;
+  max-width: 90vw;
   position: relative;
   padding: 1.5rem;
   background: ${({ theme }) => theme.color.basicBackground};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  width: 480px; // TODO: 반응형 적용시 버튼 길이와 width 변경
+  width: fit-content; // TODO: 반응형 적용시 버튼 길이와 width 변경
   word-break: break-word;
   box-shadow: ${({ theme }) => theme.shadow.default};
 `;
