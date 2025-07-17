@@ -4,6 +4,7 @@ import { useUserPreference } from 'features/user/preference/hooks/useGetUserPref
 import { useUpdateUserPreference } from 'features/user/preference/hooks/useUpdateUserPreference';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { Button, ErrorBox } from 'shared/ui';
 import { toast } from 'sonner';
 import { ButtonWrapper, GenreSelectForm } from '../style/GenreSelectPage.style';
@@ -77,18 +78,18 @@ export const TvGenreSelectForm = () => {
           const res = error.response?.data;
 
           switch (res?.error) {
-            case 'INVALID_GENRE_ID':
+            case ErrorCode.INVALID_GENRE_ID:
               setErrorInfo({
                 status: 400,
                 message:
                   '장르 정보 요청을 처리할 수 없었어요. 잠시 후 다시 시도해주세요.',
               });
               break;
-            case 'USER_NOT_FOUND':
+            case ErrorCode.USER_NOT_FOUND:
               toast.error('로그인이 필요해요. 다시 로그인해주세요.');
               navigate('/login', { replace: true });
               break;
-            case 'INVALID_CONTENT_TYPE_KEY':
+            case ErrorCode.INVALID_CONTENT_TYPE_KEY:
               setErrorInfo({
                 status: 500,
                 message:

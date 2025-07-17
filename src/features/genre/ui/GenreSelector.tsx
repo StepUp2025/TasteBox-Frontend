@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { ContentType } from 'entities/contents/model/types/contents.type';
-import { CustomErrorResponse } from 'shared/types/CustomErrorResponse';
+import {
+  CustomErrorResponse,
+  ErrorCode,
+} from 'shared/types/CustomErrorResponse';
 import { Button, ErrorBox } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
@@ -32,14 +35,14 @@ export const GenreSelector = ({ type, selectedIds, onSelect }: Props) => {
     const res = error.response?.data as CustomErrorResponse;
 
     switch (res?.error) {
-      case 'CONTENT_NOT_FOUND':
+      case ErrorCode.CONTENT_NOT_FOUND:
         return (
           <ErrorBox
             statusCode={400}
             errorMessage="장르 정보를 불러오는 중 문제가 발생했어요."
           />
         );
-      case 'TMDB_API_ERROR':
+      case ErrorCode.TMDB_API_ERROR:
         return (
           <ErrorBox
             statusCode={500}

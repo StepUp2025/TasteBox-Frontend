@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { Button, ErrorBox, InputText, Modal, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import { toast } from 'sonner';
@@ -104,10 +105,10 @@ export default function EditCollectionForm() {
         }
 
         switch (res.error) {
-          case 'FORBIDDEN':
+          case ErrorCode.FORBIDDEN:
             setErrorInfo({ status: 403, message: res.message });
             break;
-          case 'COLLECTION_NOT_FOUND':
+          case ErrorCode.COLLECTION_NOT_FOUND:
             setErrorInfo({ status: 404, message: res.message });
             break;
           default:
@@ -135,13 +136,13 @@ export default function EditCollectionForm() {
         }
 
         switch (res.error) {
-          case 'FORBIDDEN':
+          case ErrorCode.FORBIDDEN:
             setErrorInfo({ status: 403, message: res.message });
             break;
-          case 'COLLECTION_NOT_FOUND':
+          case ErrorCode.COLLECTION_NOT_FOUND:
             setErrorInfo({ status: 404, message: res.message });
             break;
-          case 'S3_DELETE_FAIL':
+          case ErrorCode.S3_DELETE_FAIL:
             toast.error('컬렉션 삭제에 실패했습니다. 다시 시도해주세요.');
             break;
           default:
