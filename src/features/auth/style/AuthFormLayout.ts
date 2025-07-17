@@ -21,6 +21,12 @@ export const AuthFormLayout = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    ${({ theme }) => `
+    @media ${theme.mediaQuery.mobile} {
+      padding: 50px 60px;
+    }
+  `}
     
   }
 
