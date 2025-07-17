@@ -87,6 +87,9 @@ export const IconTextWrapper = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.color.thirdText};
   font-weight: 500;
+    @media ${({ theme }) => theme.mediaQuery.tablet} {
+        font-size: 10px;    
+    }
 `;
 
 export const Logo = styled(NavLink)`

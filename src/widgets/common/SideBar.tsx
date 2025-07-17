@@ -65,8 +65,7 @@ export default function Sidebar() {
         </IconLink>
         <IconLink to={isLoggedIn ? '/mypage' : '/login'}>
           <IconTextWrapper>
-            <User />
-            마이페이지
+            <User />내 정보
           </IconTextWrapper>
         </IconLink>
       </Top>
