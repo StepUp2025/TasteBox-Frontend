@@ -1,4 +1,7 @@
-import { Contents } from 'entities/contents/model/types/contents.type';
+import {
+  Contents,
+  ContentType,
+} from 'entities/contents/model/types/contents.type';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { useState } from 'react';
 import { Empty } from 'shared/ui/empty/empty';
@@ -20,10 +23,17 @@ interface Props {
   title: string;
   contents: Contents[];
   type: ContentsListType;
+  contentType?: ContentType;
   linkTo?: ContentsListLinkTo;
 }
 
-const ContentsListViewer = ({ title, contents, type, linkTo }: Props) => {
+const ContentsListViewer = ({
+  title,
+  contents,
+  type,
+  linkTo,
+  contentType,
+}: Props) => {
   const [showAll, setShowAll] = useState(false);
   console.log('콘텐츠 리스트:', contents);
   const visibleContents =
@@ -63,7 +73,11 @@ const ContentsListViewer = ({ title, contents, type, linkTo }: Props) => {
 
       <ContentListContainer $scroll={type === 'scroll' || type === 'link'}>
         {visibleContents.map((item) => (
-          <ContentItemView key={item.id} content={item} />
+          <ContentItemView
+            key={item.id}
+            content={item}
+            contentType={contentType}
+          />
         ))}
       </ContentListContainer>
     </Wrapper>
