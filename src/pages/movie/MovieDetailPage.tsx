@@ -93,6 +93,7 @@ export default function MovieDetailPage() {
         contents={movieRecommends}
         type="link"
         linkTo="movie"
+        contentType="movie"
       />
     </Wrapper>
   );
