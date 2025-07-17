@@ -18,7 +18,7 @@ export default function MovieDetailPage() {
   const theme = useTheme();
   const navigate = useNavigate();
   const { data, isPending, isError, error } = useMovieDetail(contentId);
-  const { data: movieRecommendsData } = useMovieRecommends(1, 18);
+  const { data: movieRecommendsData } = useMovieRecommends(contentId, 1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
 
   if (isPending) return <Loading />;
