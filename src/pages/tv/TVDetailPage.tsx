@@ -1,54 +1,27 @@
-import { useAddCollectionContents } from 'features/collection/hooks/useAddCollectionContents';
 import { useRecommendsTVs } from 'features/contents/hooks/tvs/useGetRecommendsTVs';
 import { useTVDetail } from 'features/contents/hooks/tvs/useGetTVDetail';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
-import ModalItem from 'features/contents/ui/modal/modal';
+import CollectionContentsModifyModal from 'features/contents/ui/ModalItem/CollectionContentsModifyModal';
 import SeasonListViewer from 'features/contents/ui/SeasonList/seasonListViewe';
 import { Calendar, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
-import { Button, Modal, Title } from 'shared/ui';
+import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 export default function TVDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const theme = useTheme();
   const { id } = useParams();
-  const tvId = Number(id);
+  const contentId = Number(id);
+  const navigate = useNavigate();
 
-  const { data, isPending, isError, error } = useTVDetail(tvId);
+  const { data, isPending, isError, error } = useTVDetail(contentId);
   const { data: tvRecommendsData } = useRecommendsTVs(1, 18);
   const tvRecommends = tvRecommendsData?.contents || [];
-
-  const { mutate: addToCollections } = useAddCollectionContents(tvId);
-
-  const handleOpenModal = () => {
-    const isLoggedIn = !!localStorage.getItem('accessToken');
-
-    if (!isLoggedIn) {
-      alert('로그인이 필요한 기능입니다. 로그인 후 이용해주세요.');
-      return;
-    }
-
-    setIsModalOpen(true);
-  };
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedIds([]); // 모달 닫을 때 선택 초기화
-  };
-  const handleModalSave = () => {
-    if (selectedIds.length === 0) {
-      alert('저장할 컬렉션을 선택해주세요.');
-      return;
-    }
-    addToCollections(selectedIds, {
-      onSuccess: handleCloseModal,
-      onError: () => alert('저장에 실패했습니다.'),
-    });
-  };
 
   if (isPending) return <Loading />;
   if (isError) return <div>에러 발생: {error?.message}</div>;
@@ -86,31 +59,30 @@ export default function TVDetailPage() {
             <Calendar size={24} /> {firstAirDate}~{lastAirDate}
           </InfoRow>
           <InfoRow>
-            <Earth size={24} /> {originalLanguage?.toUpperCase()}
+            <Earth size={24} />
+            {originalLanguage?.toUpperCase()}
           </InfoRow>
           <CollectionButton
-            onClick={handleOpenModal}
+            onClick={() => setIsModalOpen(true)}
             disabled={isPending}
             buttonSize="small"
             fontSize="small"
             scheme="primary"
             borderRadius="large"
           >
-            <Plus size={24} /> <p>컬렉션 추가</p>
+            <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
           </CollectionButton>
-          <Modal
-            open={isModalOpen}
-            onClose={handleCloseModal}
-            title="콘텐츠 저장"
-            confirmText="추가하기"
-            confirmType="button"
-            onConfirm={handleModalSave}
-          >
-            <ModalItem
-              selectedIds={selectedIds}
-              setSelectedIds={setSelectedIds}
+          <div>
+            <CollectionContentsModifyModal
+              contentId={contentId}
+              open={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              onConfirm={() => {
+                setIsModalOpen(false);
+                navigate('/collection/create');
+              }}
             />
-          </Modal>
+          </div>
         </Info>
       </HeaderSection>
       <OverviewSection>
@@ -127,14 +99,12 @@ export default function TVDetailPage() {
           numberOfSeasons={numberOfSeasons}
         />
       </SeasonsSection>
-      <RecommendSection>
-        <ContentsListViewer
-          title="추천TV시리즈"
-          contents={tvRecommends}
-          type="link"
-          linkTo="tv"
-        />
-      </RecommendSection>
+      <ContentsListViewer
+        title="추천TV시리즈"
+        contents={tvRecommends}
+        type="link"
+        linkTo="tv"
+      />
     </Wrapper>
   );
 }
@@ -186,10 +156,6 @@ flex-direction:column;
 gap: 20px;
 `;
 
-const RecommendSection = styled.section`
-margin: 40px 0 24px 0;
-`;
-
 const SeasonsSection = styled.section`
 display: flex;
 align-items: center;
@@ -207,16 +173,4 @@ display: flex;
 justify-content: center;
 align-items: center;
 white-space: nowrap;
-
-`;
-
-export const ModalContainer = styled.div`
-background: ${({ theme }) => theme.color.constantWhite};
-padding: 24px;
-border-radius: ${({ theme }) => theme.borderRadius.medium};
-position: relative;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
 `;
