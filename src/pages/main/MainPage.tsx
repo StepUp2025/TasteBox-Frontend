@@ -47,12 +47,14 @@ export default function MainPage() {
             contents={genreMovies}
             type="link"
             linkTo="movie"
+            contentType="movie"
           />
           <ContentsListViewer
             title="추천 TV시리즈"
             contents={genreTVs}
             type="link"
             linkTo="tv"
+            contentType="tv"
           />
         </MaintWrapper>
       ) : (
@@ -62,12 +64,14 @@ export default function MainPage() {
             contents={popularMovies}
             type="link"
             linkTo="movie"
+            contentType="movie"
           />
           <ContentsListViewer
             title="인기 TV시리즈"
             contents={popularTVs}
             type="link"
             linkTo="tv"
+            contentType="tv"
           />
         </MaintWrapper>
       )}
