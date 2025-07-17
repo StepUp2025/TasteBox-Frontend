@@ -48,7 +48,6 @@ export const ContentListContainer = styled.div<{ $scroll: boolean }>`
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   margin: 0 auto;
   gap: ${CONTENT_ITEM_GAP}px;
-  flex-wrap: ${({ $scroll }) => ($scroll ? 'nowrap' : 'wrap')};
   overflow-x: ${({ $scroll }) => ($scroll ? 'auto' : 'visible')};
   padding-bottom: ${({ $scroll }) => ($scroll ? '16px' : '0')};
   width: 100%;
