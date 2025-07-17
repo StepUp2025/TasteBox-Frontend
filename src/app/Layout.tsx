@@ -3,10 +3,11 @@ import { Outlet } from 'react-router-dom';
 import {
   SIDEBAR_WIDTH,
   TABLE_SIDEBAR_WIDTH,
-} from 'shared/constants/mediaquery';
+} from 'shared/constants/mediaQuery';
+
 import styled from 'styled-components';
-import Footer from 'widgets/Footer';
-import Sidebar from 'widgets/SideBar';
+import Footer from 'widgets/common/Footer';
+import Sidebar from 'widgets/common/SideBar';
 
 export default function Layout() {
   return (
