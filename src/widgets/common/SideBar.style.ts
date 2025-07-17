@@ -31,7 +31,6 @@ export const Top = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
   width: 100%;
   `;
 
@@ -54,18 +53,20 @@ export const IconLink = styled(NavLink)`
 
   svg {
     stroke: ${({ theme }) => theme.color.thirdText};
+          width: 20px;
+      height: 20px;
 
     @media ${({ theme }) => theme.mediaQuery.tablet} {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
     }
   }
 
   &.active {
+    background-color: ${({ theme }) => theme.color.subBackground};
     div {
-    color: ${({ theme }) => theme.color.defaultText};
-    font-weight: 700;
-
+        color: ${({ theme }) => theme.color.defaultText};
+        font-weight: 700;
     }
 
     svg {
