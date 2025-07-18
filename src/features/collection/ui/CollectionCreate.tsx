@@ -1,9 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { Button, InputText, Title } from 'shared/ui';
 import { toast } from 'sonner';
+import { useAddCollectionContents } from '../hooks/useAddCollectionContents';
 import { useCreateCollection } from '../hooks/useCreateCollection';
 import {
   CreateCollectionFormValues,
@@ -28,7 +29,12 @@ export default function CreateCollectionForm() {
   });
 
   const { mutate, isPending } = useCreateCollection();
+
+  const location = useLocation();
   const navigate = useNavigate();
+  const contentId = location.state?.contentId;
+
+  const { mutate: addContentsMutate } = useAddCollectionContents(contentId);
 
   const onSubmit = (values: CreateCollectionFormValues) => {
     const formData = new FormData();
@@ -41,7 +47,13 @@ export default function CreateCollectionForm() {
     }
 
     mutate(formData, {
-      onSuccess: (res) => navigate(`/collection/${res.id}`),
+      onSuccess: (res) => {
+        navigate(`/collection/${res.id}`);
+        if (contentId) {
+          addContentsMutate(res.id);
+          toast.success('컬렉션에 추가되었습니다.');
+        }
+      },
       onError: (error) => {
         const res = error.response?.data;
 
