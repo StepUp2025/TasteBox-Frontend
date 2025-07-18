@@ -95,7 +95,7 @@ const UpdatePasswordModalStyle = styled.div`
     flex-direction: column;
     gap: 12px; 
     margin-top: 12px;
-
+    min-width: 360px;
   }
 `;
 

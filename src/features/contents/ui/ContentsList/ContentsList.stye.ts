@@ -57,7 +57,7 @@ export const ContentListContainer = styled.div<{ $scroll: boolean }>`
           padding-bottom: 16px;
         `
       : css`
-          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
         `};
   width: 100%;
   ${({ theme }) => customScrollbar(theme)};
