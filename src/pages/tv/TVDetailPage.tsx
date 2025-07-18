@@ -8,6 +8,7 @@ import { Calendar, Earth, Plus, Star } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import defaultContentsImage from 'shared/assets/images/default-contents-image.png';
+import { ImageSize } from 'shared/constants/image';
 import { BackgroundImage } from 'shared/styles/backgroundStyle';
 import { Button, Title } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
@@ -46,84 +47,86 @@ export default function TVDetailPage() {
   } = data;
 
   return (
-    <Wrapper>
-      <BackgroundImage
-        $imageUrl={backdropPath ? getImageUrl(backdropPath) : undefined}
-      />
-      <HeaderSection>
-        <Poster
-          src={posterPath ? getImageUrl(posterPath) : defaultContentsImage}
-          alt={title}
-        />
-        <Info>
-          <Title>{title}</Title>
-          <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
-          <InfoRow>
-            <Star size={24} />
-            {voteAverage}({voteCount})
-            <Calendar size={24} /> {firstAirDate}~{lastAirDate}
-          </InfoRow>
-          <InfoRow>
-            <Earth size={24} />
-            {originalLanguage?.toUpperCase()}
-          </InfoRow>
-          <CollectionButton
-            onClick={() => {
-              if (!isLoggedIn) {
-                toast('로그인이 필요한 기능입니다.');
-                return;
-              }
-              setIsModalOpen(true);
-            }}
-            disabled={isPending}
-            buttonSize="small"
-            fontSize="small"
-            scheme="primary"
-            borderRadius="large"
-          >
-            <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
-          </CollectionButton>
-          <div>
-            <CollectionContentsModifyModal
-              contentId={contentId}
-              open={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              onConfirm={() => {
-                setIsModalOpen(false);
-                navigate('/collection/create');
+    <BackgroundImage
+      $imageUrl={
+        backdropPath ? getImageUrl(backdropPath, ImageSize.ORIGINAL) : undefined
+      }
+    >
+      <Wrapper>
+        <HeaderSection>
+          <Poster
+            src={posterPath ? getImageUrl(posterPath) : defaultContentsImage}
+            alt={title}
+          />
+          <Info>
+            <Title>{title}</Title>
+            <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
+            <InfoRow>
+              <Star size={24} />
+              {voteAverage}({voteCount})
+              <Calendar size={24} /> {firstAirDate}~{lastAirDate}
+            </InfoRow>
+            <InfoRow>
+              <Earth size={24} />
+              {originalLanguage?.toUpperCase()}
+            </InfoRow>
+            <CollectionButton
+              onClick={() => {
+                if (!isLoggedIn) {
+                  toast('로그인이 필요한 기능입니다.');
+                  return;
+                }
+                setIsModalOpen(true);
               }}
-            />
-          </div>
-        </Info>
-      </HeaderSection>
-      <OverviewSection>
-        <Title>줄거리</Title>
-        {overview}
-      </OverviewSection>
-      <SeasonsSection>
-        <SeasonListViewer
-          title="시즌"
-          seasons={seasons.map((season) => ({
-            ...season,
-          }))}
-          type="scroll"
-          numberOfSeasons={numberOfSeasons}
+              disabled={isPending}
+              buttonSize="small"
+              fontSize="small"
+              scheme="primary"
+              borderRadius="large"
+            >
+              <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
+            </CollectionButton>
+            <div>
+              <CollectionContentsModifyModal
+                contentId={contentId}
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={() => {
+                  setIsModalOpen(false);
+                  navigate('/collection/create');
+                }}
+              />
+            </div>
+          </Info>
+        </HeaderSection>
+        <OverviewSection>
+          <Title>줄거리</Title>
+          {overview}
+        </OverviewSection>
+        <SeasonsSection>
+          <SeasonListViewer
+            title="시즌"
+            seasons={seasons.map((season) => ({
+              ...season,
+            }))}
+            type="scroll"
+            numberOfSeasons={numberOfSeasons}
+          />
+        </SeasonsSection>
+        <ContentsListViewer
+          title="추천TV시리즈"
+          contents={tvRecommends}
+          type="link"
+          linkTo="tv"
+          contentType="tv"
         />
-      </SeasonsSection>
-      <ContentsListViewer
-        title="추천TV시리즈"
-        contents={tvRecommends}
-        type="link"
-        linkTo="tv"
-        contentType="tv"
-      />
-    </Wrapper>
+      </Wrapper>
+    </BackgroundImage>
   );
 }
 
 const Wrapper = styled.div`
 position: relative;
-padding: 32px;
 margin: 0;
 display: flex;
 flex-direction: column;
