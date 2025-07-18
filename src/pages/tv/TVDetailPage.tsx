@@ -47,11 +47,14 @@ export default function TVDetailPage() {
   } = data;
 
   return (
-    <BackgroundImage
-      $imageUrl={
-        backdropPath ? getImageUrl(backdropPath, ImageSize.ORIGINAL) : undefined
-      }
-    >
+    <>
+      <BackgroundImage
+        $imageUrl={
+          backdropPath
+            ? getImageUrl(backdropPath, ImageSize.ORIGINAL)
+            : undefined
+        }
+      />
       <Wrapper>
         <HeaderSection>
           <Poster
@@ -121,7 +124,7 @@ export default function TVDetailPage() {
           contentType="tv"
         />
       </Wrapper>
-    </BackgroundImage>
+    </>
   );
 }
 
