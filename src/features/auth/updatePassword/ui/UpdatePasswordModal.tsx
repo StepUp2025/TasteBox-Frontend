@@ -45,7 +45,6 @@ const UpdatePasswordModal = ({ open, onClose }: UpdatePasswordModalProps) => {
   });
 
   const onSubmit = (data: UpdatePasswordFormValues) => {
-    console.log('제출된 값:', data);
     mutate(data);
     onClose();
   };

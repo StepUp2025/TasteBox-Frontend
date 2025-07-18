@@ -35,7 +35,6 @@ const ContentsListViewer = ({
   contentType,
 }: Props) => {
   const [showAll, setShowAll] = useState(false);
-  console.log('콘텐츠 리스트:', contents);
   const visibleContents =
     type === 'toggle' && !showAll
       ? contents.slice(0, MAX_ITEMS_PER_ROW)

@@ -27,8 +27,6 @@ const SignupForm = () => {
       navigate('/login');
     },
     onError: (error) => {
-      console.log('회원가입 실패:', error.response?.data);
-
       if (isValidationError(error)) {
         // 백엔드에서 받은 유효성 에러를 폼에 띄움
         setErrorFromServer<SignupFormValues>(error, setError);
@@ -42,7 +40,6 @@ const SignupForm = () => {
   });
 
   const onSubmit = (data: SignupFormValues) => {
-    console.log('제출된 값:', data);
     mutate(data);
   };
 

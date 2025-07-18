@@ -21,7 +21,6 @@ export const useUpdatePassword = (option?: {
   >({
     mutationFn: updatePassword,
     onSuccess: () => {
-      console.log('비밀번호가 성공적으로 변경되었습니다.');
       navigate('/mypage', { replace: true }); // 마이페이지로 리다이렉트
       option?.onSuccess?.();
     },

@@ -44,10 +44,8 @@ export const userHandlers = [
     async ({ request }) => {
       const formData = await request.formData(); // ✅ multipart/form-data 파싱
       const nickname = formData.get('nickname') as string | null;
-      const contact = formData.get('contact') as string | null;
-      const image = formData.get('image') as File | null;
-
-      console.log('프로필 수정 요청:', { nickname, contact, image });
+      // const _contact = formData.get('contact') as string | null;
+      // const _image = formData.get('image') as File | null;
 
       if (nickname === '중복닉네임') {
         return new HttpResponse(

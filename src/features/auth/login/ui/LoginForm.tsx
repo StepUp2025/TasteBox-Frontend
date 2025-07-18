@@ -27,7 +27,6 @@ const LoginForm = () => {
 
   const { mutate, isPending } = useLocalLogin({
     onError: (error) => {
-      console.log('로그인 실패:', error.response?.data);
       if (isValidationError(error)) {
         // 백엔드에서 받은 유효성 에러를 폼에 띄움
         setErrorFromServer<LoginFormValues>(error, setError);
@@ -41,7 +40,6 @@ const LoginForm = () => {
   const { loginWithGoogle, loginWithKakao } = useOAUthLogin();
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log('제출된 값:', data);
     mutate(data);
   };
   const handleGoToMain = () => {
