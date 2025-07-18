@@ -48,7 +48,6 @@ const Container = styled.section`
   max-width: 1280px;
   min-width: 280px;
   margin: 0 auto;
-  padding: 3rem;
   flex: 1;
   display: flex;
   flex-direction: column;
