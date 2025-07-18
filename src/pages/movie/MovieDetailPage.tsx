@@ -43,11 +43,14 @@ export default function MovieDetailPage() {
   } = data;
 
   return (
-    <BackgroundImage
-      $imageUrl={
-        backdropPath ? getImageUrl(backdropPath, ImageSize.ORIGINAL) : undefined
-      }
-    >
+    <>
+      <BackgroundImage
+        $imageUrl={
+          backdropPath
+            ? getImageUrl(backdropPath, ImageSize.ORIGINAL)
+            : undefined
+        }
+      />
       <Wrapper>
         <HeaderSection>
           <Poster
@@ -108,7 +111,7 @@ export default function MovieDetailPage() {
           contentType="movie"
         />
       </Wrapper>
-    </BackgroundImage>
+    </>
   );
 }
 
