@@ -1,3 +1,4 @@
+import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useMovieDetail } from 'features/contents/hooks/movie/useGetMovieDetail';
 import { useMovieRecommends } from 'features/contents/hooks/movie/useGetMovieRecommends';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
@@ -18,7 +19,7 @@ export default function MovieDetailPage() {
   const contentId = Number(id);
   const theme = useTheme();
   const navigate = useNavigate();
-  const isLoggedIn = Boolean(localStorage.getItem('accessToken'));
+  const isLoggedIn = useAuthStore((state) => !!state.accessToken);
   const { data, isPending, isError, error } = useMovieDetail(contentId);
   const { data: movieRecommendsData } = useMovieRecommends(contentId, 1, 18);
   const movieRecommends = movieRecommendsData?.contents || [];
