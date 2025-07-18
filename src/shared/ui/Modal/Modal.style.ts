@@ -18,7 +18,7 @@ export const ModalContainer = styled.div`
   padding: 1.5rem;
   background: ${({ theme }) => theme.color.basicBackground};
   border-radius: ${({ theme }) => theme.borderRadius.medium};
-  width: fit-content; // TODO: 반응형 적용시 버튼 길이와 width 변경
+  width: fit-content; 
   word-break: break-word;
   box-shadow: ${({ theme }) => theme.shadow.default};
 `;
@@ -46,8 +46,5 @@ export const CloseButton = styled.button`
 `;
 
 export const Footer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 32px;
+  margin-top: 2rem;
 `;
