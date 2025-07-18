@@ -7,7 +7,6 @@ import { useTVsByGenre } from 'features/contents/hooks/tvs/useGetTVsByGenre';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
 import { useUserPreference } from 'features/user/preference/hooks/useGetUserPreference';
 import { useMemo } from 'react';
-import styled from 'styled-components';
 
 export default function MainPage() {
   const { data: preferenceData } = useUserPreference();
@@ -36,7 +35,7 @@ export default function MainPage() {
   return (
     <>
       {isLoggedIn ? (
-        <MaintWrapper>
+        <>
           <ContentsListViewer
             title="최근 추가한 컨텐츠"
             contents={latestContents}
@@ -56,9 +55,9 @@ export default function MainPage() {
             linkTo="tv"
             contentType="tv"
           />
-        </MaintWrapper>
+        </>
       ) : (
-        <MaintWrapper>
+        <>
           <ContentsListViewer
             title="인기 영화"
             contents={popularMovies}
@@ -73,11 +72,8 @@ export default function MainPage() {
             linkTo="tv"
             contentType="tv"
           />
-        </MaintWrapper>
+        </>
       )}
     </>
   );
 }
-
-const MaintWrapper = styled.div`
-`;
