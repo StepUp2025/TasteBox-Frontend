@@ -1,3 +1,4 @@
+import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { useRecommendsTVs } from 'features/contents/hooks/tvs/useGetRecommendsTVs';
 import { useTVDetail } from 'features/contents/hooks/tvs/useGetTVDetail';
 import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListViewer';
@@ -20,7 +21,7 @@ export default function TVDetailPage() {
   const { id } = useParams();
   const contentId = Number(id);
   const navigate = useNavigate();
-  const isLoggedIn = Boolean(localStorage.getItem('accessToken'));
+  const isLoggedIn = useAuthStore((state) => !!state.accessToken);
   const { data, isPending, isError, error } = useTVDetail(contentId);
   const { data: tvRecommendsData } = useRecommendsTVs(contentId, 1, 18);
   const tvRecommends = tvRecommendsData?.contents || [];
