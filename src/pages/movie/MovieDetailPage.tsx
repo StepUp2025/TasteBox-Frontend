@@ -58,8 +58,10 @@ export default function MovieDetailPage() {
             alt={title}
           />
           <Info>
-            <Title>{title}</Title>
-            <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
+            <LargeTitle>{title}</LargeTitle>
+            <InfoRow>
+              <GenreStyle>{genres?.map((g) => g.name).join(' · ')} </GenreStyle>
+            </InfoRow>
             <InfoRow>
               <Star size={24} />
               {voteAverage}({voteCount})
@@ -87,22 +89,26 @@ export default function MovieDetailPage() {
               <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
             </CollectionButton>
             <div>
-              <CollectionContentsModifyModal
-                contentId={contentId}
-                open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={() => {
-                  setIsModalOpen(false);
-                  navigate('/collection/create');
-                }}
-              />
+              {isModalOpen && (
+                <CollectionContentsModifyModal
+                  contentId={contentId}
+                  open={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  onConfirm={() => {
+                    setIsModalOpen(false);
+                    navigate('/collection/create', { state: { contentId } });
+                  }}
+                />
+              )}
             </div>
           </Info>
         </HeaderSection>
-        <OverviewSection>
-          <Title>줄거리</Title>
-          {overview}
-        </OverviewSection>
+        {overview && (
+          <OverviewSection>
+            <Title>줄거리</Title>
+            {overview}
+          </OverviewSection>
+        )}
         <ContentsListViewer
           title="추천영화"
           contents={movieRecommends}
@@ -116,57 +122,69 @@ export default function MovieDetailPage() {
 }
 
 const Wrapper = styled.div`
-  position: relative;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  z-index: 99;
+position: relative;
+margin: 0;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+z-index: 99;
 `;
 
 const HeaderSection = styled.section`
- position: relative;
-  display: flex;
-  gap: 32px;
-  align-items: flex-end;
-  z-index: 3;
+position: relative;
+display: flex;
+gap: 32px;
+align-items: flex-end;
+z-index: 3;
+`;
+
+const LargeTitle = styled(Title)`
+  font-size: ${({ theme }) => theme.fontSize.xlarge};
+`;
+
+const GenreStyle = styled.div`
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSize.medium};
 `;
 
 const Poster = styled.img`
-  width: 220px;
-  height: 320px;
-  border-radius: ${({ theme }) => theme.borderRadius.medium};
-  object-fit: cover;
-  margin-top: 60px;
+width: 220px;
+height: 320px;
+border-radius: ${({ theme }) => theme.borderRadius.medium};
+object-fit: cover;
+margin-top: 60px;
 `;
 
 const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+display: flex;
+height: 320px;
+flex-direction: column;
+gap: 8px;
 `;
 
 const InfoRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  font-size: ${({ theme }) => theme.fontSize.small};
+display: flex;
+align-items: center;
+gap: 8px;
+margin-top: 20px;
+font-size: ${({ theme }) => theme.fontSize.xsmall};
 `;
 
 const OverviewSection = styled.section`
-  margin: 40px 0 24px 0;
-  display: flex;
-  flex-direction:column;
-  gap: 20px;
+margin: 2.5rem 15rem 1.5rem 0;
+display: flex;
+flex-direction:column;
+gap: 20px;
+text-align: justify;
 `;
 
 const CollectionButton = styled(Button)`
-  width: 200px;
-  height: 43px;
-  margin-top: 40px;
-  gap: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+width: 200px;
+height: 43px;
+margin-top: 40px;
+gap: 6px;
+display: flex;
+justify-content: center;
+align-items: center;
+white-space: nowrap;
 `;
