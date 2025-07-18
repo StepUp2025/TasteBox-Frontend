@@ -2,6 +2,7 @@ import ContentsListViewer from 'features/contents/ui/ContentsList/ContentListVie
 import { EllipsisVertical } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { ErrorBox, Title } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
@@ -38,7 +39,7 @@ export const CollectionDetail = () => {
   if (isError) {
     const res = error?.response?.data;
 
-    if (res?.error === 'COLLECTION_NOT_FOUND') {
+    if (res?.error === ErrorCode.COLLECTION_NOT_FOUND) {
       return <ErrorBox statusCode={404} errorMessage={res.message} />;
     }
 

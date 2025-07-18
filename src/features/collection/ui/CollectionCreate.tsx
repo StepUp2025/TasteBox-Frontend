@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { Button, InputText, Title } from 'shared/ui';
 import { toast } from 'sonner';
 import { useCreateCollection } from '../hooks/useCreateCollection';
@@ -50,11 +51,11 @@ export default function CreateCollectionForm() {
         }
 
         switch (res.error) {
-          case 'USER_NOT_FOUND':
+          case ErrorCode.USER_NOT_FOUND:
             toast.error('로그인이 필요해요.');
             navigate('/login');
             break;
-          case 'S3_UPLOAD_FAIL':
+          case ErrorCode.S3_UPLOAD_FAIL:
             toast.error('이미지 업로드에 실패했어요. 다시 시도해주세요.');
             break;
           default:

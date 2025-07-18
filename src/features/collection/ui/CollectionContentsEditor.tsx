@@ -6,6 +6,7 @@ import {
   BackgroundImage,
   BackgroundWrapper,
 } from 'shared/styles/backgroundStyle';
+import { ErrorCode } from 'shared/types/CustomErrorResponse';
 import { ErrorBox, Modal, Title } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
@@ -42,6 +43,7 @@ const CollectionContentsEditor = () => {
 
   const handleRemove = () => {
     const ids = [...selectedMovies, ...selectedTvShows];
+
     removeContents(
       { collectionId: numericId, contentIds: ids },
       {
@@ -73,6 +75,7 @@ const CollectionContentsEditor = () => {
               break;
           }
         },
+
       },
     );
   };
