@@ -3,7 +3,6 @@ import {
   InfiniteContents,
 } from 'entities/contents/model/types/contents.type';
 import { useEffect, useRef } from 'react';
-import { ErrorBox } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
@@ -16,7 +15,6 @@ interface Props {
   hasNextPage: boolean;
   isLoading: boolean;
   isFetchingNextPage: boolean;
-  error: Error | null;
   contentType: ContentType;
 }
 
@@ -26,7 +24,6 @@ const ContentsInfiniteList = ({
   hasNextPage,
   isLoading,
   isFetchingNextPage,
-  error,
   contentType,
 }: Props) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
@@ -55,11 +52,11 @@ const ContentsInfiniteList = ({
     <ContentsInfiniteListStyle>
       {isLoading && <Loading />}
 
-      {error && <ErrorBox errorMessage="데이터를 불러오지 못했습니다" />}
-
-      {!isLoading && data?.pages?.length === 0 && (
-        <Empty text="표시할 컨텐츠가 없습니다." />
-      )}
+      {!isLoading &&
+        (data?.pages.length === 0 ||
+          data?.pages.every((page) => page.contents.length === 0)) && (
+          <Empty text="표시할 컨텐츠가 없습니다." />
+        )}
 
       <Grid>
         {data?.pages.map((page) =>
