@@ -78,6 +78,7 @@ export default function CollectionContentsModifyModal({
       confirmText="새 컬렉션 만들기"
       confirmType="button"
       onConfirm={onConfirm}
+      confirmScheme="secondary"
     >
       <Container>
         {collections.length === 0 ? (
