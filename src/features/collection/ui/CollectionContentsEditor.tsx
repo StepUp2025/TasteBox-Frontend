@@ -26,8 +26,7 @@ const CollectionContentsEditor = () => {
   const numericId = Number(id);
 
   const { data, isPending } = useGetCollectionDetail(numericId);
-  const { mutate: removeContents } = useRemoveCollectionContents(numericId);
-
+  const { mutate: removeContents } = useRemoveCollectionContents();
   const [selectedMovies, setSelectedMovies] = useState<number[]>([]);
   const [selectedTvShows, setSelectedTvShows] = useState<number[]>([]);
 
@@ -44,36 +43,41 @@ const CollectionContentsEditor = () => {
 
   const handleRemove = () => {
     const ids = [...selectedMovies, ...selectedTvShows];
-    removeContents(ids, {
-      onSuccess: () => {
-        toast.success('선택한 콘텐츠가 삭제되었습니다.');
-        setSelectedMovies([]);
-        setSelectedTvShows([]);
-        handleToggle();
-      },
-      onError: (error) => {
-        const res = error.response?.data;
 
-        if (!res || !res.error) {
-          toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
-          return;
-        }
+    removeContents(
+      { collectionId: numericId, contentIds: ids },
+      {
+        onSuccess: () => {
+          toast.success('선택한 콘텐츠가 삭제되었습니다.');
+          setSelectedMovies([]);
+          setSelectedTvShows([]);
+          handleToggle();
+        },
+        onError: (error) => {
+          const res = error.response?.data;
 
-        switch (res.error) {
-          case ErrorCode.FORBIDDEN:
-            setErrorInfo({ status: 403, message: res.message });
-            break;
-          case ErrorCode.COLLECTION_NOT_FOUND:
-            setErrorInfo({ status: 404, message: res.message });
-            break;
-          default:
-            toast.error(
-              res.message || '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
-            );
-            break;
-        }
+          if (!res || !res.error) {
+            toast.error('문제가 발생했어요. 잠시 후 다시 시도해주세요.');
+            return;
+          }
+
+          switch (res.error) {
+            case 'FORBIDDEN':
+              setErrorInfo({ status: 403, message: res.message });
+              break;
+            case 'COLLECTION_NOT_FOUND':
+              setErrorInfo({ status: 404, message: res.message });
+              break;
+            default:
+              toast.error(
+                res.message || '문제가 발생했어요. 잠시 후 다시 시도해주세요.',
+              );
+              break;
+          }
+        },
+
       },
-    });
+    );
   };
 
   if (errorInfo) {

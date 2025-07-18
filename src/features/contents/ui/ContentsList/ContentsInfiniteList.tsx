@@ -1,4 +1,7 @@
-import { InfiniteContents } from 'entities/contents/model/types/contents.type';
+import {
+  ContentType,
+  InfiniteContents,
+} from 'entities/contents/model/types/contents.type';
 import { useEffect, useRef } from 'react';
 import { ErrorBox } from 'shared/ui';
 import { Empty } from 'shared/ui/empty/empty';
@@ -14,6 +17,7 @@ interface Props {
   isLoading: boolean;
   isFetchingNextPage: boolean;
   error: Error | null;
+  contentType: ContentType;
 }
 
 const ContentsInfiniteList = ({
@@ -23,9 +27,10 @@ const ContentsInfiniteList = ({
   isLoading,
   isFetchingNextPage,
   error,
+  contentType,
 }: Props) => {
   const observerRef = useRef<HTMLDivElement | null>(null);
-  const ENABLE_INFINITE_SCROLL = false; //  여기 false면 무한스크롤 비활성화
+  const ENABLE_INFINITE_SCROLL = true; //  여기 false면 무한스크롤 비활성화
 
   useEffect(() => {
     if (!ENABLE_INFINITE_SCROLL) return;
@@ -59,7 +64,11 @@ const ContentsInfiniteList = ({
       <Grid>
         {data?.pages.map((page) =>
           page.contents?.map((content) => (
-            <ContentItemView key={content.id} content={content} />
+            <ContentItemView
+              key={content.id}
+              content={content}
+              contentType={contentType}
+            />
           )),
         )}
       </Grid>
