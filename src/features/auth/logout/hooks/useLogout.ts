@@ -25,7 +25,6 @@ export const useLogout = (option?: {
       navigate('/', { replace: true });
       // 3. 캐시 초기화
       queryClient.clear();
-      console.log('Successfully logged out');
       option?.onSuccess?.();
       toast.message('로그아웃이 완료되었습니다. 다음에 또 만나요 👋');
     },

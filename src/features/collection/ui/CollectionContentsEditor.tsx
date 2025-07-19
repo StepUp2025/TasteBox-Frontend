@@ -62,10 +62,10 @@ const CollectionContentsEditor = () => {
           }
 
           switch (res.error) {
-            case 'FORBIDDEN':
+            case ErrorCode.FORBIDDEN:
               setErrorInfo({ status: 403, message: res.message });
               break;
-            case 'COLLECTION_NOT_FOUND':
+            case ErrorCode.COLLECTION_NOT_FOUND:
               setErrorInfo({ status: 404, message: res.message });
               break;
             default:
@@ -75,7 +75,6 @@ const CollectionContentsEditor = () => {
               break;
           }
         },
-
       },
     );
   };

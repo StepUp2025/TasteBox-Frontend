@@ -78,6 +78,7 @@ export default function CollectionContentsModifyModal({
       confirmText="새 컬렉션 만들기"
       confirmType="button"
       onConfirm={onConfirm}
+      confirmScheme="secondary"
     >
       <Container>
         {collections.length === 0 ? (
@@ -111,8 +112,7 @@ const Container = styled.div`
 const CollectionList = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 0 2rem;
   gap: 20px;
   margin-bottom: 24px;
 `;

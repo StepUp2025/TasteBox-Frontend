@@ -45,15 +45,12 @@ const InfiniteListWidget = ({ contentType }: Props) => {
 
   //  로컬 스토리지에서 이전 탭 id 읽고, 로그인 여부에 따라 탭 초기값 결정
   useEffect(() => {
-    const saved = localStorage.getItem(`selectedTab:${contentType}`);
-    console.log('Saved tab:', saved);
-
     const defaultTab = isLoggedIn ? 'byGenre' : 'popular';
 
     const initialTab = defaultTab;
 
     setSelectedTab(initialTab);
-  }, [isLoggedIn, contentType]);
+  }, [isLoggedIn]);
 
   //  selectedTab이 바뀌면 localStorage에도 저장
   const handleTabChange = (tabId: string) => {

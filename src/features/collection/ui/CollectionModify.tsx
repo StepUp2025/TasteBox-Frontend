@@ -93,7 +93,6 @@ export default function EditCollectionForm() {
       formData.append('thumbnail', values.thumbnail[0]);
     }
 
-    console.log(formData);
     update(formData, {
       onSuccess: () => navigate(`/collection/${collectionId}`),
       onError: (error) => {
