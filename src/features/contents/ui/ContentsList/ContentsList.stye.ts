@@ -3,7 +3,7 @@ import { customScrollbar } from 'shared/styles/scrollbar';
 import styled, { css } from 'styled-components';
 import { CONTENT_ITEM_GAP } from '../constants';
 
-export const Wrapper = styled.section<{ $top: boolean }>`
+export const Wrapper = styled.section<{ $top?: boolean }>`
   display: flex;
   align-items: center;
   flex-direction: column;
