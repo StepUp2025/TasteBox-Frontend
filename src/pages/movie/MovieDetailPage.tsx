@@ -75,7 +75,12 @@ export default function MovieDetailPage() {
             <CollectionButton
               onClick={() => {
                 if (!isLoggedIn) {
-                  toast('로그인이 필요한 기능입니다.');
+                  toast('로그인이 필요한 기능입니다.', {
+                    action: {
+                      label: '바로가기',
+                      onClick: () => navigate('/login'),
+                    },
+                  });
                   return;
                 }
                 setIsModalOpen(true);

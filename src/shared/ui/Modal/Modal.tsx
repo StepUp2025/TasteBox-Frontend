@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { ReactNode } from 'react';
+import { ButtonScheme } from 'shared/types/theme';
 import Button from '../Button/Button';
 import {
   CloseButton,
@@ -15,6 +16,7 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   confirmText: string;
+  confirmScheme?: ButtonScheme;
   onConfirm?: () => void;
   confirmType?: 'submit' | 'button';
 }
@@ -25,6 +27,7 @@ export const Modal = ({
   title,
   children,
   confirmText,
+  confirmScheme,
   onConfirm,
   confirmType,
 }: ModalProps) => {
@@ -42,19 +45,9 @@ export const Modal = ({
 
         <Footer>
           <Button
-            buttonSize="medium"
+            buttonSize="large"
             fontSize="small"
-            scheme="secondary"
-            borderRadius="round"
-            onClick={onClose}
-            type="button"
-          >
-            취소
-          </Button>
-          <Button
-            buttonSize="medium"
-            fontSize="small"
-            scheme="primary"
+            scheme={confirmScheme ?? 'primary'}
             borderRadius="round"
             onClick={onConfirm}
             type={confirmType === 'submit' ? 'submit' : 'button'}

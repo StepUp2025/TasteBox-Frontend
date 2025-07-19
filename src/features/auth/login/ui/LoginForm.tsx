@@ -3,8 +3,8 @@ import { AuthFormLayout } from 'features/auth/style/AuthFormLayout';
 import { PackageOpen } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import googleLogo from 'shared/assets/images/google-logo-icon.png';
-import kakaoLogo from 'shared/assets/images/kakao-logo-icon.png';
+import googleLogo from 'shared/assets/icons/google-logo-icon.png';
+import kakaoLogo from 'shared/assets/icons/kakao-logo-icon.png';
 import { isValidationError } from 'shared/types/CustomErrorResponse';
 import { Button, IconPreset, InputText, Title } from 'shared/ui';
 import { setErrorFromServer } from 'shared/validation/setErrorFromServer';
@@ -27,7 +27,6 @@ const LoginForm = () => {
 
   const { mutate, isPending } = useLocalLogin({
     onError: (error) => {
-      console.log('로그인 실패:', error.response?.data);
       if (isValidationError(error)) {
         // 백엔드에서 받은 유효성 에러를 폼에 띄움
         setErrorFromServer<LoginFormValues>(error, setError);
@@ -41,7 +40,6 @@ const LoginForm = () => {
   const { loginWithGoogle, loginWithKakao } = useOAUthLogin();
 
   const onSubmit = (data: LoginFormValues) => {
-    console.log('제출된 값:', data);
     mutate(data);
   };
   const handleGoToMain = () => {

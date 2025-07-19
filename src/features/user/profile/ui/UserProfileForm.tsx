@@ -65,8 +65,6 @@ const UserProfileForm = ({ user }: Props) => {
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   const onSubmit = (data: UserProfileFormValues) => {
-    console.log('data 값:', data);
-
     const formData = new FormData();
     formData.append('nickname', data.nickname);
     formData.append('contact', data.contact ?? '');
@@ -76,8 +74,6 @@ const UserProfileForm = ({ user }: Props) => {
     }
 
     mutate(formData);
-
-    console.log('payload 값:', formData);
   };
 
   return (

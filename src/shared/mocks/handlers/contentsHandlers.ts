@@ -300,10 +300,6 @@ export const contentsHandlers = [
 
   // 장르별 영화 조회
   http.get('/movies', ({ request }) => {
-    const url = new URL(request.url);
-    const genreIds = url.searchParams.getAll('genreId').map(Number);
-    console.log('장르 ID:', genreIds);
-
     const pagination = paginate(mockContentsList, request);
     return createSuccessResponse(undefined, pagination);
   }),
@@ -345,10 +341,6 @@ export const contentsHandlers = [
 
   // 장르별 TV 조회
   http.get('/tvs', ({ request }) => {
-    const url = new URL(request.url);
-    const genreIds = url.searchParams.getAll('genreId').map(Number);
-    console.log('장르 ID:', genreIds);
-
     const pagination = paginate(mockContentsList, request);
     return createSuccessResponse(undefined, pagination);
   }),

@@ -20,8 +20,6 @@ export function useInfiniteContents({
       return res; //  ContentsResponse { contents, page, totalPages }
     },
     getNextPageParam: (lastPage) => {
-      console.log('lastPage', lastPage);
-
       return lastPage.page < lastPage.totalPages
         ? lastPage.page + 1
         : undefined;

@@ -1,122 +1,143 @@
+import { useThemeStore } from 'entities/theme/model/store/themeStore';
 import { PackageOpen } from 'lucide-react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import githubLogoLight from 'shared/assets/icons/github-mark.svg';
+import githubLogoDark from 'shared/assets/icons/github-mark-white.png';
+import {
+  Divider,
+  FooterColumn,
+  FooterColumnLogo,
+  FooterDescription,
+  FooterLink,
+  FooterWrapper,
+  List,
+  ListItem,
+  Logo,
+  LogoButton,
+  SectionTitle,
+} from './Footer.style';
 
 function Footer() {
+  const themeMode = useThemeStore((state) => state.theme);
+  const githubLogo = themeMode === 'dark' ? githubLogoDark : githubLogoLight;
   return (
     <FooterWrapper>
       <FooterColumnLogo>
-        <PackageOpen size={35} />
+        <PackageOpen size={30} />
         <Logo>TasteBox</Logo>
-        <FooterDesc>
+        <FooterDescription>
           취향 기반 추천 프로젝트
           <br />
           당신의 취향을 찾아주는 서비스입니다.
-        </FooterDesc>
+        </FooterDescription>
+        <div className="copyright">
+          <span>© 2025 TasteBox. All rights reserved.</span>
+        </div>
       </FooterColumnLogo>
+      <Divider />
+      <div className="column-wrapper">
+        <div className="lists-wrapper">
+          <FooterColumn>
+            <SectionTitle>Services</SectionTitle>
+            <nav>
+              <List>
+                <ListItem>
+                  <Link to="/">Home</Link>
+                </ListItem>
+                <ListItem>
+                  <Link to="/movie">Movies</Link>
+                </ListItem>
+                <ListItem>
+                  <Link to="/tv">TV series</Link>
+                </ListItem>
+                <ListItem>
+                  <Link to="/collection">Collection</Link>
+                </ListItem>
+                <ListItem>
+                  <Link to="/mypage">MyPage</Link>
+                </ListItem>
+              </List>
+            </nav>
+          </FooterColumn>
 
-      <FooterColumn>
-        <SectionTitle>Services</SectionTitle>
-        <List>
-          <ListItem>Movies</ListItem>
-          <ListItem>TV series</ListItem>
-        </List>
-      </FooterColumn>
+          <FooterColumn>
+            <SectionTitle>FE Developers</SectionTitle>
+            <List>
+              <ListItem>
+                <FooterLink
+                  href="https://github.com/eunmilee89"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Eunmi Lee
+                </FooterLink>
+              </ListItem>
+              <ListItem>
+                <FooterLink
+                  href="https://github.com/hyoseongLee"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hyoseong Lee
+                </FooterLink>
+              </ListItem>
+              <ListItem>
+                <FooterLink
+                  href="https://github.com/KMU-jeonghj"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Hojin Jeong
+                </FooterLink>
+              </ListItem>
+            </List>
+          </FooterColumn>
 
-      <FooterColumn>
-        <SectionTitle>Developers</SectionTitle>
-        <List>
-          <ListItem>
-            <DevLabel>FE:</DevLabel>Hyoseong Lee, Eunmi Lee, Hojin Jeong
-          </ListItem>
-          <ListItem>
-            <DevLabel>BE:</DevLabel>Minseo Park, Jaewoo Do
-          </ListItem>
-        </List>
-      </FooterColumn>
+          <FooterColumn>
+            <SectionTitle>BE Developers</SectionTitle>
+            <List>
+              <ListItem>
+                <FooterLink
+                  href="https://github.com/hightuv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Minseo Park
+                </FooterLink>
+              </ListItem>
+              <ListItem>
+                <FooterLink
+                  href="https://github.com/Kevin-jwd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Jaewoo Do
+                </FooterLink>
+              </ListItem>
+            </List>
+          </FooterColumn>
+        </div>
 
-      <FooterColumn>
-        <SectionTitle>Git hub</SectionTitle>
-        <List>
-          <ListItem>
-            <FooterLink
-              href="https://github.com/StepUp2025/TasteBox-Frontend"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://github.com/StepUp2025/TasteBox-Frontend
-            </FooterLink>
-          </ListItem>
-          <ListItem>
-            <FooterLink
-              href="https://github.com/StepUp2025/TasteBox-Backend"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              https://github.com/StepUp2025/TasteBox-Backend
-            </FooterLink>
-          </ListItem>
-        </List>
-      </FooterColumn>
+        <FooterColumn>
+          <div className="github-title">
+            <SectionTitle>GitHub</SectionTitle>
+          </div>
+          <List>
+            <ListItem>
+              <LogoButton
+                href="https://github.com/StepUp2025"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub Organization"
+              >
+                <img src={githubLogo} alt="GitHub" />
+              </LogoButton>
+            </ListItem>
+          </List>
+        </FooterColumn>
+      </div>
     </FooterWrapper>
   );
 }
 
 export default Footer;
-
-const FooterWrapper = styled.footer`
-  background: ${({ theme }) => theme.color.subBackground};
-  padding: 40px 0 40px 40px;
-  display: flex;
-  margin-top: 90px;
-`;
-
-const FooterColumnLogo = styled.div`
-padding-left:40px;
-`;
-
-const FooterColumn = styled.div`
-margin-left: 80px;
-`;
-
-const Logo = styled.div`
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSize.large};
-  margin-bottom: 12px;
-  display: flex;
-  gap: 8px;
-`;
-
-const FooterDesc = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.small};
-  margin-top:17px;
-`;
-
-const SectionTitle = styled.div`
-  font-weight: bold;
-  margin-bottom: 12px;
-  font-size: ${({ theme }) => theme.fontSize.medium};
-`;
-
-const List = styled.ul`
-  list-style: none;
-`;
-
-const ListItem = styled.li`
-  margin-bottom: 6px;
-  margin-top: 19px;
-  font-size: ${({ theme }) => theme.fontSize.small};
-  text-overflow: ellipsis;
-`;
-
-const DevLabel = styled.span`
-  font-weight: bold;
-  margin-right: 6px;
-`;
-
-const FooterLink = styled.a`
-  text-decoration: none;
-  font-size: ${({ theme }) => theme.fontSize.small};
-  &:hover {
-    color: ${({ theme }) => theme.color.highlightText};
-  }
-`;

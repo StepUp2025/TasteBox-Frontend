@@ -1,3 +1,4 @@
+import { AxiosError } from 'axios';
 import { useAuthStore } from 'entities/auth/model/store/authStore';
 import { ContentType } from 'entities/contents/model';
 import {
@@ -12,6 +13,7 @@ import { tabMap } from 'features/contents/ui/ListTab/tabMap';
 import { useUserPreference } from 'features/user/preference/hooks/useGetUserPreference';
 import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { ErrorBox } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
 import GenreFilter from './GenreFilter';
@@ -45,15 +47,12 @@ const InfiniteListWidget = ({ contentType }: Props) => {
 
   //  로컬 스토리지에서 이전 탭 id 읽고, 로그인 여부에 따라 탭 초기값 결정
   useEffect(() => {
-    const saved = localStorage.getItem(`selectedTab:${contentType}`);
-    console.log('Saved tab:', saved);
-
     const defaultTab = isLoggedIn ? 'byGenre' : 'popular';
 
     const initialTab = defaultTab;
 
     setSelectedTab(initialTab);
-  }, [isLoggedIn, contentType]);
+  }, [isLoggedIn]);
 
   //  selectedTab이 바뀌면 localStorage에도 저장
   const handleTabChange = (tabId: string) => {
@@ -113,6 +112,15 @@ const InfiniteListWidget = ({ contentType }: Props) => {
   } = useInfiniteContents({ queryKey, queryFn });
 
   if (!selectedTab) return <Loading />;
+  if (error instanceof AxiosError) {
+    const message =
+      error.response?.data?.message || '데이터를 불러오지 못했습니다';
+    return (
+      <InfiniteListWidgetStyle>
+        <ErrorBox errorMessage={message} />
+      </InfiniteListWidgetStyle>
+    );
+  }
 
   return (
     <InfiniteListWidgetStyle>
@@ -136,7 +144,6 @@ const InfiniteListWidget = ({ contentType }: Props) => {
         hasNextPage={hasNextPage}
         isLoading={isLoading}
         isFetchingNextPage={isFetchingNextPage}
-        error={error}
         contentType={contentType}
       />
     </InfiniteListWidgetStyle>

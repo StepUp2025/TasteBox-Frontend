@@ -37,6 +37,7 @@ export default function MainPage() {
       {isLoggedIn ? (
         <>
           <ContentsListViewer
+            top={true}
             title="최근 추가한 컨텐츠"
             contents={latestContents}
             type="scroll"
@@ -60,6 +61,7 @@ export default function MainPage() {
       ) : (
         <>
           <ContentsListViewer
+            top={true}
             title="인기 영화"
             contents={popularMovies}
             type="link"
