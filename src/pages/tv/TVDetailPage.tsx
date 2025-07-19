@@ -62,8 +62,10 @@ export default function TVDetailPage() {
             alt={title}
           />
           <Info>
-            <Title>{title}</Title>
-            <InfoRow>{genres?.map((g) => g.name).join(' · ')}</InfoRow>
+            <Title size="xlarge">{title}</Title>
+            <InfoRow>
+              <GenreStyle>{genres?.map((g) => g.name).join(' · ')}</GenreStyle>
+            </InfoRow>
             <InfoRow>
               <Star size={24} />
               {voteAverage}({voteCount})
@@ -95,22 +97,26 @@ export default function TVDetailPage() {
               <Plus size={24} stroke={theme.color.constantWhite} /> 컬렉션 추가
             </CollectionButton>
             <div>
-              <CollectionContentsModifyModal
-                contentId={contentId}
-                open={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                onConfirm={() => {
-                  setIsModalOpen(false);
-                  navigate('/collection/create');
-                }}
-              />
+              {isModalOpen && (
+                <CollectionContentsModifyModal
+                  contentId={contentId}
+                  open={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                  onConfirm={() => {
+                    setIsModalOpen(false);
+                    navigate('/collection/create', { state: { contentId } });
+                  }}
+                />
+              )}
             </div>
           </Info>
         </HeaderSection>
-        <OverviewSection>
-          <Title>줄거리</Title>
-          {overview}
-        </OverviewSection>
+        {overview && (
+          <OverviewSection>
+            <Title>줄거리</Title>
+            {overview}
+          </OverviewSection>
+        )}
         <SeasonsSection>
           <SeasonListViewer
             title="시즌"
@@ -150,6 +156,11 @@ align-items: flex-end;
 z-index: 3;
 `;
 
+const GenreStyle = styled.div`
+  font-weight: bold;
+  font-size: ${({ theme }) => theme.fontSize.medium};
+`;
+
 const Poster = styled.img`
 width: 220px;
 height: 320px;
@@ -160,6 +171,7 @@ margin-top: 60px;
 
 const Info = styled.div`
 display: flex;
+height: 320px;
 flex-direction: column;
 gap: 8px;
 `;
@@ -169,11 +181,11 @@ display: flex;
 align-items: center;
 gap: 8px;
 margin-top: 20px;
-font-size: ${({ theme }) => theme.fontSize.small};
+font-size: ${({ theme }) => theme.fontSize.xsmall};
 `;
 
 const OverviewSection = styled.section`
-margin: 40px 0 24px 0;
+margin: 2.5rem 15rem 1.5rem 0;
 display: flex;
 flex-direction:column;
 gap: 20px;

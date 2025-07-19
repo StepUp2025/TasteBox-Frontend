@@ -31,7 +31,7 @@ export interface ContentsDetail extends Contents {
   voteAverage: number;
   voteCount: number;
   backdropPath: string | null;
-  overview: string;
+  overview: string | null;
   status: string;
   genres: Genre[];
 }
