@@ -27,7 +27,7 @@ const Wrapper = styled.div`
   display: flex;
   min-height: 100vh;
   width: 100vw;
-    overflow-x: hidden;
+  overflow-x: hidden;
 `;
 
 const MainWrapper = styled.main`
@@ -35,7 +35,7 @@ const MainWrapper = styled.main`
   flex: 1;
   display: flex;
   flex-direction: column;
-    min-width: 0;
+  min-width: 0;
   width: 100%; 
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
@@ -48,6 +48,7 @@ const Container = styled.section`
   max-width: 1280px;
   min-width: 280px;
   margin: 0 auto;
+  padding: 3rem;
   flex: 1;
   display: flex;
   flex-direction: column;
