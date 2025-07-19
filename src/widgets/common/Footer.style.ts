@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const FooterWrapper = styled.footer`
   background: ${({ theme }) => theme.color.subBackground};
   color: ${({ theme }) => theme.color.thirdText};
-  padding: 60px;
+  padding: 40px;
   display: flex;
   justify-content: center;
   gap: 120px;
@@ -13,11 +13,15 @@ export const FooterWrapper = styled.footer`
   & * {
     color: ${({ theme }) => theme.color.thirdText};
   }
+  
+  .copyright {
+    font-size: 0.75rem;
+  }
 
   .column-wrapper {
     display: flex;
     gap: 90px;
-    flex-wrap: wrap;
+
 
     @media ${({ theme }) => theme.mediaQuery.tablet} {
       gap: 60px;
@@ -27,10 +31,10 @@ export const FooterWrapper = styled.footer`
   .lists-wrapper {
     display: flex;
     gap: 90px;
-    flex-wrap: wrap;
+
 
     @media ${({ theme }) => theme.mediaQuery.tablet} {
-      gap: 60px;
+      gap: 100px;
     }
 
     @media ${({ theme }) => theme.mediaQuery.mobile} {
@@ -70,7 +74,7 @@ export const FooterColumnLogo = styled.div`
 export const FooterColumn = styled.div``;
 
 export const Divider = styled.hr`
-  width: 90%;
+  width: 100%;
   border: 0;
   height: 1px;
   background-color: ${({ theme }) => theme.color.border};
@@ -84,16 +88,15 @@ export const Divider = styled.hr`
 
 export const Logo = styled.div`
   font-weight: bold;
-  font-size: ${({ theme }) => theme.fontSize.medium};
+  font-size: ${({ theme }) => theme.fontSize.small};
   margin-top: 12px;
   margin-bottom: 12px;
-  gap: 8px;
 `;
 
 export const FooterDescription = styled.div`
-  font-size: ${({ theme }) => theme.fontSize.small};
-  margin-top: 17px;
-  margin-bottom: 20px;
+  font-size: 0.75rem;
+  margin-top: 8px;
+  margin-bottom: 12px;
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
     margin-bottom: 40px;
@@ -102,41 +105,41 @@ export const FooterDescription = styled.div`
 
 export const SectionTitle = styled.div`
   font-weight: bold;
-  margin-bottom: 24px;
-  font-size: ${({ theme }) => theme.fontSize.medium};
+  margin-bottom: 12px;
+  font-size: ${({ theme }) => theme.fontSize.xsmall};
 `;
 
 export const List = styled.ul`
   list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export const ListItem = styled.li`
-  margin-bottom: 6px;
-  margin-top: 19px;
-  font-size: ${({ theme }) => theme.fontSize.small};
+  font-size: 0.75rem;
   text-overflow: ellipsis;
 `;
 
 export const FooterLink = styled.a`
   text-decoration: none;
-  font-size: ${({ theme }) => theme.fontSize.small};
+  font-size: 0.75rem;
 `;
 
 export const LogoButton = styled.a`
-  width: 55px;
-  height: 55px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 
   img {
-    width: 55px;
-    height: 55px;
+    width: 40px;
+    height: 40px;
     object-fit: contain;
   }
 
