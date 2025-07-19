@@ -45,7 +45,7 @@ const ContentsListViewer = ({
   const showToggle = type === 'toggle' && contents.length > MAX_ITEMS_PER_ROW;
 
   return (
-    <Wrapper $top={top ?? false}>
+    <Wrapper $top={top}>
       <Header>
         <h2>{title}</h2>
         {type === 'link' && linkTo && (
