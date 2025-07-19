@@ -60,6 +60,7 @@ export default function MainPage() {
       ) : (
         <>
           <ContentsListViewer
+            top={true}
             title="인기 영화"
             contents={popularMovies}
             type="link"
