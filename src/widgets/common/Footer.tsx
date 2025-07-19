@@ -1,7 +1,8 @@
-// Footer.tsx
+import { useThemeStore } from 'entities/theme/model/store/themeStore';
 import { PackageOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import githubLogo from 'shared/assets/icons/github-mark.svg';
+import githubLogoLight from 'shared/assets/icons/github-mark.svg';
+import githubLogoDark from 'shared/assets/icons/github-mark-white.png';
 import {
   Divider,
   FooterColumn,
@@ -17,10 +18,12 @@ import {
 } from './Footer.style';
 
 function Footer() {
+  const themeMode = useThemeStore((state) => state.theme);
+  const githubLogo = themeMode === 'dark' ? githubLogoDark : githubLogoLight;
   return (
     <FooterWrapper>
       <FooterColumnLogo>
-        <PackageOpen size={40} />
+        <PackageOpen size={30} />
         <Logo>TasteBox</Logo>
         <FooterDescription>
           취향 기반 추천 프로젝트
