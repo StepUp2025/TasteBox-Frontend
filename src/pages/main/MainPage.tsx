@@ -40,6 +40,7 @@ export default function MainPage() {
             title="최근 추가한 컨텐츠"
             contents={latestContents}
             type="scroll"
+            marginTop="0"
           />
           <ContentsListViewer
             title="추천 영화"
