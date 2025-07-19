@@ -25,6 +25,7 @@ interface Props {
   type: ContentsListType;
   contentType?: ContentType;
   linkTo?: ContentsListLinkTo;
+  top?: boolean;
 }
 
 const ContentsListViewer = ({
@@ -33,6 +34,7 @@ const ContentsListViewer = ({
   type,
   linkTo,
   contentType,
+  top,
 }: Props) => {
   const [showAll, setShowAll] = useState(false);
   const visibleContents =
@@ -43,7 +45,7 @@ const ContentsListViewer = ({
   const showToggle = type === 'toggle' && contents.length > MAX_ITEMS_PER_ROW;
 
   return (
-    <Wrapper>
+    <Wrapper $top={top ?? false}>
       <Header>
         <h2>{title}</h2>
         {type === 'link' && linkTo && (
