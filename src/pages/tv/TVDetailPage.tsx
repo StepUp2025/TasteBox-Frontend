@@ -62,7 +62,7 @@ export default function TVDetailPage() {
             alt={title}
           />
           <Info>
-            <LargeTitle>{title}</LargeTitle>
+            <Title size="xlarge">{title}</Title>
             <InfoRow>
               <GenreStyle>{genres?.map((g) => g.name).join(' · ')}</GenreStyle>
             </InfoRow>
@@ -151,10 +151,6 @@ align-items: flex-end;
 z-index: 3;
 `;
 
-const LargeTitle = styled(Title)`
-  font-size: ${({ theme }) => theme.fontSize.xlarge};
-`;
-
 const GenreStyle = styled.div`
   font-weight: bold;
   font-size: ${({ theme }) => theme.fontSize.medium};
@@ -188,7 +184,6 @@ margin: 2.5rem 15rem 1.5rem 0;
 display: flex;
 flex-direction:column;
 gap: 20px;
-text-align: justify;
 `;
 
 const SeasonsSection = styled.section`
