@@ -68,7 +68,7 @@ const ContentsListViewer = ({
 
       {contents.length === 0 && (
         <div className="empty-wrapper">
-          <Empty text="컨텐츠가 없습니다." height="30vh" />
+          <Empty text="콘텐츠가 없습니다." height="30vh" />
         </div>
       )}
 

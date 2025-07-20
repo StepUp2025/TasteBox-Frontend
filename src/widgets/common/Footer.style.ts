@@ -7,7 +7,7 @@ export const FooterWrapper = styled.footer`
   padding: 40px;
   display: flex;
   justify-content: center;
-  gap: 120px;
+  gap: 100px;
   margin-top: 90px;
 
   & * {
@@ -34,7 +34,7 @@ export const FooterWrapper = styled.footer`
 
 
     @media ${({ theme }) => theme.mediaQuery.tablet} {
-      gap: 100px;
+      gap: 70px;
     }
 
     @media ${({ theme }) => theme.mediaQuery.mobile} {

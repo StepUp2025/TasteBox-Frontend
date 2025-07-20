@@ -55,7 +55,7 @@ const ContentsInfiniteList = ({
       {!isLoading &&
         (data?.pages.length === 0 ||
           data?.pages.every((page) => page.contents.length === 0)) && (
-          <Empty text="표시할 컨텐츠가 없습니다." />
+          <Empty text="표시할 콘텐츠가 없습니다." />
         )}
 
       <Grid>
