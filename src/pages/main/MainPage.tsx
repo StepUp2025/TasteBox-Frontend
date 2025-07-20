@@ -38,7 +38,7 @@ export default function MainPage() {
         <>
           <ContentsListViewer
             top={true}
-            title="최근 추가한 컨텐츠"
+            title="최근 추가한 콘텐츠"
             contents={latestContents}
             type="scroll"
           />
