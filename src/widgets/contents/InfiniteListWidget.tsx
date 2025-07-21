@@ -12,7 +12,7 @@ import ListTabs from 'features/contents/ui/ListTab/ListTabs';
 import { tabMap } from 'features/contents/ui/ListTab/tabMap';
 import { useUserPreference } from 'features/user/preference/hooks/useGetUserPreference';
 import { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+//import { useSearchParams } from 'react-router-dom';
 import { ErrorBox } from 'shared/ui';
 import Loading from 'shared/ui/Loading/Loading';
 import styled from 'styled-components';
@@ -25,7 +25,7 @@ interface Props {
 const InfiniteListWidget = ({ contentType }: Props) => {
   const isLoggedIn = useAuthStore().isLoggedIn;
   const { data: preferenceData } = useUserPreference();
-  const [_searchParams, setSearchParams] = useSearchParams();
+  //const [_searchParams, setSearchParams] = useSearchParams();
 
   const movieGenres = preferenceData?.movie.genres ?? [];
   const tvGenres = preferenceData?.tv.genres ?? [];
@@ -57,7 +57,7 @@ const InfiniteListWidget = ({ contentType }: Props) => {
   //  selectedTab이 바뀌면 localStorage에도 저장
   const handleTabChange = (tabId: string) => {
     setSelectedTab(tabId);
-    setSearchParams({ tab: tabId });
+    //setSearchParams({ tab: tabId });
     localStorage.setItem(`selectedTab:${contentType}`, tabId);
   };
 
